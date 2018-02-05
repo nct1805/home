@@ -1,0 +1,4 @@
+[19-Dec-2016 01:23:15 UTC] PHP Warning:  Module 'mcrypt' already loaded in Unknown on line 0
+[19-Dec-2016 02:42:30 UTC] PHP Warning:  Module 'mcrypt' already loaded in Unknown on line 0
+[17-Jan-2017 16:10:56 UTC] PHP Warning:  Module 'mcrypt' already loaded in Unknown on line 0
+[17-Jan-2017 17:10:56 Europe/Rome] PHP Notice:  Undefined index: RF in /home/nhequkae/public_html/equip.vn/filemanager/uploader/index.php on line 11
