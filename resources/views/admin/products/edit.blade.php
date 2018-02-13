@@ -28,60 +28,43 @@
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>{{session('thongbao')}}
                 </div>
               @endif
-              <form action="admin/products/edit/{{$data->id}}" method="post" enctype="multipart/form-data">
+              <form action="admin/products/edit/{{$data->thread_id}}" method="post" enctype="multipart/form-data">
           {{ csrf_field() }}
-            
-              <div class="row">
-                                            <div class="col-xs-12">
-                                                <label for="exampleInputEmail1">Danh mục</label>
-                                            </div>
-
-                                            <?php
-
-                                            foreach($category as $rowm){
-                                                $category_id=$data->parent_id;
-                                                $uri = explode(",", $category_id);
-                                                $checked='';
-                                                foreach ($uri as $key => $value) {
-                                                  if($value == $rowm['id']){
-                                                    $checked='checked="checked"';
-                                                  }
-                                                }
-                                                ?>
-                                                <div class="col-xs-3"><input type="checkbox" name="category_id[]" id="category_id[]" value="<?=$rowm['id']?>" <?=$checked?> ><?=$rowm['title']?></div>
-                                            <?php } ?>
-                                        </div>
-              <div class="form-group">
-                  <label>Tên sản phẩm</label>
-                  <input type="text" class="form-control" name="name"  value="{{$data->title}}">
+             <div class="form-group">
+                  <label>Danh mục</label>
+                  <p><?=!empty($data->node_type_id) && !empty($data->node_title) ? $data->node_type_id.' '.$data->node_title : $data->title;?></p>
               </div>
               <div class="form-group">
-                  <label>Giá</label>
-                  <input type="text" class="form-control" name="price"  value="{{$data->price}}">
+                  <label>Tên sản phẩm</label>
+                  <input type="text" class="form-control" name="name"  value="<?=!empty($data->name) ? $data->name : $data->thread_title;?>">
+              </div>
+              <div class="form-group">
+              	  <label for="exampleInputFile">Sản phẩm đặc biệt</label>
+              	  <div class="row">
+              	  	<div class="col-md-12">
+						<input type="radio" name="check_special" value="1" <?=!empty($data->check_special) ? 'checked' : '';?>> Active
+						<input type="radio" name="check_special" value="0" <?=empty($data->check_special) ? 'checked' : '';?> > Deactive
+              	  	</div>
+              	  </div>
+              </div>
+              <div class="form-group">
+              	  <label for="exampleInputFile">Trạng thái</label>
+              	  <div class="row">
+              	  	<div class="col-md-12">
+						<input type="radio" name="status" value="1" <?=!empty($data->status) ? 'checked' : '';?>> Active
+						<input type="radio" name="status" value="0" <?=empty($data->status) ? 'checked' : '';?> > Deactive
+              	  	</div>
+              	  </div>
               </div>
               <div class="form-group">
                   <label for="exampleInputFile">Ảnh đại diện</label>
                   <p><img width="150" src="public/uploads/san-pham/{{$data->image}}"></p>
                   <input type="file" id="image" name="image">
-                </div>
-              <div class="form-group">
-                  <label>Chi tiết</label>
-                  <textarea class="form-control" id="editor1" name="details" rows="30" cols="80">{{$data->content}}</textarea>
               </div>
-              <div class="form-group">
-                  <label>Meta title</label>
-                  <input type="text" class="form-control" name="meta_title"  value="{{$data->meta_title}}">
-              </div>
-              <div class="form-group">
-                  <label>Meta keyword</label>
-                  <input type="text" class="form-control" name="meta_key"  value="{{$data->meta_key}}">
-              </div>
-              <div class="form-group">
-                  <label>Meta Description</label>
-                  <input type="text" class="form-control" name="meta_des"  value="{{$data->meta_des}}">
-              </div>
+              <p style="color:red" id="img_err"></p>
               <div class="box-footer">
-                <button type="submit" class="btn btn-info pull-right">Cập nhật</button>
+                <button type="submit" id="btn_submit" class="btn btn-info pull-right">Cập nhật</button>
+                <input type="hidden" name="category_id" value="<?=!empty($data->node_id) ? $data->node_id : '';?>">
               </div>
               </form>
               </div>  
@@ -93,6 +76,42 @@
     </section>
     <!-- /.content -->
   </div>
+  <script>
+var _URL = window.URL || window.webkitURL;
+var file, img;
+img = new Image();
+//Upload image avatar
+$(document).on('change', '#image', function()
+{
+    var fileExtension = [ 'jpeg', 'jpg', 'png', 'gif' ];
+    if( $.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1 )
+    {
+        $('#img_err').text('Bạn vui lòng chọn hình ảnh dạng ' + fileExtension.join(', '));
+		$('#btn_submit').attr('disabled', true);
+        return false;
+    }
+    else
+    {
+        if ((file = this.files[0])){
+            img.onload = function () {
+                var wid = this.width;
+                var ht = this.height;
+                if(wid < 263 || ht < 350){
+					$('#img_err').text('Vui lòng chọn hình với kích thước tối thiểu 263 x 350 pixel.');
+					$('#btn_submit').attr('disabled', true);
+                    return false;
+                }
+                else{
+					$('#img_err').text('');
+					$('#btn_submit').attr('disabled', false);
+				}
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    }
+    return false;
+});
+</script>
 @endsection
 @section('script')
   <script>

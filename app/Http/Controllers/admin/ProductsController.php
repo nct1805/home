@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\ProductsModel;
+use App\Models\admin\ProductsInternalModel;
 use App\Models\admin\CategoryModel;
+use App\Models\admin\CategoryInternalModel;
 use Illuminate\Support\Facades\Auth;
 use Image;
 
@@ -17,14 +19,12 @@ class ProductsController extends Controller
     }
     public function getList()
     {
-
-        $products = ProductsModel::orderBy('id','DESC')->paginate(20);;
+        $products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
         return view('admin.products.index',
             [   'title'=>'Sản phẩm',
-                'data'=>$products
+                'data'=>$products,
             ]
         );
-           
     }
     public function getAdd()
     {
@@ -99,64 +99,86 @@ class ProductsController extends Controller
         return redirect('admin/products/add')->with('thongbao','Thêm thành công');
     }
     public function getEdit($id){
-        $products = ProductsModel::find($id);
-        $category = CategoryModel::all();
-        return view('admin.products.edit',['data' => $products,'category'=>$category]);    
+        $products = ProductsInternalModel::select(['products.*' , 'xf_thread.thread_id as thread_id', 'xf_thread.title as thread_title', 'xf_thread.node_id as node_id', 'xf_node.title as node_title', 'xf_node.node_type_id as node_type_id'])
+			->where('thread_id',$id)->orderBy('thread_id', 'desc')
+			->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')
+			->leftjoin('xf_node', 'xf_node.node_id', '=', 'xf_thread.node_id')->first();
+        return view('admin.products.edit',['data' => $products]);    
     }
     public function postEdit(Request $request,$id){
         
         $this->validate($request,
             [
-                'name' => 'required|min:3|max:255'
+                'name' => 'required|min:3|max:255',
+				'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ],
             [
                 'nam.required' =>'Vui lòng nhập tên',
                 'name.min' => 'Tên có ít nhất 3 ký tự',
-                'name.max' => 'Tên tối đa dài 255 ký tự'
+                'name.max' => 'Tên tối đa dài 255 ký tự',
+				'image.mimes' =>'Hình không đúng định dạng',
             ]
         );
-        if($request->category_id!=''){
-                    $img_or4 = $request->category_id;
-                    $mang4 = '';
-                    $count =count($img_or4);
-                    $i=0;
-                    foreach($img_or4 as $v1)
-                    {
-                        $i++;
-                        if($i < $count){
-                            $mang4.=$v1.',';
-                        }else{
-                            $mang4.=$v1;
-                        }
-                    }
-                }
         $products = ProductsModel::find($id);
-        $products->title = $request->name;
-        $products->parent_id = $mang4;
-        $products->alias = ceo($request->name);
-        $products->price = $request->price;
-        $products->content = $request->details;
-        $products->meta_title = $request->meta_title;
-        $products->meta_key = $request->meta_key;
-        $products->meta_des = $request->meta_des;
-        if($request->hasFile('image')){
+		if($request->hasFile('image')){
             $file = $request->file('image');            
             $name = $file->getClientOriginalName();
             $image_name = str_random(4)."_".$name;
             while (file_exists("uploads/san-pham/".$image_name)) {
                 $image_name = str_random(4)."_".$name;
             }
-            $destinationPath = public_path('uploads/san-pham/thumbs');
-            $img = Image::make($file->getRealPath());
-            $img->resize(260, 260, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath.'/'.$image_name);
             $destinationPath = public_path('uploads/san-pham');
-            $file->move($destinationPath, $image_name);
-            
-            $products->image = $image_name;
+            $img = Image::make($file->getRealPath());
+			$width  = $img->width();
+			$height = $img->height();
+			//Resize image special product
+			if($request->check_special == 1){
+				if($width > 263 || $height > 350)
+					$img->resize(263, 350);
+			}
+			else{
+				if($width > 202 || $height > 204)
+					$img->resize(202, 204);
+            		
+			}
+            $img->save(public_path('uploads/san-pham/' .$image_name));
         }
-        $products->save();
+		else{
+			$image_name = $products->image;
+			$img_path_tmp = public_path('uploads/san-pham/' .$image_name);
+			$img_tmp = Image::make($img_path_tmp);
+			$width  = $img_tmp->width();
+			$height = $img_tmp->height();
+			if($request->check_special == 1){
+				$img_tmp->resize(263, 350);
+			}
+			else{
+				$img_tmp->resize(202, 204);
+			}
+			$img_tmp->save(public_path('uploads/san-pham/' .$image_name));
+		}
+		//Add new
+		if(empty($products)){
+			$product_new = new ProductsModel;
+			$product_new->id            = $id;
+			$product_new->name          = html_entity_decode($request->name);
+			$product_new->alias         = ceo($request->name);
+			$product_new->category_id   = $request->category_id;
+			$product_new->status        = $request->status;
+			$product_new->check_special = $request->check_special;
+			$product_new->image         = $image_name;
+			$product_new->save();
+		}
+		else{
+			$products->id            = $id;
+			$products->name          = html_entity_decode($request->name);
+			$products->alias         = ceo($request->name);
+			$products->category_id   = $request->category_id;
+			$products->status        = $request->status;
+			$products->check_special = $request->check_special;
+			$products->image         = $image_name;
+			$products->save();
+		}
         return redirect('admin/products/edit/'.$id)->with('thongbao','Cập nhật thành công');    
     }
     public function getDelete($id)

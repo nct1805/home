@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryModel extends Model
 {
-    protected $table = 'tbl_pcategories';
+    protected $table = 'category';
     protected $fillable = ['id', 'title', 'alias','parent_id'];
 }

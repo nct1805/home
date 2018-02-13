@@ -15,9 +15,6 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <a class="btn btn-primary pull-right" href="{{ route('category_add')}}">Thêm mới</a>
-            </div>
             <!-- /.box-header -->
             <div class="box-body">
             @if(session('thongbao'))              
@@ -28,21 +25,26 @@
               <table id="table_list" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
+<!--                  <th>ID</th>-->
                   <th>Name</th>
-                  
-                  
                   <th style="width:90px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($data as $row)
+                @php $style = ''; @endphp
+                @if($row->depth == 1)
+                   @php
+                        $style = 'padding-left:20px';
+                    @endphp
+                @elseif($row->depth == 2)
+                   @php
+                        $style = 'padding-left:40px';
+                    @endphp
+                @endif
                 <tr>
-                  <td>{{$row->id}}</td>
-                  <td>{{$row->title}}
-                  </td>
-                  
-                  <td><a href="admin/category/edit/{{$row->id}}">sửa</a> :: <a href="admin/category/delete/{{$row->id}}">Xóa</a></td>
+                  <td style="{{$style}}"><?=!empty($row->name) ? $row->name : $row->title;?> <span style="font-size:11px; color:rgb(200,200,200);">{{$row->node_type_id}}</span></td>
+                  <td><a href="admin/category/edit/{{$row->node_id}}">Sửa</a></td>
                 </tr>
                 @endforeach
                 </tbody>              

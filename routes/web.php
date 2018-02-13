@@ -46,7 +46,15 @@ Route::group(['prefix'=>'admin'],function(){
     Auth::routes();    
 	
 	Route::group(['prefix' => 'category'], function () {
-        Route::get('list', ['as' => 'category_list', 'uses' => 'admin\CategoryController@getList']);
+        Route::get('list', function () {
+            $category=DB::table('xf_node')->orderBy('lft', 'ASC')->leftjoin('category', 'xf_node.node_id', '=', 'category.id')->get();
+            return view('admin.category.index',
+                [   'title'=>'Category',
+                    'data'=>$category
+                ]
+            );
+        });
+//        Route::get('list', ['as' => 'category_list', 'uses' => 'admin\CategoryController@getList']);
         Route::get('add', ['as' => 'category_add', 'uses' => 'admin\CategoryController@getAdd']);
         Route::post('add', ['as' => 'category_add', 'uses' => 'admin\CategoryController@postAdd']);
         Route::get('edit/{id}', ['as' => 'category_edit', 'uses' => 'admin\CategoryController@getEdit']); 

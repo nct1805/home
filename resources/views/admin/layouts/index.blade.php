@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="public/admin_asset/plugins/select2/select2.min.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="public/admin_asset/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+<script src="public/js/jquery.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -58,6 +58,7 @@
 <!-- Bootstrap WYSIHTML5 -->
 <script src="public/admin_asset/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script src="public/admin_asset/plugins/select2/select2.full.min.js"></script>
+
 <script>
   $(function () {
     $(".select2").select2();

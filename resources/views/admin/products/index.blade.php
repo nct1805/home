@@ -15,9 +15,6 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <a class="btn btn-primary pull-right" href="{{ route('products_add')}}">Thêm mới</a>
-            </div>
             <!-- /.box-header -->
             <div class="box-body">
             @if(session('thongbao'))              
@@ -28,25 +25,17 @@
               <table id="table_list" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Hình ảnh</th>
                   <th>Tên sản phẩm</th>
-                  
-                  <th>Giá</th>
-                  
                   <th style="width:90px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($data as $row)
                 <tr>
-                  <td>{{$row->id}}</td>
                   <td><img src="public/uploads/san-pham/{{$row->image}}" width="50px"></td>
                   <td>{{$row->title}}</td>
-                  
-                  <td>{{$row->price}}</td>
-                  
-                  <td><a href="admin/products/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> :: <a href="admin/products/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a></td>
+                  <td><a href="admin/products/edit/{{$row->thread_id}}"><i class="fa fa-fw fa-edit"></i></a></td>
                 </tr>
                 @endforeach
                 </tbody>              

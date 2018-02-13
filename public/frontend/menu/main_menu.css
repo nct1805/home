@@ -1,0 +1,90 @@
+.f_submenu_list li a:hover{
+    text-decoration: none !important; 
+}
+ul.block_category{ position:relative;}
+ul.block_category li{
+    color: #464646;
+    display: inline-block;
+	width:100%; padding:8px 20px;
+	 border-bottom: 1px solid #ebebeb;    
+}
+ul.block_category li a img{ padding-right:15px;}
+ul.block_category li ul.f_menu_sub_2 li a{
+}
+ul.block_category li ul.f_menu_sub_2 li ul.level_2{border: none !important;}
+ul.block_category > li:hover{
+    background-color:#e0edff;
+}
+.level_3.f_menu_sub_2 {
+    display: none !important;
+}
+.slimScrollBar{left: 1px !important;width: 4px !important;}
+ul.block_category li a{
+    position:relative;
+    display: block;
+    color: #464646;
+    text-decoration: none;
+    overflow: hidden;
+}
+/*//////////////////////////////////*/
+ul.block_category li ul.level_1 li a:hover{color: #ff9c00;}
+
+.block_category .level_1 li:hover .level_2{display: block;}
+.level_1{
+    display:none;
+
+}
+ul.block_category .level_1 li{ 
+    float: left;
+    border: none !important;
+    width:33.33%; padding:5px 10px; text-transform:capitalize;
+}
+.level_1 > li > a{
+font-family: 'Proxima Nova Bold';
+}
+.f_menu_sub_2 li a{
+}
+.level_2 li{
+    width:100% !important;
+    display: block !important; position:relative; padding-left:5px !important; padding-bottom:0 !important;
+}
+.level_2 li:before{content: "\f105";
+    font-family: FontAwesome;
+    position: absolute;
+    top:18%;
+    left:7px;}
+.level_2 li:hover{
+}
+.level_2 li a{
+    color: #4A4A4A;
+    
+}
+ul.block_category li ul.level_2 li a{ padding-left:15px;}
+.f_menu_sub{
+   width:100%;
+   min-height:100px;
+   z-index: 99; border:solid 1px #002f6f;
+   
+}
+.hidden_load{
+    overflow: hidden;
+}
+/*______________________f_submenu_2____________________*/
+.level_1.f_menu_sub_2{
+   position: absolute;
+   left:100%;
+   top:0px;
+   
+   padding-bottom: 15px;
+   overflow: auto;
+   width: 560px;
+   display: none;
+   z-index: 999;
+   background: #fff;
+   border-color: #002f6f #002f6f #002f6f #002f6f;
+    border-radius: 0 0px 0px 0;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
