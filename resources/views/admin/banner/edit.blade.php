@@ -38,7 +38,7 @@
               
               <div class="form-group">
                   <label for="exampleInputFile">Ảnh banner</label>
-                  <p><img width="50" src="public/uploads/banner/thumbs/{{$data->image}}"></p>
+                  <p><img width="50" src="public/uploads/banner/{{$data->image}}"></p>
                   <input type="file" id="image" name="image">
                 </div>
               <div class="form-group">

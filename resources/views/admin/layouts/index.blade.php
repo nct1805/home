@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>5giay - Mạng thương mại điện tử</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <base href="{{asset('')}}">
   <link rel="stylesheet" href="public/admin_asset/bootstrap/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="public/admin_asset/favicon.ico" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -83,19 +84,19 @@
   });
 </script>
 <script>
-                        CKEDITOR.replace( 'editor1' ,{
-                          filebrowserBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-                          filebrowserUploadUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-                          filebrowserImageBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=1&editor=ckeditor&fldr='
-                        });
-                      </script>
-                      <script>
-                        CKEDITOR.replace( 'editor2' ,{
-                          filebrowserBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-                          filebrowserUploadUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-                          filebrowserImageBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=1&editor=ckeditor&fldr='
-                        });
-                      </script>
+  CKEDITOR.replace( 'editor1' ,{
+    filebrowserBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+    filebrowserUploadUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+    filebrowserImageBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=1&editor=ckeditor&fldr='
+  });
+</script>
+<script>
+  CKEDITOR.replace( 'editor2' ,{
+    filebrowserBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+    filebrowserUploadUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+    filebrowserImageBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=1&editor=ckeditor&fldr='
+  });
+</script>
 @yield('script')
 </body>
 </html>
