@@ -62,9 +62,15 @@
 					  </div>
 				  </div>
                 @if($data->parent_node_id == 0)
+                <div class="form-group" >
+                  <label for="exampleInputFile">Icon đại diện</label>
+                  <p ><img id="img_icon" style="background-color:black;" width="30" src="<?=!empty($data->icon) ? 'public/uploads/danh-muc/'.$data->icon : '' ;?>"></p>
+                  <input type="file" id="icon" name="icon">
+                  <p style="color:red" id="icon_err"></p>
+                </div>
                 <div class="form-group">
-                  <label for="exampleInputFile">Ảnh đại diện</label>
-                  <p><img width="150" src="<?=!empty($data->image) ? 'public/uploads/danh-muc/'.$data->image : '' ;?>"></p>
+                  <label for="exampleInputFile">Banner</label>
+                  <p><img id="img_banner" width="550" src="<?=!empty($data->image) ? 'public/uploads/danh-muc/'.$data->image : '' ;?>"></p>
                   <input type="file" id="image" name="image">
                   <p style="color:red" id="img_err"></p>
                 </div>
@@ -112,7 +118,30 @@ $(document).on('change', '#image', function()
                 else{
 					$('#img_err').text('');
 					$('#btn_submit').attr('disabled', false);
+                    $('#img_banner').attr('src',img.src);
 				}
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    }
+    return false;
+});
+$(document).on('change', '#icon', function()
+{
+    var fileExtension = [ 'jpeg', 'jpg', 'png', 'gif' ];
+    if( $.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1 )
+    {
+        $('#img_err').text('Bạn vui lòng chọn hình ảnh dạng ' + fileExtension.join(', '));
+		$('#btn_submit').attr('disabled', true);
+        return false;
+    }
+    else
+    {
+        if ((file = this.files[0])){
+            img.onload = function () {
+                $('#icon_err').text('');
+//					$('#btn_submit').attr('disabled', false);
+                $('#img_icon').attr('src',img.src);
             };
             img.src = _URL.createObjectURL(file);
         }

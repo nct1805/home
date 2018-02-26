@@ -58,6 +58,7 @@ class CategoryController extends Controller
     public function postEdit(Request $request,$id){
         $category_exten = CategoryModel::find($id);
 		$image_name = '';
+		$icon_name = '';
         $this->validate($request,
             [
                 'name' => 'required|min:3|max:255',
@@ -79,6 +80,7 @@ class CategoryController extends Controller
         $alias = !empty($request->alias) ? $request->alias : '';
 		
         if($request->parent_id == 0){
+            //Banner
 			if($request->hasFile('image')){
 				$file = $request->file('image');            
 				$name = $file->getClientOriginalName();
@@ -96,18 +98,40 @@ class CategoryController extends Controller
 			}
 			else
 				$image_name = $category_exten->image;
+            
+            //Icon
+            if($request->hasFile('icon')){
+				$file_icon = $request->file('icon');            
+				$name_icon = $file_icon->getClientOriginalName();
+				$icon_name = str_random(4)."_".$name_icon;
+				while (file_exists("uploads/danh-muc/".$icon_name)) {
+					$icon_name = str_random(4)."_".$name_icon;
+				}
+				$destinationPath = public_path('uploads/danh-muc');
+				$icon = Image::make($file_icon->getRealPath());
+				$width_icon  = $icon->width();
+				$height_icon = $icon->height();
+				if($width_icon > 23 || $height_icon > 25)
+					$icon->resize(23, 25);
+				$icon->save(public_path('uploads/danh-muc/' .$icon_name));
+			}
+			else
+				$icon_name = $category_exten->icon;
 		}
         //Add new
         if(empty($category_exten)){
+            
             $category = new CategoryModel;
 			$category->id          = $id;
             $category->name        = $request->name;
             $category->status      = $request->status;
 			$category->type_id     = $request->type_id;
 			$category->parent_id   = $request->parent_id;
+            $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
             $category->alias       = $alias;
 //            $category->description = $request->description;
             $category->image       = $image_name;
+            $category->icon        = $icon_name;
             $category->save();
         }
         else{
@@ -116,9 +140,11 @@ class CategoryController extends Controller
             $category_exten->status      = $request->status;
             $category_exten->type_id     = $request->type_id;
             $category_exten->parent_id   = $request->parent_id;
+            $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
             $category_exten->alias       = $alias;
 //            $category_exten->description = $request->description;
             $category_exten->image       = $image_name;
+            $category_exten->icon        = $icon_name;
             $category_exten->save();
         }
         return redirect('admin/category/edit/'.$id)->with('thongbao','Cập nhật thành công');    

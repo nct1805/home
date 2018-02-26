@@ -106,7 +106,7 @@ class ProductsController extends Controller
         return view('admin.products.edit',['data' => $products]);    
     }
     public function postEdit(Request $request,$id){
-        
+        $image_name_wap = '';
         $this->validate($request,
             [
                 'name' => 'required|min:3|max:255',
@@ -157,6 +157,24 @@ class ProductsController extends Controller
 			}
 			$img_tmp->save(public_path('uploads/san-pham/' .$image_name));
 		}
+        
+        if($request->hasFile('image_wap')){
+            $file = $request->file('image_wap');            
+            $name = $file->getClientOriginalName();
+            $image_name_wap = str_random(4)."_".$name;
+            while (file_exists("uploads/san-pham/".$image_name_wap)) {
+                $image_name_wap = str_random(4)."_".$name;
+            }
+            $destinationPath = public_path('uploads/san-pham');
+            $img = Image::make($file->getRealPath());
+			$width  = $img->width();
+			$height = $img->height();
+            if($width > 710 || $height > 220)
+                $img->resize(710, 220);
+            $img->save(public_path('uploads/san-pham/' .$image_name_wap));
+        }
+		else
+			$image_name_wap = !empty($products->image_wap) ? $products->image_wap : '';
 		//Add new
 		if(empty($products)){
 			$product_new = new ProductsModel;
@@ -164,9 +182,13 @@ class ProductsController extends Controller
 			$product_new->name          = html_entity_decode($request->name);
 			$product_new->alias         = ceo($request->name);
 			$product_new->category_id   = $request->category_id;
+			$product_new->shop_name     = $request->shop_name;
+			$product_new->price         = $request->price;
 			$product_new->status        = $request->status;
 			$product_new->check_special = $request->check_special;
 			$product_new->image         = $image_name;
+            if(!empty($image_name_wap) && !empty($request->check_special) )
+                $product_new->image_wap = $image_name_wap;
 			$product_new->save();
 		}
 		else{
@@ -174,9 +196,13 @@ class ProductsController extends Controller
 			$products->name          = html_entity_decode($request->name);
 			$products->alias         = ceo($request->name);
 			$products->category_id   = $request->category_id;
+			$products->shop_name     = $request->shop_name;
+			$products->price         = $request->price;
 			$products->status        = $request->status;
 			$products->check_special = $request->check_special;
 			$products->image         = $image_name;
+            if(!empty($image_name_wap) && !empty($request->check_special) )
+                $products->image_wap = $image_name_wap;
 			$products->save();
 		}
         return redirect('admin/products/edit/'.$id)->with('thongbao','Cập nhật thành công');    

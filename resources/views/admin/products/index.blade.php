@@ -34,7 +34,7 @@
                 @foreach($data as $row)
                 <tr>
                   <td><img src="public/uploads/san-pham/{{$row->image}}" width="50px"></td>
-                  <td>{{$row->title}}</td>
+                  <td><?=!empty($row->name) ? $row->name : $row->title;?></td>
                   <td><a href="admin/products/edit/{{$row->thread_id}}"><i class="fa fa-fw fa-edit"></i></a></td>
                 </tr>
                 @endforeach

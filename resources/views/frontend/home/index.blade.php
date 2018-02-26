@@ -33,7 +33,7 @@
     </div>    
     <div class="col-lg-3 col-md-3 register pull-right hidden-sm hidden-xs">    
     	<div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" onclick="location.href='https://www.5giay.vn/';">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" onclick="location.href='<?=$url_5giay;?>';">
             <span class="text-btn">Đăng nhập & đăng ký</span> <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
@@ -73,9 +73,10 @@
 <li><a href="#" title="Giới thiệu">Giới thiệu</a></li>
 <li><a href="#" title="#">Sản phẩm</a>
 <ul>
+<!--
 <li><a href="#" title="#"><img src="public/frontend/images/images/icon-thoitrang.png" alt="#" class="icon"> Thời trang</a>
     <ul>
-      <li><a href="#" title="#">Thời trang nam</a>
+      <li><a href="#" title="#">aaThời trang nam</a>
         <ul>
           <li><a href="#" title="#">Quần thể thao</a></li>
           <li><a href="#" title="#">Quần thể thao</a></li>
@@ -104,8 +105,18 @@
       </li>
     </ul>
   </li>
+-->
   <?php if(!empty($menu)){ foreach($menu as $k => $val){ ?>
-  <li><a href="#" title="#"><img src="public/frontend/images/images/icon-dt.png" alt="#" class="icon"><?=$val['name']?></a></li>   
+  <li>
+      <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="#"><img src="public/frontend/images/images/icon-dt.png" alt="#" class="icon"><?=$val['name']?></a>
+      <?php if(!empty($val['total_cate2'])){?>
+      <ul>
+          <?php foreach($val['total_cate2'] as $v){ if(!empty($v['parent_id']) && ($v['parent_id'] == $val['id']) ){ ?>
+           <li><a href="<?=$url_5giay.'/categories/'.$v['alias'].'.'.$v['id'];?>" title="#"><?=$v['name'];?></a></li>
+           <?php } } ?>
+      </ul>
+      <?php } ?>
+  </li>   
   <?php } }?> 
 </ul>
 </li>
@@ -126,7 +137,20 @@
 <div class="f_submenu_item">
 <div class="slimScrollDiv">
 <ul class="block_category menu_slim_1 f_submenu_list">
-  <li><a href="#" title="#"><img src="public/frontend/images/images/icon-thoitrang.png" alt="#" class="icon"> Thời trang</a>
+    <?php if(!empty($menu)){ foreach($menu as $k => $val){ ?>
+      <li>
+          <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="#"><img src="public/frontend/images/images/icon-dt.png" alt="#" class="icon"><?=$val['name']?></a>
+          <?php if(!empty($val['total_cate2'])){?>
+          <ul tabindex="5001" class="level_1 f_menu_sub_2">
+              <?php foreach($val['total_cate2'] as $v){ if(!empty($v['parent_id']) && ($v['parent_id'] == $val['id']) ){ ?>
+               <li><a href="<?=$url_5giay.'/categories/'.$v['alias'].'.'.$v['id'];?>" title="#"><?=$v['name'];?></a></li>
+               <?php } } ?>
+          </ul>
+          <?php } ?>
+      </li>
+    <?php } } ?>
+<!--
+    <li>
     <ul tabindex="5001" class="level_1 f_menu_sub_2">
       <li><a href="#" title="#">Thời trang nam</a>
         <ul class="level_2 f_menu_sub_2">
@@ -157,9 +181,8 @@
       </li>
     </ul>
   </li>
-  <?php if(!empty($menu)){ foreach($menu as $k => $val){ ?>
-  <li><a href="#" title="#"><img src="public/frontend/images/images/icon-dt.png" alt="#" class="icon"><?=$val['name']?></a></li>
-  <?php } } ?>
+-->
+  
 </ul>
 </div>
 </div>
@@ -169,10 +192,10 @@
 	<nav class="menu-top hidden-sm hidden-xs">
     	<ul>
         	<li><span>Tết 2018 - Mậu Tuất</span></li>
-            <li><a href="https://www.5giay.vn/categories/gioi-thieu-gop-y.67/" title="#">Giới thiệu - Góp ý</a></li>
-            <li><a href="https://www.5giay.vn/" title="#">Diễn đàn</a></li>
-            <li><a href="https://www.5giay.vn/categories/san-dau-gia.72/" title="#">Sàn đấu giá</a></li>
-            <li><a href="https://www.5giay.vn/categories/khu-vuc-giu-trat-tu-cho-dien-dan.8/" title="#">Khu vực giữ trật tự cho diễn đàn</a></li>
+            <li><a href="<?=$url_5giay;?>/categories/gioi-thieu-gop-y.67/" title="#">Giới thiệu - Góp ý</a></li>
+            <li><a href="<?=$url_5giay;?>/" title="#">Diễn đàn</a></li>
+            <li><a href="<?=$url_5giay;?>/categories/san-dau-gia.72/" title="#">Sàn đấu giá</a></li>
+            <li><a href="<?=$url_5giay;?>/categories/khu-vuc-giu-trat-tu-cho-dien-dan.8/" title="#">Khu vực giữ trật tự cho diễn đàn</a></li>
         </ul>
     </nav><!--end menu top-->
     <div class="slide-home">
@@ -180,7 +203,7 @@
       <div class="carousel-inner">
 		  <?php if(!empty($slide)){ foreach($slide as $k => $val){ ?>
 		  <div class="item <?=$k==0?'active' : '';?>">
-			<a href="<?=$val['url'];?>" title="<?=$val['name'];?>"><img class="img-responsive" alt="#" src="public/frontend/images/images/<?=$val['image'];?>" ></a>
+			<a href="<?=$val['url'];?>" title="<?=$val['name'];?>"><img class="img-responsive" alt="#" src="public/uploads/danh-muc/<?=$val['image'];?>" ></a>
 		  </div>
      	  <?php } } ?>
       </div>
@@ -197,7 +220,7 @@
     <?php if(!empty($banner)){ foreach($banner as $k => $v){ ?>
     	<div class="col-md-4 col-sm-4 col-xs-4 ads">
         	<a href="<?=$v['url'];?>" title="<?=$v['name'];?>" target="<?=$v['target'];?>">
-           		<img class="lazyload img-responsive" src="public/frontend/images/images/<?=$v['image'];?>">
+           		<img class="lazyload img-responsive" src="public/uploads/danh-muc/<?=$v['image'];?>">
             	<div class="interactive_overlay">
 					<div class="interactive_content">
 
@@ -211,9 +234,10 @@
 </div>
 </div>
 </section>
+<?php if(!empty($data)){ $k_tmp = 1; foreach($data as $key => $value){ ?>
 <section class="quangcao">
 <div class="container">
-<a href="#"><img class="lazyload img-responsive" src="public/frontend/images/images/banner4.png"></a>
+<a href="javascript:void(0)"><img class="lazyload img-responsive" src="public/uploads/danh-muc/<?=$value['cate1']['image'];?>"></a>
 </div>
 </section>
 <section class="content-home">
@@ -221,35 +245,18 @@
     <div class="col-md-12 col-sm-12 col-xs-12 category">
     	<div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12">
-        <a href="#" title="#"><img src="public/frontend/images/images/thoitrang1.png"> Thời trang</a>
+        <a href="#" title="#"><img src="public/uploads/danh-muc/<?=$value['cate1']['icon'];?>"><?=$value['cate1']['name'];?></a>
         </div>
+        <?php if(!empty($value['total_cate2'])){  ?>
         <ul class="col-md-9 col-sm-12 col-xs-12 right-category">
-        <div id="carousel" class="carousel slide carousel-all carousel1" data-ride="carousel" data-type="multi" data-interval="false">
-        <div class="all-pr"><a href="#1">Tất cả</a></div>
-				<div class="carousel-inner">                
-					<div class="item active">
-						<div class="carousel-col"><a href="#1">Thời trang nam</a></div>
+            <div id="carousel" class="carousel slide carousel-all carousel<?=$k_tmp;?>" data-ride="carousel" data-type="multi" data-interval="false">
+                <div class="all-pr"><a href="#1">Tất cả</a></div>
+				<div class="carousel-inner">     
+				    <?php foreach($value['total_cate2'] as $k => $cate){ ?>           
+					<div class="item <?=$k==0?'active' : '';?>">
+						<div class="carousel-col"><a href="#1" class="category_2" data-cate="<?=$cate['id']?>" data-key="<?=$k_tmp;?>" ><?=$cate['name'];?></a></div>
 					</div>
-					<div class="item">
-						<div class="carousel-col">
-							<a href="#1">Thời trang nữ</a>
-						</div>
-					</div>
-					<div class="item">
-						<div class="carousel-col">
-							<a href="#1">Giày dép - Balo - Túi xách</a>
-						</div>
-					</div>
-					<div class="item">
-						<div class="carousel-col">
-							<a href="#1">Đồng hồ - Phụ kiện</a>
-						</div>
-					</div>
-                    <div class="item">
-						<div class="carousel-col">
-							<a href="#1">Nước hoa - Mỹ phẩm</a>
-						</div>
-					</div>
+					<?php } ?>
 				</div>
 				<div class="right carousel-control next-right">
 					<a href="#carousel" role="button" data-slide="next">
@@ -258,35 +265,30 @@
 					</a>
 				</div>
                 <ol class="carousel-indicators hidden-sm hidden-xs">
-                    <li data-target=".carousel1" data-slide-to="0" class="active"></li>
-                    <li data-target=".carousel1" data-slide-to="1"></li>
-                    <li data-target=".carousel1" data-slide-to="2"></li>
+                    <li data-target=".carousel<?=$k_tmp;?>" data-slide-to="0" class="active"></li>
+                    <li data-target=".carousel<?=$k_tmp;?>" data-slide-to="1"></li>
+                    <li data-target=".carousel<?=$k_tmp;?>" data-slide-to="2"></li>
                   </ol>
 			</div>
         </ul>
+        <?php } ?>
         </div>
     </div>
+    <?php if(!empty($value['special_products'])){ ?>
     <div class="col-md3">      
       <div id="carousel-example-generic1" class="carousel-fade carousel slide" data-ride="carousel">
       <div class="carousel-inner">
-      <div class="item active">
-      	<a href="#">
+      <?php foreach($value['special_products'] as $k_spc => $special_products){ ?>
+      <div class="item <?=$k_spc == 0 ? 'active':'';?>">
+      	<a href="<?=$url_5giay.'/'.'threads'.'/'.$special_products['alias'].'.'.$special_products['id'];?>">
         <picture>
-              <source media="(max-width: 992px)" srcset="public/frontend/images/images/thoitrang_mobile.png">
-              <source media="(min-width: 1200px)" srcset="public/frontend/images/images/qc-dm1.png">
-              <img class="img-responsive" src="public/frontend/images/images/qc-dm1.png" alt="#">
+              <source media="(max-width: 992px)" srcset="public/uploads/san-pham/<?=$special_products['image_wap']?>">
+              <source media="(min-width: 1200px)" srcset="public/uploads/san-pham/<?=$special_products['image']?>">
+              <img class="img-responsive" src="public/uploads/san-pham/<?=$special_products['image']?>" alt="#">
           </picture>
           </a>      
       </div>
-      <div class="item">
-      	<a href="#">
-        <picture>
-              <source media="(max-width: 992px)" srcset="public/frontend/images/images/thoitrang_mobile.png">
-              <source media="(min-width: 1200px)" srcset="public/frontend/images/images/qc-dm1.png">
-              <img class="img-responsive" src="public/frontend/images/images/qc-dm1.png" alt="#">
-          </picture>
-          </a>
-      </div>
+      <?php } ?>
       </div>
       <!-- Controls -->
       <a class="left carousel-control" href="#carousel-example-generic1" role="button" data-slide="prev">
@@ -297,436 +299,42 @@
       </a>
       </div>       
     </div>
+    <?php } ?>
+    <div id="list_product_<?=$k_tmp;?>">
+    <?php foreach($value['products'] as $products){ ?>
     <figure class="item-product">
     <div class="box-item">
-        <a href="#">
+        <a class="redirect_detail" data-id="<?=$products['id'];?>" href="javascript:void(0);">
         <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp1.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp1.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp1.png" alt="#">
+          <source media="(max-width: 1199px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
+          <source media="(min-width: 1200px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
+          <img class="lazyload img-responsive image-default" src="public/uploads/san-pham/<?=$products['image'];?>" alt="#">
       </picture>
         <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp2.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp2.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp2.png" alt="#">
+          <source media="(max-width: 1199px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
+          <source media="(min-width: 1200px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
+          <img class="img-responsive image-hover" src="public/uploads/san-pham/<?=$products['image'];?>" alt="#">
       </picture>
         </a>
         </div>
         <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
+            <div class="home-store"><?=$products['shop_name'];?></div>
+            <div class="date"><?=!empty($products['updated_at']) ? date_format($products['updated_at'],'d/m/Y'): '';?></div>
+            <h2 class="title_h2"><a href="#"><?=$products['name'];?></a></h2>
+            <div class="price"><i class="fa fa-tags"></i><?=number_format($products['price'],0,",",".");?>đ</div>
         </figcaption>
     </figure>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp2.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp2.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp2.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp3.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp3.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp3.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp3.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp3.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp3.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp4.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp4.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp4.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp4.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp4.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp4.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp1.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp1.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp1.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <div class="col-md-12 col-xs-12 lear_more btn btn-info hidden-lg hidden-md">Xem thêm <i class="fa fa-angle-right"></i></div>
+    <?php } ?>
+    </div>
+    <input type="hidden" id="cate_id" value="0">
+    <input type="hidden" id="page_<?=$k_tmp;?>" value="3">
+    <input type="hidden" id="total_page_<?=$k_tmp;?>" value="<?=!empty($value['total_page']) ? $value['total_page'] : 1;?>">
+    <?php if(!empty($value['total_page']) && $value['total_page'] > 1 ){ ?>
+    <div class="col-md-12 col-xs-12 lear_more btn btn-info hidden-lg hidden-md" data-key="<?=$k_tmp;?>" data-cate="<?=$key;?>">Xem thêm <i class="fa fa-angle-right"></i></div>
+    <?php } ?>
 </div>
 </section>
-<section class="content-home">
-<div class="container">
-    <div class="col-md-12 col-sm-12 col-xs-12 category">
-    	<div class="row">
-        <div class="col-md-3 col-sm-12 col-xs-12">
-        <a href="#" title="#"><img src="public/frontend/images/images/dt2.png"> Điện thoại</a>
-        </div>
-        <ul class="col-md-9 col-sm-12 col-xs-12 right-category">
-        <div id="carousel2" class="carousel slide carousel-all carousel2" data-ride="carousel" data-type="multi" data-interval="false">
-        <div class="all-pr"><a href="#1">Tất cả</a></div>
-				<div class="carousel-inner">                
-					<div class="item active">
-						<div class="carousel-col"><a href="#1">Mobile</a></div>
-					</div>
-					<div class="item">
-						<div class="carousel-col">
-							<a href="#1">Iphone</a>
-						</div>
-					</div>
-					<div class="item">
-						<div class="carousel-col">
-							<a href="#1">Sửa chữa & Phụ kiện</a>
-						</div>
-					</div>
-					<div class="item">
-						<div class="carousel-col">
-							<a href="#1">Sim số đẹp - Sim G4</a>
-						</div>
-					</div>
-				</div>
-				<div class="right carousel-control next-right">
-					<a href="#carousel2" role="button" data-slide="next">
-						<i class="fa fa-chevron-right"></i>
-						<span class="sr-only">Next</span>
-					</a>
-				</div>
-                <ol class="carousel-indicators hidden-sm hidden-xs">
-                    <li data-target=".carousel2" data-slide-to="0" class="active"></li>
-                    <li data-target=".carousel2" data-slide-to="1"></li>
-                    <li data-target=".carousel2" data-slide-to="2"></li>
-                  </ol>
-			</div>
-        </ul>
-        </div>
-    </div>
-    <div class="col-md3">      
-      <div id="carousel-example-generic2" class="carousel-fade carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-      <div class="item active">
-      	<a href="#">
-        <picture>
-              <source media="(max-width: 992px)" srcset="public/frontend/images/images/dienthoai_mobile.png">
-              <source media="(min-width: 1200px)" srcset="public/frontend/images/images/qc-dm2.png">
-              <img class="img-responsive" src="public/frontend/images/images/qc-dm2.png" alt="#">
-          </picture>
-          </a>      
-      </div>
-      <div class="item">
-      	<a href="#">
-        <picture>
-              <source media="(max-width: 992px)" srcset="public/frontend/images/images/dienthoai_mobile.png">
-              <source media="(min-width: 1200px)" srcset="public/frontend/images/images/qc-dm2.png">
-              <img class="img-responsive" src="public/frontend/images/images/qc-dm2.png" alt="#">
-          </picture>
-          </a>
-      </div>
-      </div>
-      <!-- Controls -->
-      <a class="left carousel-control" href="#carousel-example-generic2" role="button" data-slide="prev">
-      <i class="fa fa-angle-left" aria-hidden="true"></i>
-      </a>
-      <a class="right carousel-control" href="#carousel-example-generic2" role="button" data-slide="next">
-      <i class="fa fa-angle-right" aria-hidden="true"></i>
-      </a>
-      </div>       
-    </div>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp1.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp1.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp1.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp2.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp2.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp2.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp2.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp2.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp2.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp3.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp3.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp3.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp3.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp3.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp3.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp4.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp4.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp4.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp4.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp4.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp4.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp1.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp1.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp1.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <div class="col-md-12 col-xs-12 lear_more btn btn-info hidden-lg hidden-md">Xem thêm <i class="fa fa-angle-right"></i></div>
-</div>
-</section>
-<section class="quangcao">
-<div class="container">
-<a href="#"><img class="lazyload img-responsive" src="public/frontend/images/images/banner5.png"></a>
-</div>
-</section>
-<section class="content-home">
-<div class="container">
-    <div class="col-md-12 col-sm-12 col-xs-12 category">
-    	<div class="row">
-        <div class="col-md-3 col-sm-12 col-xs-12">
-        <a href="#" title="#"><img src="public/frontend/images/images/dt2.png"> Máy tính - Laptop</a>
-        </div>
-        <ul class="col-md-9 col-sm-12 col-xs-12 right-category">
-        <div id="carousel3" class="carousel slide carousel-all carousel3" data-ride="carousel" data-type="multi" data-interval="false">
-        <div class="all-pr"><a href="#1">Tất cả</a></div>
-				<div class="carousel-inner">                
-					<div class="item active">
-						<div class="carousel-col"><a href="#1">Mobile</a></div>
-					</div>
-					<div class="item">
-						<div class="carousel-col">
-							<a href="#1">Iphone</a>
-						</div>
-					</div>
-					<div class="item">
-						<div class="carousel-col">
-							<a href="#1">Sửa chữa & Phụ kiện</a>
-						</div>
-					</div>
-					<div class="item">
-						<div class="carousel-col">
-							<a href="#1">Sim số đẹp - Sim G4</a>
-						</div>
-					</div>
-				</div>
-				<div class="right carousel-control next-right">
-					<a href="#carousel3" role="button" data-slide="next">
-						<i class="fa fa-chevron-right"></i>
-						<span class="sr-only">Next</span>
-					</a>
-				</div>
-                <ol class="carousel-indicators hidden-sm hidden-xs">
-                    <li data-target=".carousel3" data-slide-to="0" class="active"></li>
-                    <li data-target=".carousel3" data-slide-to="1"></li>
-                    <li data-target=".carousel3" data-slide-to="2"></li>
-                  </ol>
-			</div>
-        </ul>
-        </div>
-    </div>
-    <div class="col-md3">      
-      <div id="carousel-example-generic3" class="carousel-fade carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-      <div class="item active">
-      	<a href="#">
-        <picture>
-              <source media="(max-width: 992px)" srcset="public/frontend/images/images/maytinh_mobile.png">
-              <source media="(min-width: 1200px)" srcset="public/frontend/images/images/qc-dm1.png">
-              <img class="img-responsive" src="public/frontend/images/images/qc-dm1.png" alt="#">
-          </picture>
-          </a>      
-      </div>
-      <div class="item">
-      	<a href="#">
-        <picture>
-              <source media="(max-width: 992px)" srcset="public/frontend/images/images/maytinh_mobile.png">
-              <source media="(min-width: 1200px)" srcset="public/frontend/images/images/qc-dm1.png">
-              <img class="img-responsive" src="public/frontend/images/images/qc-dm1.png" alt="#">
-          </picture>
-          </a>
-      </div>
-      </div>
-      <!-- Controls -->
-      <a class="left carousel-control" href="#carousel-example-generic3" role="button" data-slide="prev">
-      <i class="fa fa-angle-left" aria-hidden="true"></i>
-      </a>
-      <a class="right carousel-control" href="#carousel-example-generic3" role="button" data-slide="next">
-      <i class="fa fa-angle-right" aria-hidden="true"></i>
-      </a>
-      </div>       
-    </div>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp1.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp1.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp1.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp2.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp2.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp2.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp2.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp2.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp2.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp3.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp3.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp3.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp3.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp3.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp3.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp4.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp4.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp4.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <figure class="item-product">
-    <div class="box-item">
-        <a href="#">
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp4.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp4.png">
-          <img class="lazyload img-responsive image-default" src="public/frontend/images/images/sp4.png" alt="#">
-      </picture>
-        <picture>
-          <source media="(max-width: 1199px)" srcset="public/frontend/images/images/sp1.png">
-          <source media="(min-width: 1200px)" srcset="public/frontend/images/images/sp1.png">
-          <img class="img-responsive image-hover" src="public/frontend/images/images/sp1.png" alt="#">
-      </picture>
-        </a>
-        </div>
-        <figcaption>
-            <div class="home-store">B.O Store</div>
-            <div class="date">20/01/2018</div>
-            <h2 class="title_h2"><a href="#">Chuyên cung cấp thời trang thiết kế vintage</a></h2>
-            <div class="price"><i class="fa fa-tags"></i> 300.000đ</div>
-        </figcaption>
-    </figure>
-    <div class="col-md-12 col-xs-12 lear_more btn btn-info hidden-lg hidden-md">Xem thêm <i class="fa fa-angle-right"></i></div>
-</div>
-</section>
+<?php $k_tmp++; } }?>
 <section>
 	<div class="container">
     	<div class="new-home">
@@ -779,8 +387,8 @@
         	<div class="col-md-3">
             	<div class="title_footer">Về chúng tôi</div>
                 <ul class="ul-footer">
-                	<li><a href="https://www.5giay.vn/categories/gioi-thieu-gop-y.67/" title="#">Giới thiệu 5giay.vn</a></li>
-                    <li><a href="#" title="https://www.5giay.vn/forums/noi-quy-thong-bao.71/">Quy chế hoạt động</a></li>
+                	<li><a href="<?=$url_5giay;?>/categories/gioi-thieu-gop-y.67/" title="#">Giới thiệu 5giay.vn</a></li>
+                    <li><a href="#" title="<?=$url_5giay;?>/forums/noi-quy-thong-bao.71/">Quy chế hoạt động</a></li>
                     <li><a href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=218" title="#" target="_blank"><img class="lazyload img-thumbnail" src="public/frontend/images/bct.png"></a></li>
                 </ul>
             </div><!--end col-md-3-->
@@ -843,5 +451,6 @@
 <script type="text/javascript">var lazyImage = "/public/frontend/images/404.png";</script>
 <script src="public/frontend/js/main.js"></script>
 <script src="public/frontend/js/home_page.js"></script>
+<script src="public/js/homepage.js"></script>
 </body>
 </html>
