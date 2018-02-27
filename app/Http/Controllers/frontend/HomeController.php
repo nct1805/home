@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Models\frontend\ProductsModel;
 use App\Models\frontend\CategoryModel;
@@ -70,8 +70,15 @@ class HomeController extends Controller
 			}
 		}
         $url_5giay = 'https://www.5giay.vn';
-
-        return view('frontend.home.index', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data]);
+		$product_seen = '';
+		$list_products = $request->cookie('list_products');
+		
+		if(!empty($list_products)){
+			$list_products = explode(',', $list_products);
+			$list_products = array_unique($list_products);
+			$product_seen = ProductsModel::where('status','1')->whereIn('id', $list_products)->orderBy('id', 'DESC')->get();
+		}
+        return view('frontend.home.index', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data, 'product_seen' => $product_seen]);
     }
     
     public function getProductByCate(Request $request){
@@ -99,23 +106,34 @@ class HomeController extends Controller
             }
             else
                 $product = ProductsModel::where('status','1')->where('check_special', 0)->where('category_id', $cate_id)->orderBy('id', 'DESC')->offset($start)->limit(2)->get();
-//            print_r($product);die;
             return $product;
         }
     }
     
     public function pushCookie(Request $request){
         if($request->ajax()){
-            $product_id    = $request->id;
-            $cookie = array (
-                'name'   => 'list_products',
-                'value'  => serialize ($product_id),
-                'expire' => '3600', //1h 
-            );
-            $this->input->set_cookie ($cookie); //set cookie
-            $list_products = $this->input->cookie ('list_products', true);
-            print_r($list_products);die;
-        }
+			$product_id = $request->id;
+			$list_cookie_products = $request->cookie('list_products');
+			
+			if(!empty($list_cookie_products)){
+				$arrProducts[] = $list_cookie_products;
+				$arrProducts_tmp = explode(',', $arrProducts[0]);
+				$key = array_search($product_id, $arrProducts_tmp); // $key = 2;
+				if(empty($key) && $key == null && count($arrProducts_tmp) <= 20 ){
+					array_push($arrProducts, $product_id);
+					$strProducts = implode(',', $arrProducts);
+					$arrProducts = explode(',', $strProducts);
+					if(count($arrProducts) >=20)
+						array_shift($arrProducts);
+					$arrProducts = implode(',', $arrProducts);
+					$minutes = 60;
+					return response('OK')->withCookie(cookie('list_products', $arrProducts, 60*24*7));
+				}
+			}
+			else{
+				return response('OK')->withCookie(cookie('list_products', $product_id, 60*24*7));
+			}
+		}
     }
 
     public function search(Request $request)

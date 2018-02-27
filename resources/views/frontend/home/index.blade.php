@@ -304,7 +304,7 @@
     <?php foreach($value['products'] as $products){ ?>
     <figure class="item-product">
     <div class="box-item">
-        <a class="redirect_detail" data-id="<?=$products['id'];?>" href="javascript:void(0);">
+        <a class="redirect_detail" data-id="<?=$products['id'];?>" data-alias="<?=$products['alias'];?>" href="javascript:void(0);">
         <picture>
           <source media="(max-width: 1199px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
           <source media="(min-width: 1200px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
@@ -335,52 +335,32 @@
 </div>
 </section>
 <?php $k_tmp++; } }?>
-<section>
+<?php if(!empty($product_seen)){ ?>
+<section id="session_product_seen">
 	<div class="container">
     	<div class="new-home">
             	<div class="col-md2 title-view">Sản phẩm vừa xem:</div>
                 <div class="col-md10">
-                	
                     <div id="carousel" class="carousel slide carousel4" data-ride="carousel" data-type="multi4" data-interval="false">        
-				<div class="carousel-inner">                
-					<div class="item item4 active">
-						<div><a href="#1" class="view-new"><img src="public/frontend/images/images/vuaxem1.png"></a></div>
+						<div class="carousel-inner" id="list_products_seen">   
+						<?php foreach($product_seen as $k => $v){ ?>
+							<div class="item item4 <?=$k == 0 ? 'active' : '';?>">
+								<div><a href="javascript:void(0)" class="view-new redirect_detail" data-id="<?=$v['id'];?>" data-alias="<?=$v['alias'];?>"><img style="width:76px;" src="public/uploads/san-pham/<?=$v['image'];?>"></a></div>
+							</div> 
+						<?php } ?>            
+						</div>
+						<div class="right carousel-control next-right next-right-new">
+							<a href=".carousel4" role="button" data-slide="next">
+								<i class="fa fa-chevron-right"></i>
+								<span class="sr-only">Next</span>
+							</a>
+						</div>
 					</div>
-					<div class="item item4">
-						<div><a href="#1" class="view-new"><img src="public/frontend/images/images/vuaxem2.png"></a></div>
-					</div>
-                    <div class="item item4">
-						<div><a href="#1" class="view-new"><img src="public/frontend/images/images/vuaxem3.png"></a></div>
-					</div>
-                    <div class="item item4">
-						<div><a href="#1" class="view-new"><img src="public/frontend/images/images/vuaxem4.png"></a></div>
-					</div>
-                    <div class="item item4">
-						<div><a href="#1" class="view-new"><img src="public/frontend/images/images/vuaxem2.png"></a></div>
-					</div>
-                    <div class="item item4">
-						<div><a href="#1" class="view-new"><img src="public/frontend/images/images/vuaxem3.png"></a></div>
-					</div>
-                    <div class="item item4">
-						<div><a href="#1" class="view-new"><img src="public/frontend/images/images/vuaxem4.png"></a></div>
-					</div>
-                    <div class="item item4">
-						<div><a href="#1" class="view-new"><img src="public/frontend/images/images/vuaxem4.png"></a></div>
-					</div>
-				</div>
-				<div class="right carousel-control next-right next-right-new">
-					<a href=".carousel4" role="button" data-slide="next">
-						<i class="fa fa-chevron-right"></i>
-						<span class="sr-only">Next</span>
-					</a>
-				</div>
-			</div>
-        </ul>
-                
                 </div>
         </div>
     </div>
 </section>
+<?php } ?>
 <footer>
 	<div class="container">
     	<div class="row hidden-sm hidden-xs">
@@ -442,6 +422,9 @@
     </div>
 </footer>
 </div>
+<script>
+	var url_5giay = '<?=!empty($url_5giay) ? $url_5giay : "";?>';
+</script>
 <script src="public/frontend/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="public/frontend/dist/js/jquery.mmenu.min.js"></script>
 <script type="text/javascript" src="public/frontend/dist/js/addons/jquery.mmenu.dragopen.min.js"></script>

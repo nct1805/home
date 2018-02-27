@@ -81,23 +81,16 @@ $(document).ready(function(){
     
     $('.redirect_detail').on('click', function(){
         var product_id = $(this).data('id');
-        var list = new cookieList('MyItems');
-        list.add('a');
-//        var cookie = $.cookie('tmp', ['a', 'b', 'c']);
-        console.log(list);
-//        $.ajax({
-//            type : "get",
-//            dataType : "json",
-//            url : "push_array_cookie/"+product_id,
-//            success : function( data )
-//            {
-//                render_html_products(data, 'append', key);
-//                page+=1;
-//                if(data.length > 0)
-//                    $('#page_'+key).val(page);
-//            }
-//        });
-//       href="<?=$url_5giay.'/'.'threads'.'/'.$products['alias'].'.'.$products['id'];?>"
-        alert(product_id);
+        var alias = $(this).data('alias');
+        $.ajax({
+            type : "get",
+            dataType : "json",
+            url : "push_array_cookie/"+product_id,
+            success : function( data )
+            {
+				if(data == 'OK')
+					window.location.href = url_5giay+'/'+'threads'+alias+'.'+product_id;
+            }
+        });
     });
 });

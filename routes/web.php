@@ -16,6 +16,7 @@
     Route::get('get_product_by_cate_ajax/{id}', ['as' => 'Ft_Home_Get_Products', 'uses' => 'frontend\HomeController@getProductByCate']);
     Route::get('push_array_cookie/{id}', ['as' => 'Ft_Home_Push_Cookie', 'uses' => 'frontend\HomeController@pushCookie']);
     Route::get('get_product_ajax/{page}/{cate}/{cate_2_id}', ['as' => 'Ft_Home_Get_Products_Ajax', 'uses' => 'frontend\HomeController@getProduct']);
+	Route::get('get_list_seen',['as'=>'Ft_Get_List_Seen','uses'=>'frontend\HomeController@getListProductSeen']);
     Route::get('tim-kiem.html',['as'=>'Ft_Home_Search','uses'=>'HomeController@search']);
     Route::get('sitemap.xml',['as'=>'Ft_SiteMap_Index','uses'=>'SiteMapController@index']);
     Route::get('tu-van-san-pham.html',['as'=>'Ft_Post_Index','uses'=>'frontend\PostController@index']);
