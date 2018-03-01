@@ -3,10 +3,10 @@
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <section class="content-header">
-      <h1>Sản phẩm</h1>
+      <h1>Tin đăng</h1>
       <ol class="breadcrumb">
         <li><a href="{{ route('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('products_list')}}">Sản phẩm</a></li>
+        <li><a href="{{ route('products_list')}}">Tin đăng</a></li>
         <li class="active">Danh sách</li>
       </ol>
     </section>
@@ -26,7 +26,7 @@
                 <thead>
                 <tr>
                   <th>Hình ảnh</th>
-                  <th>Tên sản phẩm</th>
+                  <th>Tiêu đề</th>
                   <th style="width:90px">Action</th>
                 </tr>
                 </thead>

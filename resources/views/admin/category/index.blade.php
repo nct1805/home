@@ -3,10 +3,10 @@
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <section class="content-header">
-      <h1>Danh mục</h1>
+      <h1>Chuyên mục</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Danh mục</a></li>
+        <li><a href="#">Chuyên mục</a></li>
         <li class="active">Danh sách</li>
       </ol>
     </section>

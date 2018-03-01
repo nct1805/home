@@ -3,14 +3,12 @@
 <div class="content-wrapper" style="min-height: 946px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Advanced Form Elements
-        <small>Preview</small>
+      <h1>Chuyên mục
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li class="active">Advanced Elements</li>
+        <li><a href="admin/category/list">Chuyên mục</a></li>
+        <li class="active">Cập nhật</li>
       </ol>
     </section>
     <!-- Main content -->
