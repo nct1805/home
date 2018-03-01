@@ -28,31 +28,30 @@
               <table id="table_list" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Hình ảnh</th>
-                  <th>Tên sản phẩm</th>
+                  <th width="80px">ID</th>
+                  <th>Email</th>
+                  <th>Họ tên</th>
                   <th>Nhóm</th>
-                  <th>Phone</th>
+                  <th>Số điện thoại</th>
                   <th>Trạng thái</th>
-                  <th>Action</th>
+                  <th width="80px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($data as $row)
                 <tr>
                   <td>{{$row->id}}</td>
-                  <td>
-                  @if($row->avatar != NULL)
-                  <img width="50" src="public/uploads/avartar/thumbs/{{$row->avatar}}">
-                  @else
-                      <img width="50" src="public/admin_asset/dist/avatar.png">
-                  @endif
-                  </td>
+                  <td>{{$row->email}}</td>
                   <td>{{$row->name}}</td>
                   <td>@if($row->group_id != NULL){{$row->getGroup->name}}@endif</td>
                   <td>{{$row->phone}}</td>
-                  <td>@if($row->status == 1){{'Đã kích hoạt'}}@else {{'Chưa kích hoạt'}}@endif</td>
-                  <td><a href="admin/users/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> :: <a href="admin/users/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a></td>
+                  <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
+                  <td><a href="admin/users/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a>
+                  <?php 
+                      if($row->id != 1){?> 
+                    :: <a href="admin/users/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a>
+                  <?php } ?>
+                  </td>
                 </tr>
                 @endforeach
                 </tbody>              

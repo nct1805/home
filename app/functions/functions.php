@@ -79,6 +79,17 @@
 	    }
 
 	    return $protocol . "://" . $host . $request_uri_sub;
-
+	}
+	function check_permision($array_permision,$module,$permision){
+		$check_permision = 0;
+		if(!empty($array_permision)){
+			foreach ($array_permision as $value) {
+				if($value['modules_id'] == $module){
+					if($value[$permision] == 1)
+						$check_permision = 1;
+				}
+			}
+		}
+		return $check_permision;
 	}
 ?>

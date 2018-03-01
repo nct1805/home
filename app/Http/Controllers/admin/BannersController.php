@@ -17,17 +17,17 @@ class BannersController extends Controller
     }
     public function getList()
     {
-
         $banner = BannersModel::orderBy('id','DESC')->paginate(20);;
         return view('admin.banner.index',
             [   'title'=>'Quản lý banner',
                 'data'=>$banner
             ]
-        );
-           
+        );        
     }
-    public function getAdd()
+    public function getAdd(Request $request)
     {
+        if(check_permision($request->session()->get('data_session'),5,'_add') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $category = CategoryModel::all();
         return view('admin.banner.add',['category' => $category]);    
     }

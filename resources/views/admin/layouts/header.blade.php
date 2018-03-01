@@ -1,7 +1,7 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -42,17 +42,17 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Đổi mật khẩu</a>
+                  <a href="admin/users/edit/{{ \Illuminate\Support\Facades\Auth::user()->id }}" class="btn btn-default btn-flat">Đổi mật khẩu</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Thoát</a>
+                  <a href="{{ route('admin_Logout')}}" class="btn btn-default btn-flat">Thoát</a>
                 </div>
               </li>
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>
       </div>
@@ -105,7 +105,7 @@
             <li><a href="admin/admin_group/list"><i class="fa fa-circle-o"></i> Nhóm quản trị</a></li>
             <li><a href="admin/modules/list"><i class="fa fa-circle-o"></i>Modules</a></li>
             <li><a href="admin/users/list"><i class="fa fa-circle-o"></i> Thành viên</a></li>
-            <li><a href="admin/category/list"><i class="fa fa-circle-o"></i> Phân quyền</a></li>
+            <li><a href="admin/permision/list"><i class="fa fa-circle-o"></i> Phân quyền</a></li>
           </ul>
         </li>
 

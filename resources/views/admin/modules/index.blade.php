@@ -28,10 +28,9 @@
               <table id="table_list" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th width="80px">ID</th>
                   <th>Name</th>
-                  <th>Created date</th>
-                  <th>Status</th>
+                  <th width="120px">Status</th>
                   <th width="80px">Action</th>
                 </tr>
                 </thead>
@@ -39,10 +38,8 @@
                 @foreach($data as $row)
                 <tr>
                   <td>{{$row->id}}</td>
-                  <td>{{$row->name}}
-                  </td>
-                  <td>{{$row->created_date}}</td>
-                  <td>@if($row->status == 1){{'Đã kích hoạt'}}@else {{'Chưa kích hoạt'}}@endif</td>
+                  <td>{{$row->name}}</td>
+                  <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
                   <td><a href="admin/modules/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> :: <a href="admin/modules/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a></td>
                 </tr>
                 @endforeach

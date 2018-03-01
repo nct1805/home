@@ -17,34 +17,6 @@
     Route::get('push_array_cookie/{id}', ['as' => 'Ft_Home_Push_Cookie', 'uses' => 'frontend\HomeController@pushCookie']);
     Route::get('get_product_ajax/{page}/{cate}/{cate_2_id}', ['as' => 'Ft_Home_Get_Products_Ajax', 'uses' => 'frontend\HomeController@getProduct']);
 	Route::get('get_list_seen',['as'=>'Ft_Get_List_Seen','uses'=>'frontend\HomeController@getListProductSeen']);
-    Route::get('tim-kiem.html',['as'=>'Ft_Home_Search','uses'=>'HomeController@search']);
-    Route::get('sitemap.xml',['as'=>'Ft_SiteMap_Index','uses'=>'SiteMapController@index']);
-    Route::get('tu-van-san-pham.html',['as'=>'Ft_Post_Index','uses'=>'frontend\PostController@index']);
-    #Route::get('tu-van/{alias}.html',['as'=>'Ft_Post_View','uses'=>'frontend\PostController@view']);
-
-    Route::get('ket-toan.html',['as'=>'Ft_Cart_CheckOut','uses'=>'frontend\CartController@getPayment']);
-    Route::post('ket-toan.html',['as'=>'Ft_Cart_CheckOut','uses'=>'frontend\CartController@postPayment']);
-    #Route::post('thanh-toan.html',['as'=>'Ft_Cart_Paid','uses'=>'frontend\CartController@paid']);
-    #Route::get('dat-hang/{id}.html',['as'=>'Ft_Cart_Order','uses'=>'frontend\CartController@getAddtoCart']);
-    #Route::post('cap-nhat-gio-hang.html',['as'=>'Ft_Cart_Update','uses'=>'frontend\CartController@update']);
-    Route::post('/cart',['as'=>'themvaogiohang','uses'=> 'frontend\CartController@addTocart']);
-    Route::get('/updatecart',['as'=>'capnhatgiohang','uses'=> 'frontend\CartController@updateCart']);
-    Route::get('/deletecart',['as'=>'xoagiohang','uses'=> 'frontend\CartController@deleteCart']);
-    Route::get('gio-hang.html',['as'=>'Ft_Cart_Index','uses'=>'frontend\CartController@index']);
-    Route::get('mua-hang-thanh-con.html',['as'=>'muahangthanhcong','uses'=>'frontend\CartController@thanks']);
-
-
-    Route::get('noi-dung.html', ['as' => 'Ft_Content_Index', 'uses' => 'frontend\ContentController@switchDir']);
-    Route::get('phuong-thuc-thanh-toan.html', ['as' => 'Ft_Page_Index', 'uses' => 'frontend\PageController@index']);
-    Route::get('gioi-thieu.html', ['as' => 'Ft_Page_Index', 'uses' => 'frontend\PageController@index']);
-    Route::get('chinh-sach-bao-mat.html', ['as' => 'Ft_Page_Index', 'uses' => 'frontend\PageController@index']);
-    Route::get('van-chuyen-va-giao-nhan-hang.html', ['as' => 'Ft_Page_Index', 'uses' => 'frontend\PageController@index']);
-    Route::get('dieu-khoang-mua-ban-hang-hoa.html', ['as' => 'Ft_Page_Index', 'uses' => 'frontend\PageController@index']);
-    Route::get('{slug}.html', ['as' => 'Ft_Content_Detail', 'uses' => 'frontend\ContentController@index']);
-
-    Route::get('add-to-cart/{id}',['as'=>'themgiohang','uses'=>'frontend\CartController@getAddtoCart']);
-    Route::get('del-cart/{id}',['as'=>'xoagiohang','uses'=>'frontend\CartController@getDelItemCart']);
-  
     
 Route::group(['prefix'=>'admin'],function(){
     Auth::routes();    
@@ -91,6 +63,7 @@ Route::group(['prefix'=>'admin'],function(){
     	Route::get('category/{category_id}','admin\AjaxController@getCategory');
     });
     Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'admin\DashboardController@getList']);
+    Route::get('permision', ['as' => 'permision', 'uses' => 'admin\DashboardController@permision']);
 	Route::get('login', ['as' => 'admin_login', 'uses' => 'admin\Auth\LoginController@login'])->middleware('auth');
     Route::get('login.html', ['as' => 'login', 'uses' => 'admin\Auth\LoginController@login']);
 	Route::post('login', ['as' => 'admin_Authenticate', 'uses' => 'admin\Auth\LoginController@authenticate']);

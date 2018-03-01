@@ -15,7 +15,7 @@
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Select2</h3>
+          
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -34,7 +34,7 @@
               <form action="admin/admin_group/edit/{{$data->id}}" method="post">
      			    {{ csrf_field() }}
           		<div class="form-group">
-	                <label>Tên danh mục</label>
+	                <label>Tên nhóm</label>
 	                <input type="text" class="form-control" name="name" required="" value="@if(old('name')){{old('name')}}@else{{$data->name}}@endif">
 	            </div>
 	            <div class="box-footer">

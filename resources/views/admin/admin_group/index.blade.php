@@ -28,10 +28,8 @@
               <table id="table_list" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th width="80px">ID</th>
                   <th>Name</th>
-                  <th>Created date</th>
-                  <th>Status</th>
                   <th width="80px">Action</th>
                 </tr>
                 </thead>
@@ -39,11 +37,13 @@
                 @foreach($data as $row)
                 <tr>
                   <td>{{$row->id}}</td>
-                  <td>{{$row->name}}
+                  <td>{{$row->name}}</td>
+                  <td><a href="admin/admin_group/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> 
+                    <?php 
+                      if($row->id != 1){?>
+                    :: <a href="admin/admin_group/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a>
+                    <?php } ?>
                   </td>
-                  <td>{{$row->created_date}}</td>
-                  <td> {{$row->status}}</td>
-                  <td><a href="admin/admin_group/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> :: <a href="admin/admin_group/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a></td>
                 </tr>
                 @endforeach
                 </tbody>              

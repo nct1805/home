@@ -32,7 +32,7 @@
               <form action="{{ route('admin_group_add') }}" method="post">
      			{{ csrf_field() }}
           		<div class="form-group">
-	                <label>Tên danh mục</label>
+	                <label>Tên nhóm</label>
 	                <input type="text" class="form-control" name="name" required="" value="{{ old('name') }}">
 	            </div>
 	            <div class="box-footer">

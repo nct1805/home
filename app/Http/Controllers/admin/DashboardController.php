@@ -16,5 +16,10 @@ class DashboardController extends Controller
         return view('admin.layouts.dashboard');
            
     }
+    public function permision()
+    {
+        return view('admin.layouts.thongbao');
+           
+    }
     
 }

@@ -43,7 +43,7 @@
                   </td>
                   <td>{{$row->created_date}}</td>
                   <td> {{$row->status}}</td>
-                  <td><a href="admin/admin_group/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> :: <a href="admin/admin_group/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a></td>
+                  <td><a href="admin/permision/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a></td>
                 </tr>
                 @endforeach
                 </tbody>              

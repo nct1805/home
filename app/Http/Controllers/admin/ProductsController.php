@@ -17,8 +17,10 @@ class ProductsController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    public function getList()
+    public function getList(Request $request)
     {
+        if(check_permision($request->session()->get('data_session'),2,'_view') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
         return view('admin.products.index',
             [   'title'=>'Sản phẩm',
@@ -29,7 +31,6 @@ class ProductsController extends Controller
     public function getAdd()
     {
         $category = CategoryModel::all();
-
         return view('admin.products.add',['category' => $category]);    
     }
     public function postAdd(Request $request){
@@ -64,7 +65,6 @@ class ProductsController extends Controller
                         }
                     }
                 }
-
         $products = new ProductsModel;
         $products->title = $request->name;
         $products->parent_id = $mang4;
@@ -74,9 +74,6 @@ class ProductsController extends Controller
         $products->meta_title = $request->meta_title;
         $products->meta_key = $request->meta_key;
         $products->meta_des = $request->meta_des;
-
-        
-
         if($request->hasFile('image')){
             $file = $request->file('image');            
             $name = $file->getClientOriginalName();
