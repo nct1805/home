@@ -60,6 +60,7 @@ class UsersController extends Controller
         $users->password = bcrypt($request->password);
         $users->address = $request->address;
         $users->phone = $request->phone;
+        $users->status = $request->status;
 
         if($request->hasFile('image')){
             $file = $request->file('image');            
@@ -107,7 +108,7 @@ class UsersController extends Controller
         $users = UsersModel::find($id);
         $users->name = $request->name;
         $users->group_id = $request->group_id;
-        //$users->email = $request->email;
+        $users->status = $request->status;
         if($request->password != ''){
             $users->password = bcrypt($request->password);
         }       

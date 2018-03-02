@@ -64,6 +64,21 @@
                   <label>Địa chỉ</label>
                   <input type="text" class="form-control" name="address"  value="{{ old('address') }}">
               </div>
+              <div class="form-group">
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="status" id="optionsRadios1" value="1" checked>
+                          Kích hoạt
+                      </label>
+                  </div>
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="status" id="optionsRadios2" value="0">
+                          Không kích hoạt
+                      </label>
+                  </div>
+                  
+              </div>
 	            <div class="box-footer">
                 <button type="submit" class="btn btn-info pull-right">Thêm mới</button>
               </div>
