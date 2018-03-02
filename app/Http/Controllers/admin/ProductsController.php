@@ -22,18 +22,56 @@ class ProductsController extends Controller
 		$cate_1 = $request->cate_1;
 		$cate_2 = $request->cate_2;
 		$cate_3 = $request->cate_3;
-		$keyword = $request->keyword;
-		if(!empty($keyword) && !empty($cate_id))
-			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('node_id', $cate_id)->where('thread_id', $keyword)->limit(10)->paginate(20);
-		else if(!empty($keyword) && empty($cate_id))
-			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('thread_id', $keyword)->limit(10)->paginate(20);
-		else if(empty($keyword) && !empty($cate_id))
-			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('node_id', $cate_id)->limit(10)->paginate(20);
-		else
-        	$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
+		$arrList_cate = [];
+		
 		$list_cate1 = CategoryInternalModel::orderBy('lft', 'ASC')->where('parent_node_id', 0)->get();
 		$list_cate2 = CategoryInternalModel::orderBy('lft', 'ASC')->where('parent_node_id', $cate_1)->get();
 		$list_cate3 = CategoryInternalModel::orderBy('lft', 'ASC')->where('parent_node_id', $cate_2)->get();
+		if(!empty($cate_1) && !empty($cate_2) && !empty($cate_3))
+			$arrList_cate[] = $cate_3;
+		else if(!empty($cate_1) && !empty($cate_2) && empty($cate_3)){
+			$arrList_cate = [];
+			if($list_cate3->count() > 0){
+				foreach($list_cate3 as $k => $v)
+					array_push($arrList_cate, $v['node_id']);
+			}
+			else{
+				if($list_cate2->count() > 0)
+					$arrList_cate[] = $cate_2;
+			}
+			
+		}
+		else if(!empty($cate_1) && empty($cate_2) && empty($cate_3)){
+			$arrList_cate1 = [];
+			if(!empty($list_cate1)){
+				foreach($list_cate1 as $k => $v)
+					array_push($arrList_cate1, $v['node_id']);
+				$list_cate2_tmp = CategoryInternalModel::orderBy('lft', 'ASC')->whereIn('parent_node_id', $arrList_cate1)->get();
+				
+				if(!empty($list_cate2_tmp)){
+					$arrList_cate2 = [];
+					foreach($list_cate2_tmp as $k => $v)
+						array_push($arrList_cate2, $v['node_id']);
+					$list_cate3_tmp = CategoryInternalModel::orderBy('lft', 'ASC')->whereIn('parent_node_id', $arrList_cate2)->get();
+					
+					if(!empty($list_cate3_tmp)){
+						$arrList_cate = [];
+						foreach($list_cate3_tmp as $k => $v)
+							array_push($arrList_cate, $v['node_id']);
+					}
+				}
+			}
+		}
+		$keyword = $request->keyword;
+		if(!empty($arrList_cate) && !empty($keyword))
+			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->whereIN('node_id', $arrList_cate)->where('thread_id', $keyword)->paginate(20);
+		else if(!empty($arrList_cate) && empty($keyword))
+			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->whereIN('node_id', $arrList_cate)->paginate(20);
+		else if(empty($arrList_cate) && !empty($keyword))
+			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('thread_id', $keyword)->paginate(20);
+		else
+			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
+		
 		$segment = Request()->segment(1);
 		$products->withPath($segment.'/products/list'.'?cate_1='.$cate_1.'&cate_2='.$cate_2.'&cate_3='.$cate_3.'&keyword='.$keyword);
         return view('admin.products.index',

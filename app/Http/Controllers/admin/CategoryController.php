@@ -134,6 +134,7 @@ class CategoryController extends Controller
             $category->status      = $request->status;
 			$category->type_id     = $request->type_id;
 			$category->parent_id   = $request->parent_id;
+            $category->check_menu   = $request->check_menu;
             $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
             $category->alias       = $alias;
 //            $category->description = $request->description;
@@ -147,6 +148,7 @@ class CategoryController extends Controller
             $category_exten->status      = $request->status;
             $category_exten->type_id     = $request->type_id;
             $category_exten->parent_id   = $request->parent_id;
+            $category_exten->check_menu   = $request->check_menu;
             $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
             $category_exten->alias       = $alias;
 //            $category_exten->description = $request->description;

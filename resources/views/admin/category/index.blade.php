@@ -25,8 +25,8 @@
               <table id="table_list" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-<!--                  <th>ID</th>-->
                   <th>Name</th>
+                  <th style="width:120px">Hiển thị menu</th>
                   <th style="width:120px">Trang thái</th>
                   <th style="width:90px">Action</th>
                 </tr>
@@ -45,6 +45,7 @@
                 @endif
                 <tr>
                   <td style="{{$style}}"><?=!empty($row->name) ? $row->name : $row->title;?> <span style="font-size:11px; color:rgb(200,200,200);">{{$row->node_type_id}}</span></td>
+                  <td>@if($row->check_menu == 1)<span class="label label-success">{{'Hiển thị'}}</span>@else <span class="label label-danger">{{'Không hiển thị'}}</span>@endif</td>
                   <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
                   <td><a href="admin/category/edit/{{$row->node_id}}"><i class="fa fa-fw fa-edit"></i></a>
                   </td>
