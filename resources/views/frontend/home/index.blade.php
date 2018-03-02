@@ -329,7 +329,7 @@
     <input type="hidden" id="cate_id" value="0">
     <input type="hidden" id="page_<?=$k_tmp;?>" value="3">
     <input type="hidden" id="total_page_<?=$k_tmp;?>" value="<?=!empty($value['total_page']) ? $value['total_page'] : 1;?>">
-    <?php if(!empty($value['total_page']) && $value['total_page'] > 1 ){ ?>
+    <?php if(!empty($value['total_page']) && $value['total_page'] > 2 ){ ?>
     <div class="col-md-12 col-xs-12 lear_more btn btn-info hidden-lg hidden-md" data-key="<?=$k_tmp;?>" data-cate="<?=$key;?>">Xem thêm <i class="fa fa-angle-right"></i></div>
     <?php } ?>
 </div>
