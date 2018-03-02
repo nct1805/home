@@ -82,8 +82,8 @@ class CategoryController extends Controller
             if(!preg_match("/^[_a-zA-Z0-9- ]+$/", $request->alias))
                 return redirect('admin/category/edit/'.$id)->with('thongbao','Vui lòng nhập alias không có ký tự đặc biệt');    
         }
-		if((empty($category_exten) || empty($category_exten->image)) && empty($request->file('image')) && $request->parent_id == 0)
-			return redirect('admin/category/edit/'.$id)->with('thongbao','Vui lòng chọn hình');  
+		//if((empty($category_exten) || empty($category_exten->image)) && empty($request->file('image')) && $request->parent_id == 0)
+		//	return redirect('admin/category/edit/'.$id)->with('thongbao','Vui lòng chọn hình');  
         $alias = !empty($request->alias) ? $request->alias : '';
 		
         if($request->parent_id == 0){
