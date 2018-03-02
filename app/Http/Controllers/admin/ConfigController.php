@@ -51,6 +51,7 @@ class ConfigController extends Controller
         $config->title = $request->title;
         $config->keyword = $request->keyword;
         $config->description = $request->description;
+        $config->script = $request->script;
         $config->status = $request->status;
         $config->save();
         return redirect('admin/config/edit/'.$id)->with('thongbao','Cập nhật thành công');    

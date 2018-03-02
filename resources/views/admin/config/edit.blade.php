@@ -56,6 +56,10 @@
                   <label>Meta description</label>
                   <textarea class="textarea" name="description" rows="3" style="width:100%">{{$data->description}}</textarea>
               </div>
+              <div class="form-group">
+                  <label>Script (google analytics , facebook manager ...)</label>
+                  <textarea class="textarea" name="script" rows="10" style="width:100%">{{$data->script}}</textarea>
+              </div>
               
               <div class="form-group">
                   <label>Trạng thái</label>
