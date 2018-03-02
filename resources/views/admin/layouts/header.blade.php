@@ -27,7 +27,7 @@
             $date = \Illuminate\Support\Facades\Auth::user()->created_at;
             $date = date('d-m-Y H:i:s');
             if(!empty($avatar))
-              $img = 'public/uploads/avartar/thumbs/'.$avatar;
+              $img = 'public/uploads/avatar/thumbs/'.$avatar;
             else $img = 'public/admin_asset/dist/img/user2-160x160.jpg';
           ?>
 

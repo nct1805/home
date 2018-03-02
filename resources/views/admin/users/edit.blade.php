@@ -57,7 +57,7 @@
               </div>
               <div class="form-group">
                   <label for="exampleInputFile">Ảnh đại diện</label>
-                  <p><img width="50" src="public/uploads/avartar/thumbs/{{$data->avatar}}"></p>
+                  <p><img width="50" src="public/uploads/avatar/thumbs/{{$data->avatar}}"></p>
                   <input type="file" id="image" name="image">
                 </div>
               <div class="form-group">

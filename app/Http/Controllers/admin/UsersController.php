@@ -128,8 +128,8 @@ class UsersController extends Controller
             })->save($destinationPath.'/'.$image_name);
             $destinationPath = public_path('uploads/avatar');
             $file->move($destinationPath, $image_name);
-            @unlink("uploads/avatar/thumbs/".$products->image);
-            @unlink("uploads/avatar/".$products->image);
+            @unlink("uploads/avatar/thumbs/".$users->image);
+            @unlink("uploads/avatar/".$users->image);
             $users->avatar = $image_name;
         }
         $users->save();

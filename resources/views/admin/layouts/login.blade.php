@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>5giay - Mạng thương mại điện tử</title>
+  <link rel="shortcut icon" href="public/admin_asset/favicon.ico" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -32,7 +33,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg"><img class="img-thumbnail" src="public/frontend/images/images/logo.png" title="5giay.vn" alt="5giay.vn"></p>
     <form action="{{ route('admin_login') }}" method="post">
      {{ csrf_field() }}
       <div class="form-group has-feedback">
@@ -57,13 +58,13 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox" name="remember"> Remember Me
+              <input type="checkbox" name="remember" checked="checked"> Nhớ mật khẩu
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
         </div>
         <!-- /.col -->
       </div>
