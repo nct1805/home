@@ -69,13 +69,13 @@ class CategoryController extends Controller
         $this->validate($request,
             [
                 'name' => 'required|min:3|max:255',
-                'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+                'icon' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ],
             [
                 'nam.required' =>'Vui lòng nhập tên',
                 'name.min' => 'Tên có ít nhất 3 ký tự',
                 'name.max' => 'Tên tối đa dài 255 ký tự',
-                'image.mimes' =>'Hình không đúng định dạng',
+                'icon.mimes' =>'Hình không đúng định dạng',
             ]
         );
         if(!empty($request->alias)){
@@ -137,7 +137,6 @@ class CategoryController extends Controller
             $category->check_menu   = $request->check_menu;
             $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
             $category->alias       = $alias;
-//            $category->description = $request->description;
             $category->image       = $image_name;
             $category->icon        = $icon_name;
             $category->save();
@@ -149,9 +148,8 @@ class CategoryController extends Controller
             $category_exten->type_id     = $request->type_id;
             $category_exten->parent_id   = $request->parent_id;
             $category_exten->check_menu   = $request->check_menu;
-            $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
+            $alias = !empty($alias) ? $alias : ceo($request->name);
             $category_exten->alias       = $alias;
-//            $category_exten->description = $request->description;
             $category_exten->image       = $image_name;
             $category_exten->icon        = $icon_name;
             $category_exten->save();
