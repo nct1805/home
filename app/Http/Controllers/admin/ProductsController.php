@@ -19,6 +19,7 @@ class ProductsController extends Controller
     }
     public function getList(Request $request)
     {
+        
         if(check_permision($request->session()->get('data_session'),2,'_view') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
