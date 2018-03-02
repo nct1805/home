@@ -20,7 +20,6 @@
     
 Route::group(['prefix'=>'admin'],function(){
     Auth::routes();    
-	
 	Route::group(['prefix' => 'category'], function () {
         Route::get('list', function () {
             $category=DB::table('xf_node')->orderBy('lft', 'ASC')->leftjoin('category', 'xf_node.node_id', '=', 'category.id')->get();
@@ -30,18 +29,12 @@ Route::group(['prefix'=>'admin'],function(){
                 ]
             );
         });
-//        Route::get('list', ['as' => 'category_list', 'uses' => 'admin\CategoryController@getList']);
+		Route::get('get_list_cate/{id}', ['as' => 'category_list', 'uses' => 'admin\CategoryController@getListAjax']);
         Route::get('add', ['as' => 'category_add', 'uses' => 'admin\CategoryController@getAdd']);
         Route::post('add', ['as' => 'category_add', 'uses' => 'admin\CategoryController@postAdd']);
         Route::get('edit/{id}', ['as' => 'category_edit', 'uses' => 'admin\CategoryController@getEdit']); 
         Route::post('edit/{id}', ['as' => 'category_edit', 'uses' => 'admin\CategoryController@postEdit']); 
         Route::get('delete/{id}', ['as' => 'category_delete', 'uses' => 'admin\CategoryController@getDelete']);       
-    });
-    Route::group(['prefix' => 'orders'], function () {
-        Route::get('list', ['as' => 'orders_list', 'uses' => 'admin\OrdersController@getList']);
-        Route::get('edit/{id}', ['as' => 'orders_edit', 'uses' => 'admin\OrdersController@getEdit']); 
-        Route::post('edit/{id}', ['as' => 'orders_edit', 'uses' => 'admin\OrdersController@postEdit']); 
-              
     });
     Route::group(['prefix' => 'products'], function () {
         Route::get('list', ['as' => 'products_list', 'uses' => 'admin\ProductsController@getList']);
@@ -50,14 +43,6 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('edit/{id}', ['as' => 'products_edit', 'uses' => 'admin\ProductsController@getEdit']); 
         Route::post('edit/{id}', ['as' => 'products_edit', 'uses' => 'admin\ProductsController@postEdit']); 
         Route::get('delete/{id}', ['as' => 'products_delete', 'uses' => 'admin\ProductsController@getDelete']);       
-    });
-    Route::group(['prefix' => 'news'], function () {
-        Route::get('list', ['as' => 'news_list', 'uses' => 'admin\NewsController@getList']);
-        Route::get('add', ['as' => 'news_add', 'uses' => 'admin\NewsController@getAdd']);
-        Route::post('add', ['as' => 'news_add', 'uses' => 'admin\NewsController@postAdd']);
-        Route::get('edit/{id}', ['as' => 'news_edit', 'uses' => 'admin\NewsController@getEdit']); 
-        Route::post('edit/{id}', ['as' => 'news_edit', 'uses' => 'admin\NewsController@postEdit']); 
-        Route::get('delete/{id}', ['as' => 'news_delete', 'uses' => 'admin\NewsController@getDelete']);       
     });
     Route::group(['prefix' =>'ajax'],function(){
     	Route::get('category/{category_id}','admin\AjaxController@getCategory');
@@ -119,6 +104,11 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('edit/{id}', ['as' => 'slide_edit', 'uses' => 'admin\SlidesController@getEdit']); 
         Route::post('edit/{id}', ['as' => 'slide_edit', 'uses' => 'admin\SlidesController@postEdit']); 
         Route::get('delete/{id}', ['as' => 'slide_delete', 'uses' => 'admin\SlidesController@getDelete']);       
+    });
+    Route::group(['prefix' => 'config'], function () {
+        Route::get('list', ['as' => 'config_list', 'uses' => 'admin\ConfigController@getList']);
+        Route::get('edit/{id}', ['as' => 'config_edit', 'uses' => 'admin\ConfigController@getEdit']); 
+        Route::post('edit/{id}', ['as' => 'config_edit', 'uses' => 'admin\ConfigController@postEdit']);       
     });
     /* send mail */
     Route::get('send', ['as' => 'send', 'uses' => 'admin\MailController@mail']);

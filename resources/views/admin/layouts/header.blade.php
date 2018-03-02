@@ -109,6 +109,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="admin/config/list"><i class="fa fa-circle-o"></i> Cấu hình</a></li>
             <li><a href="admin/admin_group/list"><i class="fa fa-circle-o"></i> Nhóm quản trị</a></li>
             <li><a href="admin/modules/list"><i class="fa fa-circle-o"></i>Modules</a></li>
             <li><a href="admin/users/list"><i class="fa fa-circle-o"></i> Thành viên</a></li>
