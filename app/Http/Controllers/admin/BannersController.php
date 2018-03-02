@@ -56,6 +56,7 @@ class BannersController extends Controller
         $banner->url = $request->url;
         $banner->target = $request->target;
         $banner->ordering = $request->ordering;
+        $banner->status = $request->status;
 
         if($request->hasFile('image')){
             $file = $request->file('image');            
@@ -104,6 +105,7 @@ class BannersController extends Controller
         $banner->url = $request->url;     
         $banner->target = $request->target;
         $banner->ordering = $request->ordering;
+        $banner->status = $request->status;
 
         if($request->hasFile('image')){
             $file = $request->file('image');            

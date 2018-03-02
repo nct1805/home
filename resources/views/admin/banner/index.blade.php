@@ -30,7 +30,8 @@
                 <tr>
                   <th>ID</th>
                   <th>Hình ảnh</th>
-                  <th>Tiêu đề</th>             
+                  <th>Tiêu đề</th>
+                  <th style="width:120px">Trạng thái</th>             
                   <th style="width:90px">Action</th>
                 </tr>
                 </thead>
@@ -40,6 +41,7 @@
                   <td>{{$row->id}}</td>
                   <td><img src="public/uploads/banner/{{$row->image}}" width="50px"></td>
                   <td>{{$row->name}}</td>
+                  <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
                   <td><a href="admin/banner/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> :: <a href="admin/banner/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a></td>
                 </tr>
                 @endforeach

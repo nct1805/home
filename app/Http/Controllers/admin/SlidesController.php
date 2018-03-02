@@ -57,6 +57,7 @@ class SlidesController extends Controller
         $slide->url = $request->url;
         $slide->target = $request->target;
         $slide->ordering = $request->ordering;
+        $slide->status = $request->status;
 
         if($request->hasFile('image')){
             $file = $request->file('image');            
@@ -105,6 +106,7 @@ class SlidesController extends Controller
         $slide->url = $request->url;     
         $slide->target = $request->target;
         $slide->ordering = $request->ordering;
+        $slide->status = $request->status;
 
         if($request->hasFile('image')){
             $file = $request->file('image');            
