@@ -78,7 +78,8 @@
                 <tr>
                   <th>Image</th>
                   <th>Name</th>
-                  <th>Status</th>
+                  <th style="width: 120px">Loại tin</th>
+                  <th style="width: 120px">Trạng thái</th>
                   <th style="width:90px">Action</th>
                 </tr>
                 </thead>
@@ -88,7 +89,8 @@
                  <?php $image = !empty($row->image) ? 'public/uploads/san-pham/'.$row->image : 'public/frontend/images/images/logo.png';  ?>
                   <td><img src="<?=$image;?>" width="50px"></td>
                   <td><?=!empty($row->name) ? $row->name : $row->title;?></td>
-                  <td><?=!empty($row->name) ? 'Activated' : '';?></td>
+                  <td>@if($row->check_special == 1)<span class="label label-warning">{{'Tị VIP'}}</span>@else <span class="label label-primary">{{'Tin thường'}}</span>@endif</td>
+                  <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
                   <td><a href="admin/products/edit/{{$row->thread_id}}"><i class="fa fa-fw fa-edit"></i></a></td>
                 </tr>
                 @endforeach
