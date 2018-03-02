@@ -15,8 +15,10 @@ class BannersController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    public function getList()
+    public function getList(Request $request)
     {
+        if(check_permision($request->session()->get('data_session'),5,'_view') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $banner = BannersModel::orderBy('id','DESC')->paginate(20);;
         return view('admin.banner.index',
             [   'title'=>'Quản lý banner',
@@ -32,6 +34,8 @@ class BannersController extends Controller
         return view('admin.banner.add',['category' => $category]);    
     }
     public function postAdd(Request $request){
+        if(check_permision($request->session()->get('data_session'),5,'_add') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
        $this->validate($request,
             [
                 'name' => 'required|unique:tbl_posts,title|min:3|max:255',
@@ -74,12 +78,16 @@ class BannersController extends Controller
         $banner->save();
         return redirect('admin/banner/add')->with('thongbao','Thêm thành công');
     }
-    public function getEdit($id){
+    public function getEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),5,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $banner = BannersModel::find($id);
         $category = CategoryModel::all();
         return view('admin.banner.edit',['data' => $banner,'category'=>$category]);    
     }
     public function postEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),5,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         
         $this->validate($request,
             [
@@ -116,8 +124,10 @@ class BannersController extends Controller
         $banner->save();
         return redirect('admin/banner/edit/'.$id)->with('thongbao','Cập nhật thành công');    
     }
-    public function getDelete($id)
+    public function getDelete(Request $request,$id)
     {
+        if(check_permision($request->session()->get('data_session'),5,'_delete') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $banner = BannersModel::find($id);
         $banner->delete();
         return redirect('admin/banner/list')->with('thongbao','Xóa thành công id:' .$id);

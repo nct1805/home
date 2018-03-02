@@ -15,8 +15,10 @@ class PermisionsController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    public function getList()
+    public function getList(Request $request)
     {
+        if(check_permision($request->session()->get('data_session'),7,'_view') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $admin_group = Admin_groupModel::all();
         return view('admin.permisions.index',
             [   'title'=>'Nhóm Quản trị Admin',
@@ -25,7 +27,9 @@ class PermisionsController extends Controller
         );
            
     }
-    public function getEdit($id){
+    public function getEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),7,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $admin_group = Admin_groupModel::find($id);
         $list_modules = ModulesModel::all();
         return view('admin.permisions.edit',['data' => $admin_group,'list_modules' => $list_modules]);    

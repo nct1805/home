@@ -12,8 +12,10 @@ class ModulesController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    public function getList()
+    public function getList(Request $request)
     {
+        if(check_permision($request->session()->get('data_session'),7,'_view') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $modules = ModulesModel::all();
         return view('admin.modules.index',
             [   'title'=>'Modules',
@@ -22,11 +24,15 @@ class ModulesController extends Controller
         );
            
     }
-    public function getAdd()
+    public function getAdd(Request $request)
     {
+        if(check_permision($request->session()->get('data_session'),7,'_add') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         return view('admin.modules.add');    
     }
     public function postAdd(Request $request){
+        if(check_permision($request->session()->get('data_session'),7,'_add') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $this->validate($request,
             [
                 'name' => 'required|unique:modules,name|min:3|max:255'
@@ -43,11 +49,15 @@ class ModulesController extends Controller
         $modules->save();
         return redirect('admin/modules/add')->with('thongbao','Thêm thành công');
     }
-    public function getEdit($id){
+    public function getEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),7,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $modules = ModulesModel::find($id);
         return view('admin.modules.edit',['data' => $modules]);    
     }
     public function postEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),7,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $modules = ModulesModel::find($id);
         $this->validate($request,
             [
@@ -64,8 +74,10 @@ class ModulesController extends Controller
         $modules->save();
         return redirect('admin/modules/edit/'.$id)->with('thongbao','Cập nhật thành công');    
     }
-    public function getDelete($id)
+    public function getDelete(Request $request,$id)
     {
+        if(check_permision($request->session()->get('data_session'),7,'_delete') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $modules = ModulesModel::find($id);
         $modules->delete();
         return redirect('admin/modules/list')->with('thongbao','Xóa thành công id:' .$id);

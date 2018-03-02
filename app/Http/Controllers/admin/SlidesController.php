@@ -15,9 +15,10 @@ class SlidesController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    public function getList()
+    public function getList(Request $request)
     {
-
+        if(check_permision($request->session()->get('data_session'),6,'_view') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $slide = SlidesModel::orderBy('id','DESC')->paginate(20);;
         return view('admin.slide.index',
             [   'title'=>'Quản lý Slide',
@@ -26,12 +27,16 @@ class SlidesController extends Controller
         );
            
     }
-    public function getAdd()
+    public function getAdd(Request $request)
     {
+        if(check_permision($request->session()->get('data_session'),6,'_add') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $category = CategoryModel::all();
         return view('admin.slide.add',['category' => $category]);    
     }
     public function postAdd(Request $request){
+        if(check_permision($request->session()->get('data_session'),6,'_add') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
        $this->validate($request,
             [
                 'name' => 'required|unique:tbl_posts,title|min:3|max:255',
@@ -74,12 +79,16 @@ class SlidesController extends Controller
         $slide->save();
         return redirect('admin/slide/add')->with('thongbao','Thêm thành công');
     }
-    public function getEdit($id){
+    public function getEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),6,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $slide = SlidesModel::find($id);
         $category = CategoryModel::all();
         return view('admin.slide.edit',['data' => $slide,'category'=>$category]);    
     }
     public function postEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),6,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         
         $this->validate($request,
             [
@@ -116,8 +125,10 @@ class SlidesController extends Controller
         $slide->save();
         return redirect('admin/slide/edit/'.$id)->with('thongbao','Cập nhật thành công');    
     }
-    public function getDelete($id)
+    public function getDelete(Request $request,$id)
     {
+        if(check_permision($request->session()->get('data_session'),6,'_delete') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $slide = SlidesModel::find($id);
         $slide->delete();
         return redirect('admin/slide/list')->with('thongbao','Xóa thành công id:' .$id);
