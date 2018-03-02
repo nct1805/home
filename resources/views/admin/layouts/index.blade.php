@@ -55,9 +55,9 @@
 <script src="public/admin_asset/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="public/admin_asset/dist/js/demo.js"></script>
-<script src="public/admin_asset/ckeditor.js"></script>
+
 <!-- Bootstrap WYSIHTML5 -->
-<script src="public/admin_asset/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
 <script src="public/admin_asset/plugins/select2/select2.full.min.js"></script>
 
 <script>
@@ -65,7 +65,7 @@
     $(".select2").select2();
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
-    CKEDITOR.replace('editor1');
+    
     //bootstrap WYSIHTML5 - text editor
     $(".textarea").wysihtml5();
   });
@@ -81,20 +81,6 @@
       "info": true,
       "autoWidth": false
     });
-  });
-</script>
-<script>
-  CKEDITOR.replace( 'editor1' ,{
-    filebrowserBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-    filebrowserUploadUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-    filebrowserImageBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=1&editor=ckeditor&fldr='
-  });
-</script>
-<script>
-  CKEDITOR.replace( 'editor2' ,{
-    filebrowserBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-    filebrowserUploadUrl : 'http://ironstyle.net/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-    filebrowserImageBrowseUrl : 'http://ironstyle.net/filemanager/dialog.php?type=1&editor=ckeditor&fldr='
   });
 </script>
 @yield('script')

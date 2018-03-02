@@ -22,20 +22,27 @@
           <!-- Notifications: style can be found in dropdown.less -->
 
           <!-- Tasks: style can be found in dropdown.less -->
+          <?php
+            $avatar = \Illuminate\Support\Facades\Auth::user()->avatar;
+            $date = \Illuminate\Support\Facades\Auth::user()->created_at;
+            $date = date('d-m-Y H:i:s');
+            if(!empty($avatar))
+              $img = 'public/uploads/avartar/thumbs/'.$avatar;
+            else $img = 'public/admin_asset/dist/img/user2-160x160.jpg';
+          ?>
 
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="public/admin_asset/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="{{ $img }}" class="user-image" alt="User Image">
               <span class="hidden-xs">{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                <img src="{{ $img }}" class="img-circle" alt="User Image">
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{ \Illuminate\Support\Facades\Auth::user()->name }}
+                  <small>Tham gia {{ $date }}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -65,7 +72,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="public/admin_asset/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="{{ $img }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{ \Illuminate\Support\Facades\Auth::user()->name }}</p>

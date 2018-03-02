@@ -66,8 +66,7 @@
                           <input type="radio" name="status" id="optionsRadios2" value="0">
                           Không kích hoạt
                       </label>
-                  </div>
-                  
+                  </div>               
               </div>
 	            <div class="box-footer">
                 <button type="submit" class="btn btn-info pull-right">Thêm mới</button>
