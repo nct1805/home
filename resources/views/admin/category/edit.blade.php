@@ -60,6 +60,25 @@
                 </div>
                 @endif
                 <div class="form-group">
+                      <label for="exampleInputFile">Check hiển thị menu</label>
+                      <div class="row">
+                      <div class="col-md-12">
+                        <div class="radio">
+                      <label>
+                          <input type="radio" name="check_menu" id="optionsRadios1" value="1" <?=!empty($data->check_menu) ? 'checked' : '';?> >
+                          Hiển thị menu
+                      </label>
+                  </div>
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="check_menu" id="optionsRadios2" value="0" <?=empty($data->check_menu) ? 'checked' : '';?>>
+                          Không hiển thị menu
+                      </label>
+                  </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="form-group">
                       <label for="exampleInputFile">Trạng thái</label>
                       <div class="row">
                       <div class="col-md-12">

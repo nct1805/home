@@ -69,21 +69,21 @@ class CategoryController extends Controller
         $this->validate($request,
             [
                 'name' => 'required|min:3|max:255',
-                'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+                'icon' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ],
             [
                 'nam.required' =>'Vui lòng nhập tên',
                 'name.min' => 'Tên có ít nhất 3 ký tự',
                 'name.max' => 'Tên tối đa dài 255 ký tự',
-                'image.mimes' =>'Hình không đúng định dạng',
+                'icon.mimes' =>'Hình không đúng định dạng',
             ]
         );
         if(!empty($request->alias)){
             if(!preg_match("/^[_a-zA-Z0-9- ]+$/", $request->alias))
                 return redirect('admin/category/edit/'.$id)->with('thongbao','Vui lòng nhập alias không có ký tự đặc biệt');    
         }
-		if((empty($category_exten) || empty($category_exten->image)) && empty($request->file('image')) && $request->parent_id == 0)
-			return redirect('admin/category/edit/'.$id)->with('thongbao','Vui lòng chọn hình');  
+		//if((empty($category_exten) || empty($category_exten->image)) && empty($request->file('image')) && $request->parent_id == 0)
+		//	return redirect('admin/category/edit/'.$id)->with('thongbao','Vui lòng chọn hình');  
         $alias = !empty($request->alias) ? $request->alias : '';
 		
         if($request->parent_id == 0){
@@ -136,7 +136,6 @@ class CategoryController extends Controller
 			$category->parent_id   = $request->parent_id;
             $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
             $category->alias       = $alias;
-//            $category->description = $request->description;
             $category->image       = $image_name;
             $category->icon        = $icon_name;
             $category->save();
@@ -147,9 +146,13 @@ class CategoryController extends Controller
             $category_exten->status      = $request->status;
             $category_exten->type_id     = $request->type_id;
             $category_exten->parent_id   = $request->parent_id;
+<<<<<<< HEAD
             $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
+=======
+            $category_exten->check_menu   = $request->check_menu;
+            $alias = !empty($alias) ? $alias : ceo($request->name);
+>>>>>>> 62a852886130762c40ec21cb0bdbde5dd215d680
             $category_exten->alias       = $alias;
-//            $category_exten->description = $request->description;
             $category_exten->image       = $image_name;
             $category_exten->icon        = $icon_name;
             $category_exten->save();
