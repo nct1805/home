@@ -3,10 +3,10 @@
 <div class="content-wrapper" style="min-height: 946px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Chuyên mục</h1>
+      <h1>Danh mục</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('category_list')}}">Chuyên mục</a></li>
+        <li><a href="{{ route('category_list')}}">Danh mục</a></li>
         <li class="active">Thêm mới</li>
       </ol>
     </section>

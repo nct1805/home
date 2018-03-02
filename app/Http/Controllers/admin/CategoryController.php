@@ -23,6 +23,13 @@ class CategoryController extends Controller
 //        );
 //           
 //    }
+	public function getListAjax(Request $request){
+		if($request->ajax()){
+			$cate_id = $request->id;
+			$data = CategoryInternalModel::where('parent_node_id',$cate_id)->orderBy('lft', 'ASC')->get();
+			return $data;
+		}
+	}
     public function getAdd()
     {
         return view('admin.category.add');    

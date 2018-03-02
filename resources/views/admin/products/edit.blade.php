@@ -36,33 +36,15 @@
               </div>
               <div class="form-group">
                   <label>Tên shop</label>
-                  <input type="text" class="form-control" name="shop_name"  value="<?=!empty($data->shop_name) ? $data->shop_name : "";?>">
+                  <input type="text" class="form-control" name="shop_name"  value="<?=!empty($data->shop_name) ? $data->shop_name : $data->username;?>">
               </div>
               <div class="form-group">
-                  <label>Tên sản phẩm</label>
+                  <label>Tiêu đề tin đăng</label>
                   <input type="text" class="form-control" name="name"  value="<?=!empty($data->name) ? $data->name : $data->thread_title;?>">
               </div>
               <div class="form-group">
-                  <label>Giá sản phẩm (VNĐ)</label>
-                  <input type="text" class="form-control" name="price"  value="<?=!empty($data->price) ? $data->price : 0;?>">
-              </div>
-              <div class="form-group">
-              	  <label for="exampleInputFile">Sản phẩm đặc biệt</label>
-              	  <div class="row">
-              	  	<div class="col-md-12">
-						<input type="radio" class="check_special" name="check_special" value="1" <?=!empty($data->check_special) ? 'checked' : '';?>> Active
-						<input type="radio" class="check_special" name="check_special" value="0" <?=empty($data->check_special) ? 'checked' : '';?> > Deactive
-              	  	</div>
-              	  </div>
-              </div>
-              <div class="form-group">
-              	  <label for="exampleInputFile">Trạng thái</label>
-              	  <div class="row">
-              	  	<div class="col-md-12">
-						<input type="radio" name="status" value="1" <?=!empty($data->status) ? 'checked' : '';?>> Active
-						<input type="radio" name="status" value="0" <?=empty($data->status) ? 'checked' : '';?> > Deactive
-              	  	</div>
-              	  </div>
+                  <label>Giá (VNĐ)</label>
+                  <input type="text" class="form-control" name="price"  value="<?=!empty($data->price) ? $data->price : $data->thread_price;?>">
               </div>
               <div class="form-group">
                   <label for="exampleInputFile">Ảnh đại diện</label>
@@ -71,11 +53,49 @@
               </div>
               <p style="color:red" id="img_err"></p>
               <div class="form-group" id="banner_wap">
-                  <label for="exampleInputFile">Banner đại diện phiên bản wap</label>
+                  <label for="exampleInputFile">Banner đại diện phiên bản mobi</label>
                   <p><img id="wap_show" width="450" src="public/uploads/san-pham/{{$data->image_wap}}"></p>
                   <input type="file" id="image_wap" name="image_wap">
               </div>
               <p style="color:red" id="img_wap"></p>
+              <div class="form-group">
+                  <label for="exampleInputFile">Loại tin</label>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="radio">
+                      <label>
+                          <input type="radio" name="check_special" id="optionsRadios1" class="check_special" value="1" <?=!empty($data->check_special) ? 'checked' : '';?> >
+                          VIP
+                      </label>
+                  </div>
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="check_special" id="optionsRadios2" class="check_special" value="0" <?=empty($data->check_special) ? 'checked' : '';?>>
+                          Thường
+                      </label>
+                  </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputFile">Trạng thái</label>
+                  <div class="row">
+                    <div class="col-md-12">
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="status" id="optionsRadios1" value="1" <?=!empty($data->status) ? 'checked' : '';?> >
+                          Kích hoạt
+                      </label>
+                  </div>
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="status" id="optionsRadios2" value="0" <?=empty($data->status) ? 'checked' : '';?>>
+                          Không kích hoạt
+                      </label>
+                  </div>
+                    </div>
+                  </div>
+              </div>
               <div class="box-footer">
                 <button type="submit" id="btn_submit" class="btn btn-info pull-right">Cập nhật</button>
                 <input type="hidden" name="category_id" value="<?=!empty($data->node_id) ? $data->node_id : '';?>">

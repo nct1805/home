@@ -3,10 +3,10 @@
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <section class="content-header">
-      <h1>Chuyên mục</h1>
+      <h1>Danh mục</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Chuyên mục</a></li>
+        <li><a href="#">Danh mục</a></li>
         <li class="active">Danh sách</li>
       </ol>
     </section>
@@ -27,6 +27,7 @@
                 <tr>
 <!--                  <th>ID</th>-->
                   <th>Name</th>
+                  <th style="width:120px">Trang thái</th>
                   <th style="width:90px">Action</th>
                 </tr>
                 </thead>
@@ -44,7 +45,9 @@
                 @endif
                 <tr>
                   <td style="{{$style}}"><?=!empty($row->name) ? $row->name : $row->title;?> <span style="font-size:11px; color:rgb(200,200,200);">{{$row->node_type_id}}</span></td>
-                  <td><a href="admin/category/edit/{{$row->node_id}}">Sửa</a></td>
+                  <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
+                  <td><a href="admin/category/edit/{{$row->node_id}}"><i class="fa fa-fw fa-edit"></i></a>
+                  </td>
                 </tr>
                 @endforeach
                 </tbody>              

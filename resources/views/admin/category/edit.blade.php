@@ -3,11 +3,11 @@
 <div class="content-wrapper" style="min-height: 946px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Chuyên mục
+      <h1>Danh mục ngành hàng
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="admin/category/list">Chuyên mục</a></li>
+        <li><a href="{{ route('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="admin/category/list">Ngành hàng</a></li>
         <li class="active">Cập nhật</li>
       </ol>
     </section>
@@ -44,21 +44,7 @@
                     <input class="form-control" name="alias" value="<?=!empty($data->alias) ? $data->alias : $data->node_name;?>">
                 </div>
 	            @endif()
-<!--
-                <div class="form-group">
-                    <label>Mô tả</label>
-                    <input class="form-control" name="description" value="{{$data->description}}">
-                </div>
--->
-               <div class="form-group">
-					  <label for="exampleInputFile">Trạng thái</label>
-					  <div class="row">
-						<div class="col-md-12">
-							<input type="radio" name="status" value="1" <?=!empty($data->status) ? 'checked' : '';?>> Active
-							<input type="radio" name="status" value="0" <?=empty($data->status) ? 'checked' : '';?> > Deactive
-						</div>
-					  </div>
-				  </div>
+               
                 @if($data->parent_node_id == 0)
                 <div class="form-group" >
                   <label for="exampleInputFile">Icon đại diện</label>
@@ -73,6 +59,25 @@
                   <p style="color:red" id="img_err"></p>
                 </div>
                 @endif
+                <div class="form-group">
+                      <label for="exampleInputFile">Trạng thái</label>
+                      <div class="row">
+                      <div class="col-md-12">
+                        <div class="radio">
+                      <label>
+                          <input type="radio" name="status" id="optionsRadios1" value="1" <?=!empty($data->status) ? 'checked' : '';?> >
+                          Kích hoạt
+                      </label>
+                  </div>
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="status" id="optionsRadios2" value="0" <?=empty($data->status) ? 'checked' : '';?>>
+                          Không kích hoạt
+                      </label>
+                  </div>
+                      </div>
+                  </div>
+                </div>
                 <div class="box-footer">
                     <button id="btn_submit" type="submit" class="btn btn-info pull-right">Cập nhật</button>
                   </div>

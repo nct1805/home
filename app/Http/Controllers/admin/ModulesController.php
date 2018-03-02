@@ -46,6 +46,7 @@ class ModulesController extends Controller
         );
         $modules = new ModulesModel;
         $modules->name = $request->name;
+        $modules->status = $request->status;
         $modules->save();
         return redirect('admin/modules/add')->with('thongbao','Thêm thành công');
     }
@@ -71,6 +72,7 @@ class ModulesController extends Controller
             ]
         );
         $modules->name = $request->name;
+        $modules->status = $request->status;
         $modules->save();
         return redirect('admin/modules/edit/'.$id)->with('thongbao','Cập nhật thành công');    
     }

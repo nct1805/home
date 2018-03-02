@@ -19,19 +19,42 @@ class ProductsController extends Controller
     }
     public function getList(Request $request)
     {
-        
-        if(check_permision($request->session()->get('data_session'),2,'_view') != 1)
-            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
-        $products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
+		$cate_1 = $request->cate_1;
+		$cate_2 = $request->cate_2;
+		$cate_3 = $request->cate_3;
+		$keyword = $request->keyword;
+		if(!empty($keyword) && !empty($cate_id))
+			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('node_id', $cate_id)->where('thread_id', $keyword)->limit(10)->paginate(20);
+		else if(!empty($keyword) && empty($cate_id))
+			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('thread_id', $keyword)->limit(10)->paginate(20);
+		else if(empty($keyword) && !empty($cate_id))
+			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('node_id', $cate_id)->limit(10)->paginate(20);
+		else
+        	$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
+		$list_cate1 = CategoryInternalModel::orderBy('lft', 'ASC')->where('parent_node_id', 0)->get();
+		$list_cate2 = CategoryInternalModel::orderBy('lft', 'ASC')->where('parent_node_id', $cate_1)->get();
+		$list_cate3 = CategoryInternalModel::orderBy('lft', 'ASC')->where('parent_node_id', $cate_2)->get();
+		$segment = Request()->segment(1);
+		$products->withPath($segment.'/products/list'.'?cate_1='.$cate_1.'&cate_2='.$cate_2.'&cate_3='.$cate_3.'&keyword='.$keyword);
         return view('admin.products.index',
             [   'title'=>'Sản phẩm',
                 'data'=>$products,
+			 	'list_cate1'=>$list_cate1,
+			 	'cate_1' => $cate_1,
+			 	'cate_2' => $cate_2,
+			 	'cate_3' => $cate_3,
+			 	'keyword' => $keyword,
+			 	'list_cate1' => $list_cate1,
+			 	'list_cate2' => $list_cate2,
+			 	'list_cate3' => $list_cate3,
             ]
         );
     }
+	
     public function getAdd()
     {
         $category = CategoryModel::all();
+
         return view('admin.products.add',['category' => $category]);    
     }
     public function postAdd(Request $request){
@@ -66,6 +89,7 @@ class ProductsController extends Controller
                         }
                     }
                 }
+
         $products = new ProductsModel;
         $products->title = $request->name;
         $products->parent_id = $mang4;
@@ -75,6 +99,9 @@ class ProductsController extends Controller
         $products->meta_title = $request->meta_title;
         $products->meta_key = $request->meta_key;
         $products->meta_des = $request->meta_des;
+
+        
+
         if($request->hasFile('image')){
             $file = $request->file('image');            
             $name = $file->getClientOriginalName();
@@ -97,7 +124,7 @@ class ProductsController extends Controller
         return redirect('admin/products/add')->with('thongbao','Thêm thành công');
     }
     public function getEdit($id){
-        $products = ProductsInternalModel::select(['products.*' , 'xf_thread.thread_id as thread_id', 'xf_thread.title as thread_title', 'xf_thread.node_id as node_id', 'xf_node.title as node_title', 'xf_node.node_type_id as node_type_id'])
+        $products = ProductsInternalModel::select(['products.*' , 'xf_thread.thread_id as thread_id', 'xf_thread.title as thread_title', 'xf_thread.node_id as node_id', 'xf_node.title as node_title', 'xf_node.node_type_id as node_type_id', 'xf_thread.price as thread_price'])
 			->where('thread_id',$id)->orderBy('thread_id', 'desc')
 			->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')
 			->leftjoin('xf_node', 'xf_node.node_id', '=', 'xf_thread.node_id')->first();

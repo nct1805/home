@@ -35,6 +35,20 @@
 	                <label>Tên modules</label>
 	                <input type="text" class="form-control" name="name" required="" value="@if(old('name')){{old('name')}}@else{{$data->name}}@endif">
 	            </div>
+              <div class="form-group">
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="status" id="optionsRadios1" value="1" <?php if($data->status ==1) echo 'checked="checked"' ?> >
+                          Kích hoạt
+                      </label>
+                  </div>
+                  <div class="radio">
+                      <label>
+                          <input type="radio" name="status" id="optionsRadios2" value="0" <?php if($data->status ==0) echo 'checked="checked"' ?>>
+                          Không kích hoạt
+                      </label>
+                  </div>                
+              </div>
 	            <div class="box-footer">
                 <button type="submit" class="btn btn-info pull-right">Cập nhật</button>
               </div>
