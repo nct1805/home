@@ -18,7 +18,6 @@
 <link rel="stylesheet" href="public/frontend/css/font-awesome.css">
 <link href="public/frontend/css/main.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="public/frontend/js/jquery-1.9.1.min.js"></script>
-<!--................begin menu left.....................-->
 <link href="public/frontend/menu/main_menu.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="public/frontend/menu/common.js"></script>
 <script type="text/javascript" src="public/frontend/menu/jquery_003.js"></script>
@@ -47,46 +46,12 @@
           </ul>
           <?php } ?>
       </li>
-    <?php } } ?>
-<!--
-    <li>
-    <ul tabindex="5001" class="level_1 f_menu_sub_2">
-      <li><a href="#" title="#">Thời trang nam</a>
-        <ul class="level_2 f_menu_sub_2">
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-        </ul>
-      </li>
-      <li><a href="#" title="#">Thời trang nữ</a>
-        <ul class="level_2 f_menu_sub_2">
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-        </ul>
-      </li>
-      <li><a href="#" title="#">Phụ kiện</a>
-        <ul class="level_2 f_menu_sub_2">
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-          <li><a href="#" title="#">Quần thể thao</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
--->
-  
+    <?php } } ?>  
 </ul>
 </div>
 </div>
 </div>	
-</div><!--end col-md-3-->
+</div>
 @include('frontend.home.slide_banner')
 </div>
 </div>
@@ -103,9 +68,17 @@
 <script type="text/javascript" src="public/frontend/dist/js_menu.js"></script>
 <script type="text/javascript" src="public/frontend/dist/js/addons/jquery.mmenu.fixedelements.min.js"></script>
 <script type="text/javascript" src="public/frontend/js/jquery.lazyload.min.js"></script>
-<script type="text/javascript">var lazyImage = "/public/frontend/images/404.png";</script>
+<script type="text/javascript">var lazyImage = "/public/frontend/images/loading.gif";</script>
 <script src="public/frontend/js/main.js"></script>
 <script src="public/frontend/js/home_page.js"></script>
 <script src="public/js/homepage.js"></script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.12&appId=487790174697999&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>

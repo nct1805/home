@@ -1,13 +1,13 @@
 <div class="col-md-9 col-sm-12 col-xs-12">
 	<nav class="menu-top hidden-sm hidden-xs">
     	<ul>
-        	<li><span>Tết 2018 - Mậu Tuất</span></li>
-            <li><a href="<?=$url_5giay;?>/categories/gioi-thieu-gop-y.67/" title="#">Giới thiệu - Góp ý</a></li>
-            <li><a href="<?=$url_5giay;?>/" title="#">Diễn đàn</a></li>
-            <li><a href="<?=$url_5giay;?>/categories/san-dau-gia.72/" title="#">Sàn đấu giá</a></li>
-            <li><a href="<?=$url_5giay;?>/categories/khu-vuc-giu-trat-tu-cho-dien-dan.8/" title="#">Khu vực giữ trật tự cho diễn đàn</a></li>
+            <li><a href="https://www.5giay.vn/mobile/" title="SẢN PHẨM NỔI BẬT">SẢN PHẨM NỔI BẬT</a></li>
+            <li><a href="https://sohot.vn/auctions/" title="SOHOT" target="_blank">SOHOT</a></li>
+            <li><a href="https://www.5giay.vn/forums/cong-nghe.191/" title="PR NEWS">PR NEWS</a></li>
+            <li><a href="https://www.haravan.com/harapage?ref=dangkypage" title="HARAPAGE" target="_blank">HARAPAGE</a></li>
+            <li><a href="https://www.haravan.com/?ref=dangkypage" title="LÀM WEB RẺ" target="_blank">LÀM WEB RẺ</a></li>
         </ul>
-    </nav><!--end menu top-->
+    </nav>
     <div class="slide-home">
       <div id="carousel-example-generic" class="carousel-fade carousel slide" data-ride="carousel">
       <div class="carousel-inner">
@@ -19,7 +19,6 @@
 		  </div>
      	  <?php } } ?>
       </div>
-      <!-- Controls -->
       <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
       <i class="fa fa-chevron-left" aria-hidden="true"></i>
       </a>
@@ -27,7 +26,7 @@
       <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
       </div>
-    </div><!--end slide-home-->
+    </div>
     <div class="row">
     <?php 
     $banner=\App\Models\frontend\BannersModel::where('status', 1)->select('id','url','name','image','target')->orderBy('ordering', 'ASC')->orderBy('id', 'DESC')->limit(3)->get();
@@ -43,4 +42,4 @@
         </div>
        <?php } } ?>
     </div>
-</div><!--end col-md-9-->
+</div>
