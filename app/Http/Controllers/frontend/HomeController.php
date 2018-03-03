@@ -19,20 +19,20 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data             = array();
-		$menu             = CategoryModel::where('parent_id','0')->where('status','1')->where('check_menu', 1)->orderBy('id', 'DESC')->get();
+        $menu             = array();
+		$menu             = CategoryModel::where('parent_id','0')->where('check_menu', 1)->orderBy('id', 'DESC')->get();
+		
 		$arrCateDefault   = CategoryModel::where('parent_id','0')->where('status','1')->orderBy('id', 'DESC')->get();
 		$slide            = SlidesModel::orderBy('ordering', 'ASC')->get();
 		$banner           = BannersModel::orderBy('ordering', 'ASC')->limit(3)->get();
-		
 		if(!empty($menu)){
 			foreach($menu as $key => $category){
 				$cate_2 = CategoryModel::where('parent_id', $category['id'])->orderBy('id', 'DESC')->get();
 				if($cate_2->count() > 0){
-					$menu[$category['id']]['total_cate2'] = $cate_2;
+					$menu[$key]['total_cate2'] = $cate_2;
 				}
 			}
 		}
-		
 		if(!empty($arrCateDefault)){
 			foreach($arrCateDefault as $key => $category){
 				$cate_2 = CategoryModel::where('parent_id', $category['id'])->orderBy('id', 'DESC')->get();
@@ -103,7 +103,7 @@ class HomeController extends Controller
 			$list_products = array_unique($list_products);
 			$product_seen = ProductsModel::where('status','1')->whereIn('id', $list_products)->orderBy('id', 'DESC')->get();
 		}
-        return view('frontend.home.index', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data, 'product_seen' => $product_seen]);
+        return view('frontend.home.home', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data, 'product_seen' => $product_seen]);
     }
     
     public function getProductByCate(Request $request){
@@ -171,11 +171,12 @@ class HomeController extends Controller
 						array_shift($arrProducts);
 					$arrProducts = implode(',', $arrProducts);
 					$minutes = 60;
-					return response('OK')->withCookie(cookie('list_products', $arrProducts, 60*24*7));
+					return response('1')->withCookie(cookie('list_products', $arrProducts, 60*24*7));
 				}
+				else return 1;
 			}
 			else{
-				return response('OK')->withCookie(cookie('list_products', $product_id, 60*24*7));
+				return response('1')->withCookie(cookie('list_products', $product_id, 60*24*7));
 			}
 		}
     }
