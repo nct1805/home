@@ -40,25 +40,26 @@ class HomeController extends Controller
                 $arrSpecial_products = [];
                 if(!empty($cate_2)){
 					$arrCate2 = [];
-                    foreach($cate_2 as $k => $cate)
-						array_push($arrCate2, $cate['id']);
+                    $arrCate3 = [];
+                    foreach($cate_2 as $k => $cate){
+                        array_push($arrCate2, $cate['id']);
+                        array_push($arrCate3, $cate['id']);
+                    }
 					$cate3 = CategoryModel::whereIn('parent_id', $arrCate2)->orderBy('id', 'DESC')->get();
 					if(!empty($cate3)){
-						$arrCate3 = [];
 						foreach($cate3 as $k => $v)
 							array_push($arrCate3, $v['id']);
 					}
-					if(!empty($arrCate3))
-						$arrCate_id[] = $arrCate3;
-					else if(empty($arrCate3) && !empty($arrCate2))
-						$arrCate_id[] = $arrCate2;
-					else if(empty($arrCate3) && empty($arrCate2))
-						$arrCate_id[] = $category['id'];
-					
+//					if(!empty($arrCate3))
+//						$arrCate_id[] = $arrCate3;
+//					else if(empty($arrCate3) && !empty($arrCate2))
+//						$arrCate_id[] = $arrCate2;
+//					else if(empty($arrCate3) && empty($arrCate2))
+//						$arrCate_id[] = $category['id'];
 					$special_products = array();
 					$product          = [];
-					$product          = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate_id)->orderBy('id', 'DESC')->get();
-					$special_products = ProductsModel::where('status','1')->where('check_special', 1)->whereIn('category_id', $arrCate_id)->orderBy('id', 'DESC')->limit(20)->get();
+					$product          = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->get();
+					$special_products = ProductsModel::where('status','1')->where('check_special', 1)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->limit(20)->get();
 					
 					if($product->count() > 0){
 						foreach($product as $pr)
