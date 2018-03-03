@@ -69,7 +69,7 @@ header{width:100%; border-bottom:solid 5px #ff9c00; padding:10px 0 5px 0; backgr
 .item-product:hover{border-width:2px 2px 2px 2px;border-color:#ff9c00;box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);}
 .home-store{ display:block; background:url(../images/icon-home.png) no-repeat left top; color:#002f6f;font-family:Proxima Nova Bold; margin-top:14px; padding-left:31px;}
 .date{ margin-top:6px; color:#818181; font-size:12px;}
-.title_h2{ color:#464646; font-weight:normal; padding:0; margin:3px 0 0; text-transform:capitalize; height: 60px; overflow: hidden;}
+.title_h2{ color:#464646; font-weight:normal; padding:0; margin:3px 0 0; text-transform:capitalize; height: 42px; overflow: hidden;}
 .price{ color:#ff9c00; font-size:16px;font-family:Proxima Nova Bold;margin-top:5px;}
 
 .box-item{width:100%; position:relative;}
