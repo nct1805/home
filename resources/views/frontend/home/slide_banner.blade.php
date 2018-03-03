@@ -34,7 +34,7 @@
     if(!empty($banner)){ foreach($banner as $k => $v){ ?>
     	<div class="col-md-4 col-sm-4 col-xs-4 ads">
         	<a href="<?=$v->url;?>" title="<?=$v->name;?>" target="<?=$v->target;?>">
-           		<img class="lazyload img-responsive" src="public/uploads/banner/<?=$v->image;?>">
+           		<img class="img-responsive" src="public/uploads/banner/<?=$v->image;?>">
             	<div class="interactive_overlay">
 					<div class="interactive_content">
 					</div>
