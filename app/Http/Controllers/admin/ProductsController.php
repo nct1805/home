@@ -27,15 +27,16 @@ class ProductsController extends Controller
 		$list_cate1 = CategoryInternalModel::orderBy('lft', 'ASC')->where('parent_node_id', 0)->get();
 		$list_cate2 = CategoryInternalModel::orderBy('lft', 'ASC')->where('parent_node_id', $cate_1)->get();
 		$list_cate3 = CategoryInternalModel::orderBy('lft', 'ASC')->where('parent_node_id', $cate_2)->get();
-		
 		if(!empty($cate_1) && !empty($cate_2) && !empty($cate_3))
 			$arrList_cate[] = $cate_3;
 		else if(!empty($cate_1) && !empty($cate_2) && empty($cate_3)){
 			$arrList_cate = [];
-			if(!empty($list_cate3)){
+			if($list_cate3->count() > 0){
 				foreach($list_cate3 as $k => $v)
 					array_push($arrList_cate, $v['node_id']);
 			}
+			array_push($arrList_cate, $cate_2);
+			
 		}
 		else if(!empty($cate_1) && empty($cate_2) && empty($cate_3)){
 			$arrList_cate1 = [];
@@ -55,9 +56,11 @@ class ProductsController extends Controller
 						foreach($list_cate3_tmp as $k => $v)
 							array_push($arrList_cate, $v['node_id']);
 					}
+					array_push($arrList_cate, $arrList_cate2);
 				}
 			}
 		}
+		
 		$keyword = $request->keyword;
 		if(!empty($arrList_cate) && !empty($keyword))
 			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->whereIN('node_id', $arrList_cate)->where('thread_id', $keyword)->paginate(20);
@@ -158,7 +161,7 @@ class ProductsController extends Controller
         return redirect('admin/products/add')->with('thongbao','Thêm thành công');
     }
     public function getEdit($id){
-        $products = ProductsInternalModel::select(['products.*' , 'xf_thread.thread_id as thread_id', 'xf_thread.title as thread_title', 'xf_thread.node_id as node_id', 'xf_node.title as node_title', 'xf_node.node_type_id as node_type_id', 'xf_thread.price as thread_price'])
+        $products = ProductsInternalModel::select(['products.*' , 'xf_thread.thread_id as thread_id','xf_thread.username', 'xf_thread.title as thread_title', 'xf_thread.node_id as node_id', 'xf_node.title as node_title', 'xf_node.node_type_id as node_type_id', 'xf_thread.price as thread_price'])
 			->where('thread_id',$id)->orderBy('thread_id', 'desc')
 			->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')
 			->leftjoin('xf_node', 'xf_node.node_id', '=', 'xf_thread.node_id')->first();

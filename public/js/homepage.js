@@ -44,15 +44,28 @@ $(document).ready(function(){
     $('.category_2').on('click', function(e){
         e.preventDefault();
         var cate_id = $(this).data('cate'); 
+        var type = $(this).data('type'); 
         var key     = $(this).data('key'); 
+		
         $.ajax({
             type : "get",
             dataType : "json", //parse json
-            url : "get_product_by_cate_ajax/"+cate_id,
+            url : "get_product_by_cate_ajax/"+cate_id+"/"+type,
             success : function( data )
             {
-                render_html_products(data, 'html', key);
-                $('#cate_id').val(cate_id);
+                render_html_products(data['products'], 'html', key);
+                
+                $('#total_page_'+key).val(data['total_page']);
+                $('#page_'+key).val(3);
+				if(data['total_page'] == 1)
+					$('.btn_load_more_'+key).hide();
+				else
+					$('.btn_load_more_'+key).show();
+				
+				if(type == 2)
+					$('#cate_id_'+key).val(cate_id);
+				else
+					$('#cate_id_'+key).val(0);
             }
         });
     });
@@ -61,7 +74,7 @@ $(document).ready(function(){
         var key = $(this).data('key');
         var page = parseInt($('#page_'+key).val());
         var cate_id = $(this).data('cate');
-        var cate_2_id = $('#cate_id').val();
+        var cate_2_id = $('#cate_id_'+key).val();
         var total_page = $('#total_page_'+key).val();
         if(page == total_page)
             $(this).hide();
@@ -82,14 +95,14 @@ $(document).ready(function(){
     $('.redirect_detail').on('click', function(){
         var product_id = $(this).data('id');
         var alias = $(this).data('alias');
+		var url = url_5giay+'/'+'threads'+alias+'.'+product_id;
         $.ajax({
             type : "get",
             dataType : "json",
             url : "push_array_cookie/"+product_id,
             success : function( data )
             {
-				if(data == 'OK')
-					window.location.href = url_5giay+'/'+'threads'+alias+'.'+product_id;
+				window.location.href = url;
             }
         });
     });

@@ -108,16 +108,41 @@ class HomeController extends Controller
     
     public function getProductByCate(Request $request){
         if($request->ajax()){
+            $type = $request->type;
             $cate_id = $request->id;
-			$arrCate3 = [];
-			$cate3 = CategoryModel::where('parent_id', $cate_id)->orderBy('id', 'DESC')->get();
-			if(!empty($cate3)){
-				$arrCate3 = [];
-				foreach($cate3 as $k => $v)
-					array_push($arrCate3, $v['id']);
+			if($type == 2){
+				$arrCate3[] = $cate_id;
+				$cate3 = CategoryModel::where('parent_id', $cate_id)->orderBy('id', 'DESC')->get();
+				if(!empty($cate3)){
+					foreach($cate3 as $k => $v)
+						array_push($arrCate3, $v['id']);
+				}
+				$product_all = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->get();
+				$total_page = ceil($product_all->count()/2);
+				$product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->limit(4)->get();
 			}
-            $product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->limit(4)->get();
-            return $product;
+			else{
+				$list_cate_2 = CategoryModel::where('parent_id', $cate_id)->orderBy('id', 'DESC')->get();
+				if(!empty($list_cate_2)){
+					$arrCate2_id = [];
+					$arrCate3 = [];
+                    foreach($list_cate_2 as $v){
+						array_push($arrCate2_id, $v['id']);
+						array_push($arrCate3, $v['id']);
+					}
+					$cate3 = CategoryModel::whereIn('parent_id', $arrCate2_id)->orderBy('id', 'DESC')->get();
+					if(!empty($cate3)){
+						foreach($cate3 as $k => $v)
+							array_push($arrCate3, $v['id']);
+					}
+					
+					$product_all = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->get();
+					$total_page = ceil($product_all->count()/2);
+					$product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->limit(4)->get();
+                }
+			}
+			
+            return json_encode(array('products' => $product, 'total_page' => $total_page));
         }
     }
     
@@ -127,29 +152,37 @@ class HomeController extends Controller
             $cate_id = $request->cate;
             $cate_2_id = $request->cate_2_id;
             $start = ($page - 1) * 2;
-			$arrCate_id[] = $cate_id;
-            if(empty($cate_2_id)){//all
-                $arrCate2_id = [];
-                $list_cate_2 = CategoryModel::where('parent_id', $cate_id)->orderBy('id', 'DESC')->get();
-                if(!empty($list_cate_2)){
-                    foreach($list_cate_2 as $v)
-                        array_push($arrCate2_id, $v['id']);
-					$cate3 = CategoryModel::whereIn('parent_id', $arrCate2_id)->orderBy('id', 'DESC')->get();
+			$arrCate_id = [];
+            if(!empty($cate_2_id)){
+				$cate3 = CategoryModel::where('parent_id', $cate_2_id)->orderBy('id', 'DESC')->get();
+				if(!empty($cate3)){
+					$arrCate3 = [];
+					foreach($cate3 as $k => $v)
+						array_push($arrCate3, $v['id']);
+				}
+				array_push($arrCate3, $cate_2_id);
+				
+				
+            }
+			else{//all
+				$cate2 = CategoryModel::where('parent_id', $cate_id)->orderBy('id', 'DESC')->get();
+				
+				if(!empty($cate2)){
+					$arrCate2 = [];
+					$arrCate3 = [];
+					foreach($cate2 as $k => $v){
+						array_push($arrCate3, $v['id']);
+						array_push($arrCate2, $v['id']);
+					}
+					$cate3 = CategoryModel::whereIn('parent_id', $arrCate2)->orderBy('id', 'DESC')->get();
 					if(!empty($cate3)){
-						$arrCate3 = [];
 						foreach($cate3 as $k => $v)
 							array_push($arrCate3, $v['id']);
 					}
-                }
-            }
+				}
+			}
 			
-			if(!empty($arrCate3))
-				$arrCate_id[] = $arrCate3;
-			else if(empty($arrCate3) && !empty($arrCate2_id))
-				$arrCate_id[] = $arrCate2_id;
-			else if(empty($arrCate3) && empty($arrCate2_id) && !empty($arrCate_id))
-				$arrCate_id = $arrCate_id;
-			$product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate_id)->orderBy('id', 'DESC')->offset($start)->limit(2)->get();
+			$product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->offset($start)->limit(2)->get();
             return $product;
         }
     }
@@ -173,7 +206,8 @@ class HomeController extends Controller
 					$minutes = 60;
 					return response('1')->withCookie(cookie('list_products', $arrProducts, 60*24*7));
 				}
-				else return 1;
+				else
+					return 1;
 			}
 			else{
 				return response('1')->withCookie(cookie('list_products', $product_id, 60*24*7));

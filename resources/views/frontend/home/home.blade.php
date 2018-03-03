@@ -16,11 +16,11 @@
         <?php if(!empty($value['total_cate2'])){  ?>
         <ul class="col-md-9 col-sm-12 col-xs-12 right-category">
             <div id="carousel" class="carousel slide carousel-all carousel<?=$k_tmp;?>" data-ride="carousel" data-type="multi" data-interval="false">
-                <div class="all-pr"><a href="#1">Tất cả</a></div>
+                <div class="all-pr" ><a href="javascript:void(0)" class="category_2" data-type="1" data-cate="<?=$value['cate1']['id'];?>" data-key="<?=$k_tmp;?>">Tất cả</a></div>
 				<div class="carousel-inner">     
 				    <?php foreach($value['total_cate2'] as $k => $cate){ ?>           
 					<div class="item <?=$k==0?'active' : '';?>">
-						<div class="carousel-col"><a href="#1" class="category_2" data-cate="<?=$cate['id']?>" data-key="<?=$k_tmp;?>" ><?=$cate['name'];?></a></div>
+						<div class="carousel-col"><a href="javascript:void(0)" class="category_2" data-cate="<?=$cate['id']?>" data-type="2" data-key="<?=$k_tmp;?>" ><?=$cate['name'];?></a></div>
 					</div>
 					<?php } ?>
 				</div>
@@ -92,11 +92,11 @@
     </figure>
     <?php } ?>
     </div>
-    <input type="hidden" id="cate_id" value="0">
+    <input type="hidden" id="cate_id_<?=$k_tmp;?>" value="0">
     <input type="hidden" id="page_<?=$k_tmp;?>" value="3">
     <input type="hidden" id="total_page_<?=$k_tmp;?>" value="<?=!empty($value['total_page']) ? $value['total_page'] : 1;?>">
     <?php if(!empty($value['total_page']) && $value['total_page'] > 2 ){ ?>
-    <div class="col-md-12 col-xs-12 lear_more btn btn-info hidden-lg hidden-md" data-key="<?=$k_tmp;?>" data-cate="<?=$key;?>">Xem thêm <i class="fa fa-angle-right"></i></div>
+    <div class="col-md-12 col-xs-12 lear_more btn_load_more_<?=$k_tmp;?> btn btn-info hidden-lg hidden-md" data-key="<?=$k_tmp;?>" data-cate="<?=$key;?>">Xem thêm <i class="fa fa-angle-right"></i></div>
     <?php } ?>
 </div>
 </section>
