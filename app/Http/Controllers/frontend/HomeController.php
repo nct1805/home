@@ -162,7 +162,6 @@ class HomeController extends Controller
 				}
 				array_push($arrCate3, $cate_2_id);
 				
-				
             }
 			else{//all
 				$cate2 = CategoryModel::where('parent_id', $cate_id)->orderBy('id', 'DESC')->get();

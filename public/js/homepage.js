@@ -106,4 +106,19 @@ $(document).ready(function(){
             }
         });
     });
+	
+	//backt-to-top
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 300) {
+            $('.back-top-btn').fadeIn();
+        } else {
+            $('.back-top-btn').fadeOut();
+        }
+    });
+    $('.back-top-btn').click(function(event) {
+        event.preventDefault();
+        $('html, body').animate({
+            scrollTop: 0
+        }, 300);
+    });
 });

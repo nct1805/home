@@ -2,11 +2,7 @@
 <div class="container">
 <div class="row">
 	<div class="col-lg-3 col-md-3 col-xs-12 hidden-sm hidden-xs header-logo">
-<<<<<<< HEAD
-    <a href="/" title="#"><img class="img-thumbnail" src="public/frontend/images/images/logo.png" title="#" alt="#"/></a>    
-=======
-    <a href="/5giay" title="5 giây cho mỗi lần thấy"><img class="img-thumbnail" src="public/frontend/images/images/logo.png" title="5 giây cho mỗi lần thấy" alt="5 giây cho mỗi lần thấy"/></a>    
->>>>>>> a01d995ad23283d5d7d670d7d0f02f75072f621b
+    <a href="/" title="5 giây cho mỗi lần thấy"><img class="img-thumbnail" src="public/frontend/images/images/logo.png" title="5 giây cho mỗi lần thấy" alt="5 giây cho mỗi lần thấy"/></a>    
     </div>    
     <div class="col-lg-3 col-md-3 register pull-right hidden-sm hidden-xs">    
     	<div class="btn-group">

@@ -1,5 +1,27 @@
 @extends('frontend.home.index')
 @section('content')
+<style>
+	.back-top-btn{
+		display: none;
+		position: fixed;
+		right: 25px;
+		bottom: 120px;
+		z-index: 9;
+		min-width: auto;
+		width: 40px;
+		height: 40px;
+		text-align: center;
+		border-radius: 100%;
+/*		background-color: #2bc5f8;*/
+		line-height: 0;
+		padding-right: 10px;
+		padding-left: 10px;
+		line-height: 1.4;
+/*		background-image:url("public/frontend/images/up-arrow-icon.png");*/
+		background: #2bc5f8 url(public/frontend/images/cd-top-arrow.svg) no-repeat center 50%;
+	}
+    
+</style>
 <?php if(!empty($data)){ $k_tmp = 1; foreach($data as $key => $value){ ?>
 <section class="quangcao">
 <div class="container">
@@ -86,7 +108,9 @@
         <figcaption>
             <div class="home-store"><?=$products['shop_name'];?></div>
             <div class="date"><?=!empty($products['updated_at']) ? date_format($products['updated_at'],'d/m/Y'): '';?></div>
-            <h2 class="title_h2"><a href="#"><?=$products['name'];?></a></h2>
+            <h2 class="title_h2">
+            	<a class="redirect_detail" href="javascript:void(0);" data-id="<?=$products['id'];?>" data-alias="<?=$products['alias'];?>" href="javascript:void(0);"><?=$products['name'];?></a>
+            </h2>
             <div class="price"><i class="fa fa-tags"></i><?=number_format($products['price'],0,",",".");?>đ</div>
         </figcaption>
     </figure>
@@ -125,6 +149,8 @@
                 </div>
         </div>
     </div>
+<a href="#" class="back-top-btn" >
+</a>
 </section>
 <?php } ?>
 @endsection
