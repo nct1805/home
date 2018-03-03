@@ -28,6 +28,7 @@
       </div>
     </div>
     <div class="row">
+      
     <?php 
     $banner=\App\Models\frontend\BannersModel::where('status', 1)->select('id','url','name','image','target')->orderBy('ordering', 'ASC')->orderBy('id', 'DESC')->limit(3)->get();
     if(!empty($banner)){ foreach($banner as $k => $v){ ?>
