@@ -12,11 +12,10 @@
       <div id="carousel-example-generic" class="carousel-fade carousel slide" data-ride="carousel">
       <div class="carousel-inner">
 		  <?php 
-
-
+      $slide=\App\Models\frontend\SlidesModel::where('status', 1)->select('id','url','name','image')->orderBy('ordering', 'ASC')->orderBy('id', 'DESC')->get();
       if(!empty($slide)){ foreach($slide as $k => $val){ ?>
 		  <div class="item <?=$k==0?'active' : '';?>">
-			<a href="<?=$val['url'];?>" title="<?=$val['name'];?>"><img class="img-responsive" alt="#" src="public/uploads/danh-muc/<?=$val['image'];?>" ></a>
+			<a href="<?=$val->url;?>" title="<?=$val->name;?>"><img class="img-responsive" alt="<?=$val->name;?>" src="public/uploads/slide/<?=$val->image;?>" title="<?=$val->name;?>" ></a>
 		  </div>
      	  <?php } } ?>
       </div>
@@ -30,13 +29,14 @@
       </div>
     </div><!--end slide-home-->
     <div class="row">
-    <?php if(!empty($banner)){ foreach($banner as $k => $v){ ?>
+    <?php 
+    $banner=\App\Models\frontend\BannersModel::where('status', 1)->select('id','url','name','image','target')->orderBy('ordering', 'ASC')->orderBy('id', 'DESC')->limit(3)->get();
+    if(!empty($banner)){ foreach($banner as $k => $v){ ?>
     	<div class="col-md-4 col-sm-4 col-xs-4 ads">
-        	<a href="<?=$v['url'];?>" title="<?=$v['name'];?>" target="<?=$v['target'];?>">
-           		<img class="lazyload img-responsive" src="public/uploads/danh-muc/<?=$v['image'];?>">
+        	<a href="<?=$v->url;?>" title="<?=$v->name;?>" target="<?=$v->target;?>">
+           		<img class="lazyload img-responsive" src="public/uploads/banner/<?=$v->image;?>">
             	<div class="interactive_overlay">
 					<div class="interactive_content">
-
 					</div>
 				</div>
             </a>
