@@ -104,7 +104,7 @@ class CategoryController extends Controller
 				$img->save(public_path('uploads/danh-muc/' .$image_name));
 			}
 			else
-				$image_name = $category_exten->image;
+				$image_name = !empty($category_exten->image) ? $category_exten->image : '';
             
             //Icon
             if($request->hasFile('icon')){
@@ -123,7 +123,7 @@ class CategoryController extends Controller
 				$icon->save(public_path('uploads/danh-muc/' .$icon_name));
 			}
 			else
-				$icon_name = $category_exten->icon;
+				$icon_name = !empty($category_exten->icon) ? $category_exten->icon : '';
 		}
         //Add new
         if(empty($category_exten)){
@@ -134,6 +134,7 @@ class CategoryController extends Controller
             $category->status      = $request->status;
 			$category->type_id     = $request->type_id;
 			$category->parent_id   = $request->parent_id;
+            $category->check_menu   = $request->check_menu;
             $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
             $category->alias       = $alias;
             $category->image       = $image_name;
@@ -146,8 +147,8 @@ class CategoryController extends Controller
             $category_exten->status      = $request->status;
             $category_exten->type_id     = $request->type_id;
             $category_exten->parent_id   = $request->parent_id;
-            $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
             $category_exten->check_menu   = $request->check_menu;
+            $alias = !empty($alias) ? $alias : ceo($request->name);
             $category_exten->alias       = $alias;
             $category_exten->image       = $image_name;
             $category_exten->icon        = $icon_name;

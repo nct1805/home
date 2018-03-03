@@ -161,7 +161,7 @@ class ProductsController extends Controller
         return redirect('admin/products/add')->with('thongbao','Thêm thành công');
     }
     public function getEdit($id){
-        $products = ProductsInternalModel::select(['products.*' , 'xf_thread.thread_id as thread_id', 'xf_thread.title as thread_title', 'xf_thread.node_id as node_id', 'xf_node.title as node_title', 'xf_node.node_type_id as node_type_id', 'xf_thread.price as thread_price'])
+        $products = ProductsInternalModel::select(['products.*' , 'xf_thread.thread_id as thread_id','xf_thread.username', 'xf_thread.title as thread_title', 'xf_thread.node_id as node_id', 'xf_node.title as node_title', 'xf_node.node_type_id as node_type_id', 'xf_thread.price as thread_price'])
 			->where('thread_id',$id)->orderBy('thread_id', 'desc')
 			->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')
 			->leftjoin('xf_node', 'xf_node.node_id', '=', 'xf_thread.node_id')->first();
