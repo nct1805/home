@@ -25,7 +25,7 @@ header{width:100%; border-bottom:solid 5px #ff9c00; padding:10px 0 5px 0; backgr
 .title_category .fa{ padding-right:5px;}
 .menu-top{ width:100%; display:inline-block;}
 .menu-top ul li{ display:inline-block; margin-right:30px; padding:8px 0;}
-.menu-top ul li:first-child{ background:url(../images/happynewyear.png) no-repeat left center; padding-left:35px; color:#db001a;font-family:Proxima Nova Bold;}
+.menu-top ul li:first-child{ color:#db001a;font-family:Proxima Nova Bold;}
 .menu-top ul li a{ color:#464646;}
 .menu-top ul li a:hover{color:#db001a;}
 .slide-home{ position:relative; margin-top:3px;}
