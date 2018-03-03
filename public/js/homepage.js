@@ -82,14 +82,14 @@ $(document).ready(function(){
     $('.redirect_detail').on('click', function(){
         var product_id = $(this).data('id');
         var alias = $(this).data('alias');
+		var url = url_5giay+'/'+'threads'+alias+'.'+product_id;
         $.ajax({
             type : "get",
             dataType : "json",
             url : "push_array_cookie/"+product_id,
             success : function( data )
             {
-				if(data == 'OK')
-					window.location.href = url_5giay+'/'+'threads'+alias+'.'+product_id;
+				window.location.href = url;
             }
         });
     });

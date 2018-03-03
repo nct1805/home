@@ -139,7 +139,8 @@
 <ul class="block_category menu_slim_1 f_submenu_list">
     <?php if(!empty($menu)){ foreach($menu as $k => $val){ ?>
       <li>
-          <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="#"><img src="public/frontend/images/images/icon-dt.png" alt="#" class="icon"><?=$val['name']?></a>
+          <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="#">
+          	<img src="public/uploads/danh-muc/<?=$val['icon'];?>" alt="#" class="icon"><?=$val['name']?></a>
           <?php if(!empty($val['total_cate2'])){?>
           <ul tabindex="5001" class="level_1 f_menu_sub_2">
               <?php foreach($val['total_cate2'] as $v){ if(!empty($v['parent_id']) && ($v['parent_id'] == $val['id']) ){ ?>

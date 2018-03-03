@@ -146,12 +146,8 @@ class CategoryController extends Controller
             $category_exten->status      = $request->status;
             $category_exten->type_id     = $request->type_id;
             $category_exten->parent_id   = $request->parent_id;
-<<<<<<< HEAD
             $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
-=======
             $category_exten->check_menu   = $request->check_menu;
-            $alias = !empty($alias) ? $alias : ceo($request->name);
->>>>>>> 62a852886130762c40ec21cb0bdbde5dd215d680
             $category_exten->alias       = $alias;
             $category_exten->image       = $image_name;
             $category_exten->icon        = $icon_name;
