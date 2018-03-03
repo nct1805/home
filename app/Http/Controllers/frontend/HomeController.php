@@ -94,7 +94,7 @@ class HomeController extends Controller
                 }
 			}
 		}
-        $url_5giay = 'https://www.5giay.vn';
+        $url_5giay = 'https://new.5giay.vn/';
 		$product_seen = '';
 		$list_products = $request->cookie('list_products');
 		

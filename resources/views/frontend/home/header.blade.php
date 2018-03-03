@@ -48,7 +48,7 @@
 <ul>
   <?php if(!empty($menu)){ foreach($menu as $k => $val){ ?>
   <li>
-      <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="#"><img src="public/frontend/images/images/icon-dt.png" alt="#" class="icon"><?=$val['name']?></a>
+      <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="<?=$val['name']?>"><img src="public/update/danh-muc/<?=$val['icon'];?>" alt="<?=$val['name']?>" class="icon"><?=$val['name']?></a>
       <?php if(!empty($val['total_cate2'])){?>
       <ul>
           <?php foreach($val['total_cate2'] as $v){ if(!empty($v['parent_id']) && ($v['parent_id'] == $val['id']) ){ ?>
