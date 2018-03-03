@@ -8,7 +8,7 @@
                     <li><a href="https://www.5giay.vn/igo/trangchu/Qui-che-quan-ly-hoat-dong-5giay.pdf" title="Quy chế hoạt động">Quy chế hoạt động</a></li>
 <li><a href="https://new.5giay.vn/threads/noi-quy-cua-5giay-vn.357/" title="Nội quy">Nội quy</a></li>
 <li><a href="https://new.5giay.vn/help/" title="Nội quy">Trợ giúp</a></li>
-                    <li><a href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=218" title="đăng ký bộ công thương" target="_blank"><img class="lazyload img-thumbnail" src="public/frontend/images/bct.png" alt="đăng ký bộ công thương" title="đăng ký bộ công thương"></a></li>
+                    <li><a href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=218" title="đăng ký bộ công thương" target="_blank"><img class="img-thumbnail" src="public/frontend/images/bct.png" alt="đăng ký bộ công thương" title="đăng ký bộ công thương"></a></li>
                 </ul>
             </div>
             <div class="col-md-3">
