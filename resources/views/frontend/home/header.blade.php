@@ -2,7 +2,7 @@
 <div class="container">
 <div class="row">
 	<div class="col-lg-3 col-md-3 col-xs-12 hidden-sm hidden-xs header-logo">
-    <a href="/5giay" title="#"><img class="img-thumbnail" src="public/frontend/images/images/logo.png" title="#" alt="#"/></a>    
+    <a href="/" title="#"><img class="img-thumbnail" src="public/frontend/images/images/logo.png" title="#" alt="#"/></a>    
     </div>    
     <div class="col-lg-3 col-md-3 register pull-right hidden-sm hidden-xs">    
     	<div class="btn-group">

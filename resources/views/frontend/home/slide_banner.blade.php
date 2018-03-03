@@ -23,7 +23,7 @@
       <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
       <i class="fa fa-chevron-left" aria-hidden="true"></i>
       </a>
-      <a class="right carousel-control" href="#carouheaderample-generic" role="button" data-slide="next">
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
       <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
       </div>
