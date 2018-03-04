@@ -113,6 +113,11 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('edit/{id}', ['as' => 'banner_edit', 'uses' => 'admin\BannersController@postEdit']); 
         Route::get('delete/{id}', ['as' => 'banner_delete', 'uses' => 'admin\BannersController@getDelete']);       
     });
+    Route::group(['prefix' => 'config'], function () {
+        Route::get('list', ['as' => 'config_list', 'uses' => 'admin\ConfigController@getList']);
+        Route::get('edit/{id}', ['as' => 'config_edit', 'uses' => 'admin\ConfigController@getEdit']); 
+        Route::post('edit/{id}', ['as' => 'config_edit', 'uses' => 'admin\ConfigController@postEdit']);      
+    });
     Route::group(['prefix' => 'slide'], function () {
         Route::get('list', ['as' => 'slide_list', 'uses' => 'admin\SlidesController@getList']);
         Route::get('add', ['as' => 'slide_add', 'uses' => 'admin\SlidesController@getAdd']);
