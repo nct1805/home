@@ -40,46 +40,30 @@ class HomeController extends Controller
                 $arrSpecial_products = [];
                 if(!empty($cate_2)){
 					$special_products = array();
-                    $arrCate3_id = [];
                     foreach($cate_2 as $k => $cate){
-//                        if($cate['id'] == 159){
-                            
+                        $arrCate3_id = [];
                         $cate3 = CategoryModel::where('parent_id', $cate['id'])->where('status','1')->orderBy('id', 'DESC')->get();
                         if(!empty($cate3)){
                             array_push($arrCate3_id, $cate['id']);
-                            foreach($cate3 as $k => $v)
+                            foreach($cate3 as $k => $v){
                                 array_push($arrCate3_id, $v['id']);
+                            }
+                                
                         }
-                            
                         $product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3_id)->orderBy('id', 'DESC')->first();
-                        if(!empty($product['id']))
+                        if(!empty($product)){
                             array_push($arrCate2, $cate);
-
-//                        }
+                        } 
                     }
-					
 					$arrProducts          = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3_id)->orderBy('id', 'DESC')->limit(4)->get();
 					$arrSpecial_products  = ProductsModel::where('status','1')->where('check_special', 1)->whereIn('category_id', $arrCate3_id)->orderBy('id', 'DESC')->limit(20)->get();
 
                     if( $arrProducts->count() > 0 || $arrSpecial_products->count() > 0 ){
-                        $data[$category['id']]['cate1']       = $category;
-                        $data[$category['id']]['total_cate2'] = $arrCate2;                       
-                        $total_page = ceil((count($arrProducts)/2));
-                        $data[$category['id']]['total_page']  = $total_page;
-                        
-//                        if($total_page > 2){
-//                            $tmp = array();
-//                            foreach($arrProducts as $k => $v) {
-//                                if($k < 4)
-//                                    array_push($tmp, $v);
-//                            }
-//                            
-////                            foreach($arrProducts as $v) {
-////                                isset($tmp[$v['name']]) or $tmp[$v['name']] = $v;
-////                            }
-//                            $arrProducts = $tmp;
-//                        }
-                        $data[$category['id']]['products']    = $arrProducts;
+                        $data[$category['id']]['cate1']            = $category;
+                        $data[$category['id']]['total_cate2']      = $arrCate2;                       
+                        $total_page                                = ceil((count($arrProducts)/2));
+                        $data[$category['id']]['total_page']       = $total_page;
+                        $data[$category['id']]['products']         = $arrProducts;
                         $data[$category['id']]['special_products'] = $arrSpecial_products;
                     }
                 }
@@ -88,7 +72,6 @@ class HomeController extends Controller
         $url_5giay = 'https://new.5giay.vn/';
 		$product_seen = '';
 		$list_products = $request->cookie('list_products');
-//		dd($data);
 		if(!empty($list_products)){
 			$list_products = explode(',', $list_products);
 			$list_products = array_unique($list_products);
