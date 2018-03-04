@@ -21,13 +21,12 @@ class HomeController extends Controller
         $data             = array();
         $menu             = array();
 		$menu             = CategoryModel::where('parent_id','0')->where('check_menu', 1)->orderBy('id', 'DESC')->get();
-		
 		$arrCateDefault   = CategoryModel::where('parent_id','0')->where('status','1')->orderBy('id', 'DESC')->get();
 		$slide            = SlidesModel::orderBy('ordering', 'ASC')->get();
 		$banner           = BannersModel::orderBy('ordering', 'ASC')->limit(3)->get();
 		if(!empty($menu)){
 			foreach($menu as $key => $category){
-				$cate_2 = CategoryModel::where('parent_id', $category['id'])->orderBy('id', 'DESC')->get();
+				$cate_2 = CategoryModel::where('parent_id', $category['id'])->where('status','1')->orderBy('id', 'DESC')->get();
 				if($cate_2->count() > 0){
 					$menu[$key]['total_cate2'] = $cate_2;
 				}
@@ -35,60 +34,51 @@ class HomeController extends Controller
 		}
 		if(!empty($arrCateDefault)){
 			foreach($arrCateDefault as $key => $category){
-				$cate_2 = CategoryModel::where('parent_id', $category['id'])->orderBy('id', 'DESC')->get();
+				$cate_2 = CategoryModel::where('parent_id', $category['id'])->where('status','1')->orderBy('id', 'DESC')->get();
+                $arrCate2 = [];
                 $arrProducts = [];
                 $arrSpecial_products = [];
                 if(!empty($cate_2)){
-					$arrCate2 = [];
-                    $arrCate3 = [];
-                    foreach($cate_2 as $k => $cate){
-                        array_push($arrCate2, $cate['id']);
-                        array_push($arrCate3, $cate['id']);
-                    }
-					$cate3 = CategoryModel::whereIn('parent_id', $arrCate2)->orderBy('id', 'DESC')->get();
-					if(!empty($cate3)){
-						foreach($cate3 as $k => $v)
-							array_push($arrCate3, $v['id']);
-					}
-//					if(!empty($arrCate3))
-//						$arrCate_id[] = $arrCate3;
-//					else if(empty($arrCate3) && !empty($arrCate2))
-//						$arrCate_id[] = $arrCate2;
-//					else if(empty($arrCate3) && empty($arrCate2))
-//						$arrCate_id[] = $category['id'];
 					$special_products = array();
-					$product          = [];
-					$product          = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->get();
-					$special_products = ProductsModel::where('status','1')->where('check_special', 1)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->limit(20)->get();
-					
-					if($product->count() > 0){
-						foreach($product as $pr)
-							array_push($arrProducts, $pr);
-					}
+                    $arrCate3_id = [];
+                    foreach($cate_2 as $k => $cate){
+//                        if($cate['id'] == 159){
+                            
+                        $cate3 = CategoryModel::where('parent_id', $cate['id'])->where('status','1')->orderBy('id', 'DESC')->get();
+                        if(!empty($cate3)){
+                            array_push($arrCate3_id, $cate['id']);
+                            foreach($cate3 as $k => $v)
+                                array_push($arrCate3_id, $v['id']);
+                        }
+                            
+                        $product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3_id)->orderBy('id', 'DESC')->first();
+                        if(!empty($product['id']))
+                            array_push($arrCate2, $cate);
 
-					if($special_products->count() > 0){
-						foreach($special_products as $spc_pr)
-							array_push($arrSpecial_products, $spc_pr);
-					}
-                    if( !empty($arrProducts) || !empty($arrSpecial_products) ){
-						
+//                        }
+                    }
+					
+					$arrProducts          = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3_id)->orderBy('id', 'DESC')->limit(4)->get();
+					$arrSpecial_products  = ProductsModel::where('status','1')->where('check_special', 1)->whereIn('category_id', $arrCate3_id)->orderBy('id', 'DESC')->limit(20)->get();
+
+                    if( $arrProducts->count() > 0 || $arrSpecial_products->count() > 0 ){
                         $data[$category['id']]['cate1']       = $category;
-                        $data[$category['id']]['total_cate2'] = $cate_2;                       
+                        $data[$category['id']]['total_cate2'] = $arrCate2;                       
                         $total_page = ceil((count($arrProducts)/2));
                         $data[$category['id']]['total_page']  = $total_page;
                         
-                        if($total_page > 2){
-                            $tmp = array();
-                            foreach($arrProducts as $k => $v) {
-                                if($k < 4)
-                                    array_push($tmp, $v);
-                            }
-                            
-//                            foreach($arrProducts as $v) {
-//                                isset($tmp[$v['name']]) or $tmp[$v['name']] = $v;
+//                        if($total_page > 2){
+//                            $tmp = array();
+//                            foreach($arrProducts as $k => $v) {
+//                                if($k < 4)
+//                                    array_push($tmp, $v);
 //                            }
-                            $arrProducts = $tmp;
-                        }
+//                            
+////                            foreach($arrProducts as $v) {
+////                                isset($tmp[$v['name']]) or $tmp[$v['name']] = $v;
+////                            }
+//                            $arrProducts = $tmp;
+//                        }
                         $data[$category['id']]['products']    = $arrProducts;
                         $data[$category['id']]['special_products'] = $arrSpecial_products;
                     }
@@ -98,7 +88,7 @@ class HomeController extends Controller
         $url_5giay = 'https://new.5giay.vn/';
 		$product_seen = '';
 		$list_products = $request->cookie('list_products');
-		
+//		dd($data);
 		if(!empty($list_products)){
 			$list_products = explode(',', $list_products);
 			$list_products = array_unique($list_products);
