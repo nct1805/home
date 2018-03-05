@@ -40,17 +40,19 @@ class HomeController extends Controller
                 $arrSpecial_products = [];
                 if(!empty($cate_2)){
 					$special_products = array();
+					$arrCate3_id = [];
                     foreach($cate_2 as $k => $cate){
-                        $arrCate3_id = [];
+                        $arrCate3_id_tmp = [];
                         $cate3 = CategoryModel::where('parent_id', $cate['id'])->where('status','1')->orderBy('id', 'DESC')->get();
                         if(!empty($cate3)){
                             array_push($arrCate3_id, $cate['id']);
+                            array_push($arrCate3_id_tmp, $cate['id']);
                             foreach($cate3 as $k => $v){
-                                array_push($arrCate3_id, $v['id']);
+                                array_push($arrCate3_id_tmp, $v['id']);
                             }
                                 
                         }
-                        $product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3_id)->orderBy('id', 'DESC')->first();
+                        $product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3_id_tmp)->orderBy('id', 'DESC')->first();
                         if(!empty($product)){
                             array_push($arrCate2, $cate);
                         } 
