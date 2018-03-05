@@ -17,7 +17,7 @@ class LinkController extends Controller
     }
     public function getList(Request $request)
     {
-        if(check_permision($request->session()->get('data_session'),5,'_view') != 1)
+        if(check_permision($request->session()->get('data_session'),9,'_view') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $link = LinkModel::orderBy('id','DESC')->paginate(20);;
         return view('admin.link.index',
@@ -28,13 +28,13 @@ class LinkController extends Controller
     }
     public function getAdd(Request $request)
     {
-        if(check_permision($request->session()->get('data_session'),5,'_add') != 1)
+        if(check_permision($request->session()->get('data_session'),9,'_add') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $category = Category_linkModel::all();
         return view('admin.link.add',['category' => $category]);    
     }
     public function postAdd(Request $request){
-        if(check_permision($request->session()->get('data_session'),5,'_add') != 1)
+        if(check_permision($request->session()->get('data_session'),9,'_add') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
        $this->validate($request,
             [
@@ -59,14 +59,14 @@ class LinkController extends Controller
         return redirect('admin/link/add')->with('thongbao','Thêm thành công');
     }
     public function getEdit(Request $request,$id){
-        if(check_permision($request->session()->get('data_session'),5,'_edit') != 1)
+        if(check_permision($request->session()->get('data_session'),9,'_edit') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $link = LinkModel::find($id);
         $category = Category_linkModel::all();
         return view('admin.link.edit',['data' => $link,'category'=>$category]);    
     }
     public function postEdit(Request $request,$id){
-        if(check_permision($request->session()->get('data_session'),5,'_edit') != 1)
+        if(check_permision($request->session()->get('data_session'),9,'_edit') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         
         $this->validate($request,
@@ -91,7 +91,7 @@ class LinkController extends Controller
     }
     public function getDelete(Request $request,$id)
     {
-        if(check_permision($request->session()->get('data_session'),5,'_delete') != 1)
+        if(check_permision($request->session()->get('data_session'),9,'_delete') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $link = LinkModel::find($id);
         $link->delete();

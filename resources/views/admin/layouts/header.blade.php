@@ -104,6 +104,14 @@
           <a href="admin/config/list"><i class="fa fa-table"></i> Cấu hình</a>
 
         </li>
+        <li class="">
+          <a href="admin/admin_group/list"><i class="fa fa-table"></i> Nhóm quản trị</a>
+
+        </li>
+        <li class="">
+          <a href="admin/users/list"><i class="fa fa-table"></i> Quản trị viên</a>
+
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-table"></i> <span>Text Link Footer</span>
@@ -118,17 +126,19 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Quản trị</span>
+            <i class="fa fa-table"></i> <span>Phân quyền</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="admin/admin_group/list"><i class="fa fa-circle-o"></i> Nhóm quản trị</a></li>
             <li><a href="admin/modules/list"><i class="fa fa-circle-o"></i>Modules</a></li>
-            <li><a href="admin/users/list"><i class="fa fa-circle-o"></i> Thành viên</a></li>
             <li><a href="admin/permision/list"><i class="fa fa-circle-o"></i> Phân quyền</a></li>
           </ul>
+        </li>
+        <li class="">
+          <a href="{{ route('admin_Logout')}}"><i class="fa fa-sign-out"></i> Đăng xuất</a>
+
         </li>
 
       </ul>

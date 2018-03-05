@@ -15,7 +15,7 @@ class ConfigController extends Controller
     }
     public function getList(Request $request)
     {
-        if(check_permision($request->session()->get('data_session'),5,'_view') != 1)
+        if(check_permision($request->session()->get('data_session'),8,'_view') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $config = ConfigModel::orderBy('id','DESC')->paginate(20);;
         return view('admin.config.index',
@@ -25,13 +25,13 @@ class ConfigController extends Controller
         );        
     }
     public function getEdit(Request $request,$id){
-        if(check_permision($request->session()->get('data_session'),5,'_edit') != 1)
+        if(check_permision($request->session()->get('data_session'),8,'_edit') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $config = ConfigModel::find($id);
         return view('admin.config.edit',['data' => $config]);    
     }
     public function postEdit(Request $request,$id){
-        if(check_permision($request->session()->get('data_session'),5,'_edit') != 1)
+        if(check_permision($request->session()->get('data_session'),8,'_edit') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         
         $this->validate($request,

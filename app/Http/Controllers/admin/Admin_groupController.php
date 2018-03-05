@@ -14,7 +14,7 @@ class Admin_groupController extends Controller
     }
     public function getList(Request $request)
     {
-        if(check_permision($request->session()->get('data_session'),7,'_view') != 1)
+        if(check_permision($request->session()->get('data_session'),10,'_view') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $admin_group = Admin_groupModel::all();
         return view('admin.admin_group.index',
@@ -26,12 +26,12 @@ class Admin_groupController extends Controller
     }
     public function getAdd(Request $request)
     {
-        if(check_permision($request->session()->get('data_session'),7,'_add') != 1)
+        if(check_permision($request->session()->get('data_session'),10,'_add') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         return view('admin.admin_group.add');    
     }
     public function postAdd(Request $request){
-        if(check_permision($request->session()->get('data_session'),7,'_add') != 1)
+        if(check_permision($request->session()->get('data_session'),10,'_add') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $this->validate($request,
             [
@@ -50,13 +50,13 @@ class Admin_groupController extends Controller
         return redirect('admin/admin_group/add')->with('thongbao','Thêm thành công');
     }
     public function getEdit(Request $request,$id){
-        if(check_permision($request->session()->get('data_session'),7,'_edit') != 1)
+        if(check_permision($request->session()->get('data_session'),10,'_edit') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $admin_group = Admin_groupModel::find($id);
         return view('admin.admin_group.edit',['data' => $admin_group]);    
     }
     public function postEdit(Request $request,$id){
-        if(check_permision($request->session()->get('data_session'),7,'_edit') != 1)
+        if(check_permision($request->session()->get('data_session'),10,'_edit') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $admin_group = Admin_groupModel::find($id);
         $this->validate($request,
@@ -76,7 +76,7 @@ class Admin_groupController extends Controller
     }
     public function getDelete(Request $request,$id)
     {
-        if(check_permision($request->session()->get('data_session'),7,'_delete') != 1)
+        if(check_permision($request->session()->get('data_session'),10,'_delete') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $admin_group = Admin_groupModel::find($id);
         $admin_group->delete();

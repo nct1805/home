@@ -17,7 +17,7 @@ class UsersController extends Controller
     }
     public function getList(Request $request)
     {
-        if(check_permision($request->session()->get('data_session'),7,'_view') != 1)
+        if(check_permision($request->session()->get('data_session'),3,'_view') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $users = UsersModel::orderBy('id','DESC')->get();
         return view('admin.users.index',
@@ -29,13 +29,13 @@ class UsersController extends Controller
     }
     public function getAdd(Request $request)
     {
-        if(check_permision($request->session()->get('data_session'),7,'_add') != 1)
+        if(check_permision($request->session()->get('data_session'),3,'_add') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $group = Admin_groupModel::all();
         return view('admin.users.add',['group' => $group]);    
     }
     public function postAdd(Request $request){
-        if(check_permision($request->session()->get('data_session'),7,'_add') != 1)
+        if(check_permision($request->session()->get('data_session'),3,'_add') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
        $this->validate($request,
             [
@@ -84,14 +84,14 @@ class UsersController extends Controller
         return redirect('admin/users/add')->with('thongbao','Thêm thành công');
     }
     public function getEdit(Request $request,$id){
-        if(check_permision($request->session()->get('data_session'),7,'_edit') != 1)
+        if(check_permision($request->session()->get('data_session'),3,'_edit') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $users = UsersModel::find($id);
         $group = Admin_groupModel::all();
         return view('admin.users.edit',['data' => $users,'group'=>$group]);    
     }
     public function postEdit(Request $request,$id){
-        if(check_permision($request->session()->get('data_session'),7,'_edit') != 1)
+        if(check_permision($request->session()->get('data_session'),3,'_edit') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $this->validate($request,
             [
@@ -137,7 +137,7 @@ class UsersController extends Controller
     }
     public function getDelete(Request $request,$id)
     {
-        if(check_permision($request->session()->get('data_session'),7,'_delete') != 1)
+        if(check_permision($request->session()->get('data_session'),3,'_delete') != 1)
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $users = UsersModel::find($id);
         $users->delete();

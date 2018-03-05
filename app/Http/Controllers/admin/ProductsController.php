@@ -19,6 +19,8 @@ class ProductsController extends Controller
     }
     public function getList(Request $request)
     {
+        if(check_permision($request->session()->get('data_session'),2,'_view') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
 		$cate_1 = $request->cate_1;
 		$cate_2 = $request->cate_2;
 		$cate_3 = $request->cate_3;
@@ -160,7 +162,9 @@ class ProductsController extends Controller
         $products->save();
         return redirect('admin/products/add')->with('thongbao','Thêm thành công');
     }
-    public function getEdit($id){
+    public function getEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),2,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $products = ProductsInternalModel::select(['products.*' , 'xf_thread.thread_id as thread_id','xf_thread.username', 'xf_thread.title as thread_title', 'xf_thread.node_id as node_id', 'xf_node.title as node_title', 'xf_node.node_type_id as node_type_id', 'xf_thread.price as thread_price'])
 			->where('thread_id',$id)->orderBy('thread_id', 'desc')
 			->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')
@@ -168,6 +172,8 @@ class ProductsController extends Controller
         return view('admin.products.edit',['data' => $products]);    
     }
     public function postEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),2,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $image_name_wap = '';
         $this->validate($request,
             [
@@ -269,8 +275,10 @@ class ProductsController extends Controller
 		}
         return redirect('admin/products/edit/'.$id)->with('thongbao','Cập nhật thành công');    
     }
-    public function getDelete($id)
+    public function getDelete(Request $request,$id)
     {
+        if(check_permision($request->session()->get('data_session'),2,'_delete') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $products = ProductsModel::find($id);
         $products->delete();
         return redirect('admin/products/list')->with('thongbao','Xóa thành công id:' .$id);

@@ -42,8 +42,13 @@
                   <td>
                     <?php
                     $catid = $row->catid;
-                    $category=\App\Models\admin\Category_linkModel::where('id',$catid)->select('name')->get();
-                    echo $category[0]->name;
+                    if(!empty($catid)){             
+                        $category=\App\Models\admin\Category_linkModel::where('id',$catid)->select('name')->get();
+                        if(!empty($category)){
+                          echo $category[0]->name;
+                        }
+                        
+                    }
                     ?>
                   </td>
                   <td>{{$row->name}}</td>

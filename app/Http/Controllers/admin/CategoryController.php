@@ -14,6 +14,8 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 	public function getListAjax(Request $request){
+        if(check_permision($request->session()->get('data_session'),1,'_view') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
 		if($request->ajax()){
 			$cate_id = $request->id;
 			$data = CategoryInternalModel::where('parent_node_id',$cate_id)->orderBy('lft', 'ASC')->get();
@@ -48,11 +50,15 @@ class CategoryController extends Controller
         $category->save();
         return redirect('admin/category/add')->with('thongbao','Thêm thành công');
     }
-    public function getEdit($id){
+    public function getEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),1,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
 		$data = CategoryInternalModel::where('node_id',$id)->orderBy('node_id', 'desc')->leftjoin('category', 'xf_node.node_id', '=', 'category.id')->first();
         return view('admin.category.edit', ['data' => $data]);    
     }
     public function postEdit(Request $request,$id){
+        if(check_permision($request->session()->get('data_session'),1,'_edit') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $category_exten = CategoryModel::find($id);
 		$image_name = '';
 		$icon_name = '';
@@ -148,8 +154,10 @@ class CategoryController extends Controller
         }
         return redirect('admin/category/edit/'.$id)->with('thongbao','Cập nhật thành công');    
     }
-    public function getDelete($id)
+    public function getDelete(Request $request,$id)
     {
+        if(check_permision($request->session()->get('data_session'),1,'_delete') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $category = CategoryModel::find($id);
         $category->delete();
         return redirect('admin/category/list')->with('thongbao','Xóa thành công id:' .$id);

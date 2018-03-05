@@ -15,9 +15,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <a class="btn btn-primary pull-right" href="{{ route('modules_add')}}">Thêm mới</a>
-            </div>
+            
             <!-- /.box-header -->
             <div class="box-body">
             @if(session('thongbao'))              
@@ -40,7 +38,7 @@
                   <td>{{$row->id}}</td>
                   <td>{{$row->name}}</td>
                   <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
-                  <td><a href="admin/modules/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> :: <a href="admin/modules/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a></td>
+                  <td><a href="admin/modules/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a></td>
                 </tr>
                 @endforeach
                 </tbody>              
