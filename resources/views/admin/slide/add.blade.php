@@ -48,7 +48,10 @@
               </div>
               <div class="form-group">
                   <label>Target</label>
-                  <input type="text" class="form-control" name="target"  value="{{ old('target') }}">
+                  <select class="form-control select2" style="width: 100%;" id="target" name="target">
+                    <option value="_blank">Mở trang mới</option>
+                    <option value="_self">Mở trang hiện tại</option>          
+                  </select>
               </div>
               <div class="form-group">
                   <label>Thứ tự</label>

@@ -35,7 +35,17 @@
               @endif
               <form action="{{ route('link_add') }}" method="post" enctype="multipart/form-data">
      			{{ csrf_field() }}
-            
+            <div class="form-group">
+                  <label>Danh mục</label>
+            <select class="form-control select2" style="width: 100%;" id="category" name="category">
+              <option value="">Chọn danh mục</option>
+              @if($category) 
+                @foreach($category as $row)
+                  <option value="<?=$row->id;?>"><?=$row->name;?></option>
+                @endforeach    
+              @endif
+            </select>
+              </div>
           		<div class="form-group">
 	                <label>Tiêu đề</label>
 	                <input type="text" class="form-control" name="name"  value="{{ old('name') }}">
@@ -47,7 +57,11 @@
               </div>
               <div class="form-group">
                   <label>Target</label>
-                  <input type="text" class="form-control" name="target"  value="{{ old('target') }}">
+                  
+                  <select class="form-control select2" style="width: 100%;" id="target" name="target">
+                    <option value="_blank">Mở trang mới</option>
+                    <option value="_self">Mở trang hiện tại</option>          
+                  </select>
               </div>
               <div class="form-group">
                   <label>Thứ tự</label>

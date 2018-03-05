@@ -13,16 +13,6 @@ class CategoryController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-//    public function getList()
-//    {
-//        $category = CategoryModel::all();
-//        return view('admin.category.index',
-//            [   'title'=>'Category',
-//                'data'=>$category
-//            ]
-//        );
-//           
-//    }
 	public function getListAjax(Request $request){
 		if($request->ajax()){
 			$cate_id = $request->id;
@@ -134,11 +124,12 @@ class CategoryController extends Controller
             $category->status      = $request->status;
 			$category->type_id     = $request->type_id;
 			$category->parent_id   = $request->parent_id;
-            $category->check_menu   = $request->check_menu;
+            $category->check_menu   = !empty($request->check_menu) ? 1 : 0;
             $alias = !empty($alias) ? $alias : ceo($request->name);//If cate 1
             $category->alias       = $alias;
             $category->image       = $image_name;
             $category->icon        = $icon_name;
+            $category->ordering        = $request->ordering;
             $category->save();
         }
         else{
@@ -147,11 +138,12 @@ class CategoryController extends Controller
             $category_exten->status      = $request->status;
             $category_exten->type_id     = $request->type_id;
             $category_exten->parent_id   = $request->parent_id;
-            $category_exten->check_menu   = $request->check_menu;
+            $category_exten->check_menu   = !empty($request->check_menu) ? 1 : 0;
             $alias = !empty($alias) ? $alias : ceo($request->name);
             $category_exten->alias       = $alias;
             $category_exten->image       = $image_name;
             $category_exten->icon        = $icon_name;
+            $category_exten->ordering        = $request->ordering;
             $category_exten->save();
         }
         return redirect('admin/category/edit/'.$id)->with('thongbao','Cập nhật thành công');    

@@ -16,7 +16,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <a class="btn btn-primary pull-right" href="{{ route('banner_add')}}">Thêm mới</a>
+              <a class="btn btn-primary pull-right" href="{{ route('link_add')}}">Thêm mới</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -39,7 +39,13 @@
                 @foreach($data as $row)
                 <tr>
                   <td>{{$row->id}}</td>
-                  <td></td>
+                  <td>
+                    <?php
+                    $catid = $row->catid;
+                    $category=\App\Models\admin\Category_linkModel::where('id',$catid)->select('name')->get();
+                    echo $category[0]->name;
+                    ?>
+                  </td>
                   <td>{{$row->name}}</td>
                   <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
                   <td><a href="admin/link/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> :: <a href="admin/link/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a></td>

@@ -45,7 +45,11 @@
                 @endif
                 <tr>
                   <td style="{{$style}}"><?=!empty($row->name) ? $row->name : $row->title;?> <span style="font-size:11px; color:rgb(200,200,200);">{{$row->node_type_id}}</span></td>
+                  @if($row->parent_node_id == 0)
                   <td>@if($row->check_menu == 1)<span class="label label-success">{{'Hiển thị'}}</span>@else <span class="label label-danger">{{'Không hiển thị'}}</span>@endif</td>
+                  @else
+                  <td></td>
+                  @endif
                   <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
                   <td><a href="admin/category/edit/{{$row->node_id}}"><i class="fa fa-fw fa-edit"></i></a>
                   </td>

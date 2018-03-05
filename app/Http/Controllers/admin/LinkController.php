@@ -54,6 +54,7 @@ class LinkController extends Controller
         $link->target = $request->target;
         $link->ordering = $request->ordering;
         $link->status = $request->status;
+        $link->catid = $request->category;
         $link->save();
         return redirect('admin/link/add')->with('thongbao','Thêm thành công');
     }
@@ -62,7 +63,7 @@ class LinkController extends Controller
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
         $link = LinkModel::find($id);
         $category = Category_linkModel::all();
-        return view('admin.banner.edit',['data' => $banner,'category'=>$category]);    
+        return view('admin.link.edit',['data' => $link,'category'=>$category]);    
     }
     public function postEdit(Request $request,$id){
         if(check_permision($request->session()->get('data_session'),5,'_edit') != 1)
@@ -84,7 +85,8 @@ class LinkController extends Controller
         $link->target = $request->target;
         $link->ordering = $request->ordering;
         $link->status = $request->status;
-        $banner->save();
+        $link->catid = $request->category;
+        $link->save();
         return redirect('admin/link/edit/'.$id)->with('thongbao','Cập nhật thành công');    
     }
     public function getDelete(Request $request,$id)

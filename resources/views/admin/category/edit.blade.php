@@ -58,7 +58,7 @@
                   <input type="file" id="image" name="image">
                   <p style="color:red" id="img_err"></p>
                 </div>
-                @endif
+                
                 <div class="form-group">
                       <label for="exampleInputFile">Check hiển thị menu</label>
                       <div class="row">
@@ -78,6 +78,11 @@
                       </div>
                   </div>
                 </div>
+                @endif
+                <div class="form-group">
+                  <label>Thứ tự</label>
+                  <input type="text" class="form-control" name="ordering"  value="{{$data->ordering}}">
+              </div>
                 <div class="form-group">
                       <label for="exampleInputFile">Trạng thái</label>
                       <div class="row">

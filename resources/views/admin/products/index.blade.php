@@ -3,10 +3,10 @@
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <section class="content-header">
-      <h1>Sản phẩm</h1>
+      <h1>Tin đăng</h1>
       <ol class="breadcrumb">
         <li><a href="{{ route('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('products_list')}}">Sản phẩm</a></li>
+        <li><a href="{{ route('products_list')}}">Tin đăng</a></li>
         <li class="active">Danh sách</li>
       </ol>
     </section>
@@ -77,7 +77,7 @@
                 <thead>
                 <tr>
                   <th>Image</th>
-                  <th>Name</th>
+                  <th>Tin đăng</th>
                   <th style="width: 120px">Loại tin</th>
                   <th style="width: 120px">Trạng thái</th>
                   <th style="width:90px">Action</th>
@@ -89,7 +89,7 @@
                  <?php $image = !empty($row->image) ? 'public/uploads/san-pham/'.$row->image : 'public/frontend/images/images/logo.png';  ?>
                   <td><img src="<?=$image;?>" width="50px"></td>
                   <td><?=!empty($row->name) ? $row->name : $row->title;?></td>
-                  <td>@if($row->check_special == 1)<span class="label label-warning">{{'Tị VIP'}}</span>@else <span class="label label-primary">{{'Tin thường'}}</span>@endif</td>
+                  <td>@if($row->check_special == 1)<span class="label label-warning">{{'Tin VIP'}}</span>@else <span class="label label-primary">{{'Tin thường'}}</span>@endif</td>
                   <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
                   <td><a href="admin/products/edit/{{$row->thread_id}}"><i class="fa fa-fw fa-edit"></i></a></td>
                 </tr>
