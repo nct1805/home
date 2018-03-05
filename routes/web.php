@@ -134,6 +134,14 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('edit/{id}', ['as' => 'link_edit', 'uses' => 'admin\LinkController@postEdit']); 
         Route::get('delete/{id}', ['as' => 'link_delete', 'uses' => 'admin\LinkController@getDelete']);       
     });
+    Route::group(['prefix' => 'link'], function () {
+        Route::get('list', ['as' => 'link_list', 'uses' => 'admin\LinkController@getList']);
+        Route::get('add', ['as' => 'link_add', 'uses' => 'admin\LinkController@getAdd']);
+        Route::post('add', ['as' => 'link_add', 'uses' => 'admin\LinkController@postAdd']);
+        Route::get('edit/{id}', ['as' => 'link_edit', 'uses' => 'admin\LinkController@getEdit']); 
+        Route::post('edit/{id}', ['as' => 'link_edit', 'uses' => 'admin\LinkController@postEdit']); 
+        Route::get('delete/{id}', ['as' => 'link_delete', 'uses' => 'admin\LinkController@getDelete']);       
+    });
     Route::group(['prefix' => 'slide'], function () {
         Route::get('list', ['as' => 'slide_list', 'uses' => 'admin\SlidesController@getList']);
         Route::get('add', ['as' => 'slide_add', 'uses' => 'admin\SlidesController@getAdd']);
