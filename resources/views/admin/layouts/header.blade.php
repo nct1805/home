@@ -99,7 +99,22 @@
         </li>
         <li class="">
           <a href="admin/slide/list"><i class="fa fa-table"></i> Slide</a>
+        </li>
+        <li class="">
+          <a href="admin/config/list"><i class="fa fa-table"></i> Cấu hình</a>
 
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>Text Link Footer</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="admin/category_link/list"><i class="fa fa-circle-o"></i> Danh mục</a></li>
+            <li><a href="admin/link/list"><i class="fa fa-circle-o"></i>Danh sách</a></li>
+          </ul>
         </li>
         <li class="treeview">
           <a href="#">
@@ -109,7 +124,6 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="admin/config/list"><i class="fa fa-circle-o"></i> Cấu hình</a></li>
             <li><a href="admin/admin_group/list"><i class="fa fa-circle-o"></i> Nhóm quản trị</a></li>
             <li><a href="admin/modules/list"><i class="fa fa-circle-o"></i>Modules</a></li>
             <li><a href="admin/users/list"><i class="fa fa-circle-o"></i> Thành viên</a></li>

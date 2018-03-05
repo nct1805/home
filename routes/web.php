@@ -118,6 +118,22 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('edit/{id}', ['as' => 'config_edit', 'uses' => 'admin\ConfigController@getEdit']); 
         Route::post('edit/{id}', ['as' => 'config_edit', 'uses' => 'admin\ConfigController@postEdit']);      
     });
+    Route::group(['prefix' => 'category_link'], function () {
+        Route::get('list', ['as' => 'category_link_list', 'uses' => 'admin\Category_linkController@getList']);
+        Route::get('add', ['as' => 'category_link_add', 'uses' => 'admin\Category_linkController@getAdd']);
+        Route::post('add', ['as' => 'category_link_add', 'uses' => 'admin\Category_linkController@postAdd']);
+        Route::get('edit/{id}', ['as' => 'category_link_edit', 'uses' => 'admin\Category_linkController@getEdit']); 
+        Route::post('edit/{id}', ['as' => 'category_link_edit', 'uses' => 'admin\Category_linkController@postEdit']); 
+        Route::get('delete/{id}', ['as' => 'category_link_delete', 'uses' => 'admin\Category_linkController@getDelete']);       
+    });
+    Route::group(['prefix' => 'link'], function () {
+        Route::get('list', ['as' => 'link_list', 'uses' => 'admin\LinkController@getList']);
+        Route::get('add', ['as' => 'link_add', 'uses' => 'admin\LinkController@getAdd']);
+        Route::post('add', ['as' => 'link_add', 'uses' => 'admin\LinkController@postAdd']);
+        Route::get('edit/{id}', ['as' => 'link_edit', 'uses' => 'admin\LinkController@getEdit']); 
+        Route::post('edit/{id}', ['as' => 'link_edit', 'uses' => 'admin\LinkController@postEdit']); 
+        Route::get('delete/{id}', ['as' => 'link_delete', 'uses' => 'admin\LinkController@getDelete']);       
+    });
     Route::group(['prefix' => 'slide'], function () {
         Route::get('list', ['as' => 'slide_list', 'uses' => 'admin\SlidesController@getList']);
         Route::get('add', ['as' => 'slide_add', 'uses' => 'admin\SlidesController@getAdd']);
