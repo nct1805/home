@@ -25,7 +25,7 @@
 <?php if(!empty($data)){ $k_tmp = 1; foreach($data as $key => $value){ ?>
 <section class="quangcao">
 <div class="container">
-<a href="javascript:void(0)"><img class="lazyload img-responsive" src="public/uploads/danh-muc/<?=$value['cate1']['image'];?>"></a>
+<a href="javascript:void(0)"><img class=" img-responsive" src="public/uploads/danh-muc/<?=$value['cate1']['image'];?>"></a>
 </div>
 </section>
 <section class="content-home">
@@ -96,7 +96,7 @@
         <picture>
           <source media="(max-width: 1199px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
           <source media="(min-width: 1200px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
-          <img class="lazyload img-responsive image-default" src="public/uploads/san-pham/<?=$products['image'];?>" alt="#">
+          <img class=" img-responsive image-default" src="public/uploads/san-pham/<?=$products['image'];?>" alt="#">
       </picture>
         <picture>
           <source media="(max-width: 1199px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">

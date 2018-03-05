@@ -9,11 +9,11 @@ use App\Models\frontend\CategoryModel;
 use App\Models\frontend\CategoryInternalModel;
 use App\Models\frontend\SlidesModel;
 use App\Models\frontend\BannersModel;
+use App\Models\frontend\ConfigModel;
 
 class HomeController extends Controller
 {
     public function __construct(){
-        //$this->middleware('auth');
     }
 
     public function index(Request $request)
@@ -79,7 +79,13 @@ class HomeController extends Controller
 			$list_products = array_unique($list_products);
 			$product_seen = ProductsModel::where('status','1')->whereIn('id', $list_products)->orderBy('id', 'DESC')->get();
 		}
-        return view('frontend.home.home', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data, 'product_seen' => $product_seen]);
+		// data meta
+		$data_meta = ConfigModel::find(1);
+		$meta_title = $data_meta->title;
+		$meta_keyword = $data_meta->keyword;
+		$meta_description = $data_meta->description;
+		$meta_script = $data_meta->script;
+        return view('frontend.home.home', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data, 'product_seen' => $product_seen, 'meta_title' =>$meta_title, 'meta_keyword' => $meta_keyword, 'meta_description' => $meta_description, 'meta_script' => $meta_script]);
     }
     
     public function getProductByCate(Request $request){

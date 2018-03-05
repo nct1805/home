@@ -50,11 +50,12 @@
   <li>
       <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="<?=$val['name']?>"><img src="public/uploads/danh-muc/<?=$val['icon'];?>" alt="<?=$val['name']?>" class="icon"><?=$val['name']?></a>
       <?php if(!empty($val['total_cate2'])){?>
-      <ul>
+      <?php /*<ul>
           <?php foreach($val['total_cate2'] as $v){ if(!empty($v['parent_id']) && ($v['parent_id'] == $val['id']) ){ ?>
            <li><a href="<?=$url_5giay.'/categories/'.$v['alias'].'.'.$v['id'];?>" title="#"><?=$v['name'];?></a></li>
            <?php } } ?>
       </ul>
+      */ ?>
       <?php } ?>
   </li>   
   <?php } }?> 

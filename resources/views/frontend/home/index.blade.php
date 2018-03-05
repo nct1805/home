@@ -4,12 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title>Trang chủ 5 giây</title>
-<meta name="keywords" content="#" />
-<meta name="description" content="#" />
-<meta property="og:title" content="#" />
-<meta property="og:description" content="#" />
-<meta property="og:site_name" content="#" />
+<title>{{ $meta_title}}</title>
+<meta name="keywords" content="{{ $meta_keyword }}" />
+<meta name="description" content="{{ $meta_description}}" />
+<meta property="og:title" content="{{ $meta_keyword }}" />
+<meta property="og:description" content="{{ $meta_description}}" />
+<meta property="og:site_name" content="5giay.vn" />
 <meta property="og:type" content="article" />
 <link href="public/frontend/images/logo.og.png" rel="icon"/>
 <meta name="robots" content="index"/>
@@ -36,14 +36,14 @@
 <ul class="block_category menu_slim_1 f_submenu_list">
     <?php if(!empty($menu)){ foreach($menu as $k => $val){ ?>
       <li>
-          <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="#">
-          	<img src="public/uploads/danh-muc/<?=$val['icon'];?>" alt="#" class="icon"><?=$val['name']?></a>
+          <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="<?=$val['name']?>">
+          	<img src="public/uploads/danh-muc/<?=$val['icon'];?>" alt="<?=$val['name']?>" class="icon"><?=$val['name']?></a>
           <?php if(!empty($val['total_cate2'])){?>
-          <ul tabindex="5001" class="level_1 f_menu_sub_2">
+          <?php /*<ul tabindex="5001" class="level_1 f_menu_sub_2">
               <?php foreach($val['total_cate2'] as $v){ if(!empty($v['parent_id']) && ($v['parent_id'] == $val['id']) ){ ?>
                <li><a href="<?=$url_5giay.'/categories/'.$v['alias'].'.'.$v['id'];?>" title="#"><?=$v['name'];?></a></li>
                <?php } } ?>
-          </ul>
+          </ul> */ ?>
           <?php } ?>
       </li>
     <?php } } ?>  
