@@ -20,13 +20,13 @@ class HomeController extends Controller
     {
         $data             = array();
         $menu             = array();
-		$menu             = CategoryModel::where('parent_id','0')->where('check_menu', 1)->orderBy('id', 'DESC')->get();
-		$arrCateDefault   = CategoryModel::where('parent_id','0')->where('status','1')->orderBy('id', 'DESC')->get();
+		$menu             = CategoryModel::where('parent_id','0')->where('check_menu', 1)->orderBy('ordering', 'ASC')->get();
+		$arrCateDefault   = CategoryModel::where('parent_id','0')->where('status','1')->orderBy('ordering', 'ASC')->get();
 		$slide            = SlidesModel::orderBy('ordering', 'ASC')->get();
 		$banner           = BannersModel::orderBy('ordering', 'ASC')->limit(3)->get();
 		if(!empty($menu)){
 			foreach($menu as $key => $category){
-				$cate_2 = CategoryModel::where('parent_id', $category['id'])->where('status','1')->orderBy('id', 'DESC')->get();
+				$cate_2 = CategoryModel::where('parent_id', $category['id'])->where('status','1')->orderBy('ordering', 'ASC')->get();
 				if($cate_2->count() > 0){
 					$menu[$key]['total_cate2'] = $cate_2;
 				}
@@ -34,7 +34,7 @@ class HomeController extends Controller
 		}
 		if(!empty($arrCateDefault)){
 			foreach($arrCateDefault as $key => $category){
-				$cate_2 = CategoryModel::where('parent_id', $category['id'])->where('status','1')->orderBy('id', 'DESC')->get();
+				$cate_2 = CategoryModel::where('parent_id', $category['id'])->where('status','1')->orderBy('ordering', 'ASC')->get();
                 $arrCate2 = [];
                 $arrProducts = [];
                 $arrSpecial_products = [];
@@ -104,7 +104,7 @@ class HomeController extends Controller
 				$product = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3)->orderBy('id', 'DESC')->limit(4)->get();
 			}
 			else{
-				$list_cate_2 = CategoryModel::where('parent_id', $cate_id)->orderBy('id', 'DESC')->get();
+				$list_cate_2 = CategoryModel::where('parent_id', $cate_id)->orderBy('ordering', 'ASC')->get();
 				if(!empty($list_cate_2)){
 					$arrCate2_id = [];
 					$arrCate3 = [];
@@ -146,7 +146,7 @@ class HomeController extends Controller
 				
             }
 			else{//all
-				$cate2 = CategoryModel::where('parent_id', $cate_id)->orderBy('id', 'DESC')->get();
+				$cate2 = CategoryModel::where('parent_id', $cate_id)->orderBy('ordering', 'ASC')->get();
 				
 				if(!empty($cate2)){
 					$arrCate2 = [];
