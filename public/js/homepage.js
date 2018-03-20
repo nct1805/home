@@ -1,13 +1,42 @@
 
 $(document).ready(function(){
 	$('.btn_search').click(function(){
-		var tukhoa = $('#tukhoa').val();
-		if(tukhoa.lenght != 0){
-			var url = 'https://www.5giay.com/search.aspx?category=0&query='+tukhoa+'&type=1';
-			window.open(url,'_blank');
-		}
-		else
-			return false;
+        var tukhoa = $('#tukhoa').val();
+        var data = [];
+        data['login'] = 'admin';
+        data['password'] = '123456';
+        data['redirect'] = '/xenforo/admin.php';
+        data['cookie_check'] = '1';
+        console.log(data);
+        $.ajax({
+            type : "get",
+            dataType : "json", //parse json
+            data : data,
+            url : "http://localhost/xenforo/admin.php?login/login",
+            success : function( data )
+            {
+//                render_html_products(data['products'], 'html', key);
+//                
+//                $('#total_page_'+key).val(data['total_page']);
+//                $('#page_'+key).val(3);
+//				if(data['total_page'] == 1)
+//					$('.btn_load_more_'+key).hide();
+//				else
+//					$('.btn_load_more_'+key).show();
+//				
+//				if(type == 2)
+//					$('#cate_id_'+key).val(cate_id);
+//				else
+//					$('#cate_id_'+key).val(0);
+            }
+        });
+//		var tukhoa = $('#tukhoa').val();
+//		if(tukhoa.lenght != 0){
+//			var url = 'https://www.5giay.com/search.aspx?category=0&query='+tukhoa+'&type=1';
+//			window.open(url,'_blank');
+//		}
+//		else
+//			return false;
 	});
 	$('#tukhoa').keypress(function (e) {
 	 var key = e.which;

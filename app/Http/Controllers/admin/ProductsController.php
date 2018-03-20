@@ -179,12 +179,16 @@ class ProductsController extends Controller
             [
                 'name' => 'required|min:3|max:255',
 				'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+                'strStartDate' => 'required',
+                'strEndDate' => 'required',
             ],
             [
                 'nam.required' =>'Vui lòng nhập tên',
                 'name.min' => 'Tên có ít nhất 3 ký tự',
                 'name.max' => 'Tên tối đa dài 255 ký tự',
 				'image.mimes' =>'Hình không đúng định dạng',
+                'strStartDate.required' =>'Vui lòng nhập ngày bắt đầu',
+                'strEndDate.required' =>'Vui lòng nhập ngày kết thúc',
             ]
         );
         $products = ProductsModel::find($id);
@@ -254,6 +258,8 @@ class ProductsController extends Controller
 			$product_new->price         = $request->price;
 			$product_new->status        = $request->status;
 			$product_new->check_special = $request->check_special;
+			$product_new->start_date    = date ('Y-m-d', strtotime ($request->strStartDate));
+			$product_new->end_date      = date ('Y-m-d', strtotime ($request->strDateEnd));
 			$product_new->image         = $image_name;
             if(!empty($image_name_wap) && !empty($request->check_special) )
                 $product_new->image_wap = $image_name_wap;
@@ -268,6 +274,8 @@ class ProductsController extends Controller
 			$products->price         = $request->price;
 			$products->status        = $request->status;
 			$products->check_special = $request->check_special;
+            $products->start_date    = date ('Y-m-d', strtotime ($request->strStartDate));
+			$products->end_date      = date ('Y-m-d', strtotime ($request->strDateEnd));
 			$products->image         = $image_name;
             if(!empty($image_name_wap) && !empty($request->check_special) )
                 $products->image_wap = $image_name_wap;

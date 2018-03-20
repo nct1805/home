@@ -9,6 +9,7 @@
   <!-- Bootstrap 3.3.6 -->
   <base href="{{asset('')}}">
   <link rel="stylesheet" href="public/admin_asset/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="public/admin_asset/bootstrap/css/bootstrap-datepicker.css">
   <link rel="shortcut icon" href="public/admin_asset/favicon.ico" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -42,6 +43,7 @@
 </div>
 <!-- jQuery 2.2.3 -->
 <script src="public/admin_asset/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="public/admin_asset/bootstrap/js/bootstrap-datepicker.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="public/admin_asset/bootstrap/js/bootstrap.min.js"></script>
 <!-- DataTables -->

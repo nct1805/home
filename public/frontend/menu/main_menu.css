@@ -73,11 +73,11 @@ ul.block_category li ul.level_2 li a{ padding-left:15px;}
 .level_1.f_menu_sub_2{
    position: absolute;
    left:100%;
-   top:0px;
+   top:1px;
    
    padding-bottom: 15px;
    overflow: auto;
-   width: 560px;
+   width:877.5px; height:100%;
    display: none;
    z-index: 999;
    background: #fff;

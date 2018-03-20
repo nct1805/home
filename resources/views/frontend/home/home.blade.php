@@ -38,11 +38,11 @@
         <?php if(!empty($value['total_cate2'])){  ?>
         <ul class="col-md-9 col-sm-12 col-xs-12 right-category">
             <div id="carousel" class="carousel slide carousel-all carousel<?=$k_tmp;?>" data-ride="carousel" data-type="multi" data-interval="false">
-                <div class="all-pr" ><a href="javascript:void(0)" class="category_2" data-type="1" data-cate="<?=$value['cate1']['id'];?>" data-key="<?=$k_tmp;?>">Tất cả</a></div>
+                <div class="all-pr" ><a href="javascript:void(0)" data-type="1" data-cate="<?=$value['cate1']['id'];?>" data-key="<?=$k_tmp;?>">Tất cả</a></div>
 				<div class="carousel-inner">     
 				    <?php foreach($value['total_cate2'] as $k => $cate){ ?>           
 					<div class="item <?=$k==0?'active' : '';?>">
-						<div class="carousel-col"><a href="javascript:void(0)" class="category_2" data-cate="<?=$cate['id']?>" data-type="2" data-key="<?=$k_tmp;?>" ><?=$cate['name'];?></a></div>
+						<div class="carousel-col"><a href="<?=$url_5giay.'/categories/'.$cate['alias'].'.'.$cate['id'];?>" data-cate="<?=$cate['id']?>" data-type="2" data-key="<?=$k_tmp;?>" ><?=$cate['name'];?></a></div>
 					</div>
 					<?php } ?>
 				</div>
@@ -88,7 +88,12 @@
       </div>       
     </div>
     <?php } ?>
-    <div id="list_product_<?=$k_tmp;?>">
+<!--    <div id="list_product_<?=$k_tmp;?>">-->
+   <div class="col-md9">
+      <button class="slider_prev_item1 prev-slide"></button>
+      <button class="slider_next_item1 prev-slide next-slide"></button>
+        <div class="slide-product unselect">
+        <div class="product_1_<?=$k_spc;?>">
     <?php foreach($value['products'] as $products){ ?>
     <figure class="item-product">
     <div class="box-item">
@@ -115,13 +120,39 @@
         </figcaption>
     </figure>
     <?php } ?>
-    </div>
+    <script>
+        $(document).ready(function(){	
+            var owl1 = $(".product_1_<?=$k_spc;?>"); 
+            owl1.owlCarousel({
+              items :4, //10 items above 1000px browser width
+              itemsDesktop : [4030,4], //5 items between 1000px and 901px
+              itemsDesktopSmall : [1024,4], // betweem 900px and 601px
+              itemsTablet: [768,3], //2 items between 600 and 0
+              itemsMobile : [375,2], // itemsMobile disabled - inherit from itemsTablet option
+              autoPlay: false,
+              lazyLoad : true,
+              slideSpeed: 300
+            });
+            $('.slider_prev_item1').click(function(e) {
+                owl1.trigger('owl.prev');
+            });
+            $('.slider_next_item1').click(function(e) {
+                owl1.trigger('owl.next');
+            });
+        });        	
+    </script>
+    </div>                
+        </div>	
+   </div><!--end col-md9-->  
+<!--    </div>-->
     <input type="hidden" id="cate_id_<?=$k_tmp;?>" value="0">
     <input type="hidden" id="page_<?=$k_tmp;?>" value="3">
     <input type="hidden" id="total_page_<?=$k_tmp;?>" value="<?=!empty($value['total_page']) ? $value['total_page'] : 1;?>">
+<!--
     <?php if(!empty($value['total_page']) && $value['total_page'] > 2 ){ ?>
     <div class="col-md-12 col-xs-12 lear_more btn_load_more_<?=$k_tmp;?> btn btn-info hidden-lg hidden-md" data-key="<?=$k_tmp;?>" data-cate="<?=$key;?>">Xem thêm <i class="fa fa-angle-right"></i></div>
     <?php } ?>
+-->
 </div>
 </section>
 <?php $k_tmp++; } }?>
@@ -152,5 +183,39 @@
 <a href="#" class="back-top-btn" >
 </a>
 </section>
+<?php } ?>
+<?php if(!empty($data)){ ?>
+<div class="modal fade" id="global-modal1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!--Modal Content-->
+    <div class="modal-content">
+      <div class="modal-header">Topic/Forum List
+        <button type="button" class="close" style="margin-top:-15px;" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">      
+      	<div class="toppic">	
+            <div class="input-topic">Select the title where you want to write...</div>
+            <div class="box-topic">
+                <ul>
+                   <?php  $k_tmp = 1; foreach($data as $key => $value){ ?>
+                       <li><a href="<?=$url_5giay.'/categories/'.$cate['alias'].'.'.$cate['id'];?>" title="#"><?=$value['cate1']['name']?></a>
+                       <?php if(!empty($value['total_cate2'])){?>
+                           <ul>
+                           <?php foreach($value['total_cate2'] as $k => $cate){ ?>
+                               <li><a href="<?=$url_5giay.'/categories/'.$cate['alias'].'.'.$cate['id'];?>" title="#"><?=$cate['name']?></a></li>
+                           <?php } ?>
+                            </ul>
+                       <?php } ?>
+                       </li>
+                   <?php } ?>
+                </ul>
+            </div><!--end box-topic-->
+        </div><!--end toppic-->
+      </div>
+    </div>
+  </div>
+</div>
 <?php } ?>
 @endsection

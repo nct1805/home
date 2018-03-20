@@ -19,6 +19,8 @@
 <link href="public/frontend/css/main.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="public/frontend/js/jquery-1.9.1.min.js"></script>
 <link href="public/frontend/menu/main_menu.css" rel="stylesheet" type="text/css">
+<!-- slide product-->
+<link type="text/css" rel="stylesheet" href="public/frontend/slide-product/owl.carousel.css" />
 <script type="text/javascript" src="public/frontend/menu/common.js"></script>
 <script type="text/javascript" src="public/frontend/menu/jquery_003.js"></script>
 </head>
@@ -71,7 +73,9 @@
 <script type="text/javascript">var lazyImage = "/public/frontend/images/loading.gif";</script>
 <script src="public/frontend/js/main.js"></script>
 <script src="public/frontend/js/home_page.js"></script>
+<script src="public/frontend/slide-product/owl.carousel.min.js"></script>
 <script src="public/js/homepage.js"></script>
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];

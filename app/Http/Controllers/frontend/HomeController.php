@@ -18,6 +18,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+        $date = date('Y-m-d');
         $data             = array();
         $menu             = array();
 		$menu             = CategoryModel::where('parent_id','0')->where('check_menu', 1)->orderBy('ordering', 'ASC')->get();
@@ -57,8 +58,8 @@ class HomeController extends Controller
                             array_push($arrCate2, $cate);
                         } 
                     }
-					$arrProducts          = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3_id)->orderBy('id', 'DESC')->limit(4)->get();
-					$arrSpecial_products  = ProductsModel::where('status','1')->where('check_special', 1)->whereIn('category_id', $arrCate3_id)->orderBy('id', 'DESC')->limit(20)->get();
+					$arrProducts          = ProductsModel::where('status','1')->where('check_special', 0)->whereIn('category_id', $arrCate3_id)->whereDate('start_date', '<=', $date)->whereDate('end_date', '>=', $date)->orderBy('id', 'DESC')->get();
+					$arrSpecial_products  = ProductsModel::where('status','1')->where('check_special', 1)->whereIn('category_id', $arrCate3_id)->whereDate('start_date', '<=', $date)->whereDate('end_date', '>=', $date)->orderBy('id', 'DESC')->get();
 
                     if( $arrProducts->count() > 0 || $arrSpecial_products->count() > 0 ){
                         $data[$category['id']]['cate1']            = $category;
@@ -71,7 +72,7 @@ class HomeController extends Controller
                 }
 			}
 		}
-        $url_5giay = 'https://new.5giay.vn/';
+        $url_5giay = 'https://new.5giay.vn';
 		$product_seen = '';
 		$list_products = $request->cookie('list_products');
 		if(!empty($list_products)){

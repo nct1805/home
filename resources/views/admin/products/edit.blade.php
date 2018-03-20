@@ -96,6 +96,26 @@
                     </div>
                   </div>
               </div>
+              
+              <div class="form-group">
+                  <label for="exampleInputFile">Trạng thái</label>
+                  <div class="row">
+                    <div class="col-md-12">
+                  <div class="radio">
+                      <label>
+                          <input class="datepicker" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strStartDate" id="strStartDate" value="<?= !empty($data->start_date) ? date ('d-m-Y', strtotime ($data->start_date)) : ''; ?>">
+                          Từ ngày
+                      </label>
+                  </div>
+                  <div class="radio">
+                      <label>
+                          <input class="datepicker" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strDateEnd" id="strDateEnd" value="<?= !empty($data->end_date) ? date ('d-m-Y', strtotime ($data->end_date)) : ''; ?>">
+                          Đến ngày
+                      </label>
+                  </div>
+                    </div>
+                  </div>
+              </div>
               <div class="box-footer">
                 <button type="submit" id="btn_submit" class="btn btn-info pull-right">Cập nhật</button>
                 <input type="hidden" name="category_id" value="<?=!empty($data->node_id) ? $data->node_id : '';?>">
@@ -112,6 +132,9 @@
   </div>
   <script>
 $(document).ready(function(){
+    $('.datepicker').datepicker({
+        dateFormat: "dd-mm-yy"
+    });
     var check_special = $('input[name=check_special]:checked').val();
     if(check_special == 1){
         $('#banner_wap').show();
