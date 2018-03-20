@@ -98,7 +98,7 @@
               </div>
               
               <div class="form-group">
-                  <label for="exampleInputFile">Trạng thái</label>
+                  <label for="exampleInputFile">Ngày kích hoạt</label>
                   <div class="row">
                     <div class="col-md-12">
                   <div class="radio">
