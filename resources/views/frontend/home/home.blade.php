@@ -21,6 +21,48 @@
 		background: #2bc5f8 url(public/frontend/images/cd-top-arrow.svg) no-repeat center 50%;
 	}
     
+    input[type=checkbox].css-checkbox {
+    position: absolute;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+input[type=checkbox].css-checkbox+label.css-label {
+    padding-left: 20px;
+    height: 15px;
+    display: inline-block;
+    line-height: 15px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    font-size: 15px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+input[type=checkbox].css-checkbox:checked+label.css-label {
+    background-position: 0 -15px;
+}
+
+label.css-label {
+    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_1437560032a3e1345ce3a7bb5fec77cc.png);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+    label {
+            margin-right: 5px;
+        }
+    
 </style>
 <?php if(!empty($data)){ $k_tmp = 1; foreach($data as $key => $value){ ?>
 <section class="quangcao">
@@ -33,7 +75,8 @@
     <div class="col-md-12 col-sm-12 col-xs-12 category">
     	<div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12">
-        <a href="#" title="#"><img src="public/uploads/danh-muc/<?=$value['cate1']['icon'];?>"><?=$value['cate1']['name'];?></a>
+        <a href="javasript:void(0)" title="<?=$value['cate1']['name'];?>"><img src="public/uploads/danh-muc/<?=$value['cate1']['icon'];?>"><input type="checkbox" value="<?=$value['cate1']['id'];?>" id="checkbox<?=$key;?>" class="css-checkbox check_cate" /><label for="checkbox<?=$key;?>" class="css-label"></label><?=$value['cate1']['name'];?></a>
+        
         </div>
         <?php if(!empty($value['total_cate2'])){  ?>
         <ul class="col-md-9 col-sm-12 col-xs-12 right-category">
@@ -185,7 +228,8 @@
 </section>
 <?php } ?>
 <?php if(!empty($data)){ ?>
-<div class="modal fade" id="global-modal1" role="dialog">
+
+<div class="modal fade" id="global-modal1a" role="dialog">
   <div class="modal-dialog modal-lg">
     <!--Modal Content-->
     <div class="modal-content">

@@ -127,6 +127,23 @@ $(document).ready(function(){
             scrollTop: 0
         }, 300);
     });
+    
+    $('.check_cate').on('change', function(){
+        var cate_id = $(this).val();
+        var is_checked = 0;
+        if($(this).is(":checked"))
+            is_checked = 1;
+        $.ajax({
+            type : "get",
+            dataType : "json",
+            url : "push_array_cate_cookie/"+cate_id+"/"+is_checked,
+            success : function( data )
+            {
+//				window.location.href = url;
+            }
+        });
+    });
+    
 });
 function render_html_products(data, type, key){
     var length  = data.length;
@@ -169,7 +186,7 @@ function render_html_products(data, type, key){
         else
             $('#list_product_'+key).append(html);
     }
-	
+    
 	$('.redirect_detail').on('click', function(){
 		var product_id = $(this).data('id');
         var alias = $(this).data('alias');

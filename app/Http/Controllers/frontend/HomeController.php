@@ -16,13 +16,39 @@ class HomeController extends Controller
     public function __construct(){
     }
 
+    function super_unique($array,$key)
+    {
+       $temp_array = [];
+       foreach ($array as &$v) {
+           if (!isset($temp_array[$v[$key]]))
+           $temp_array[$v[$key]] =& $v;
+       }
+       $array = array_values($temp_array);
+       return $array;
+
+    }
+    
     public function index(Request $request)
     {
         $date = date('Y-m-d');
         $data             = array();
         $menu             = array();
+        $arrCateDefault   = array();
 		$menu             = CategoryModel::where('parent_id','0')->where('check_menu', 1)->orderBy('ordering', 'ASC')->get();
 		$arrCateDefault   = CategoryModel::where('parent_id','0')->where('status','1')->orderBy('ordering', 'ASC')->get();
+        $list_cookie_cates = $request->cookie('list_cate_cookie');
+        if(!empty($list_cookie_cates)){
+            $arrCate = [];
+            $arrCate_tmp = [];
+            $arrCateCookie = explode(',', $list_cookie_cates);
+            $arrCate_tmp  = CategoryModel::where('parent_id','0')->where('status','1')->whereIn('id', $arrCateCookie)->get();
+            
+            if(!empty($arrCate_tmp)){
+                $arrCate = array_merge($arrCate_tmp, $arrCateDefault);
+                $arrCateDefault = $this->super_unique($arrCate,'id');
+            }
+
+        }
 		$slide            = SlidesModel::orderBy('ordering', 'ASC')->get();
 		$banner           = BannersModel::orderBy('ordering', 'ASC')->limit(3)->get();
 		if(!empty($menu)){
@@ -185,7 +211,6 @@ class HomeController extends Controller
 					if(count($arrProducts) >=20)
 						array_shift($arrProducts);
 					$arrProducts = implode(',', $arrProducts);
-					$minutes = 60;
 					return response('1')->withCookie(cookie('list_products', $arrProducts, 60*24*7));
 				}
 				else
@@ -194,6 +219,40 @@ class HomeController extends Controller
 			else{
 				return response('1')->withCookie(cookie('list_products', $product_id, 60*24*7));
 			}
+		}
+    }
+    
+    public function pushCookieCategory(Request $request){
+        if($request->ajax()){
+			$cate_id = $request->id;
+			$checked = $request->checked;
+            if(!empty($checked)){
+                $list_cookie_cates = $request->cookie('list_cate_cookie');
+			
+                if(!empty($list_cookie_cates)){
+                    $arrCates[] = $list_cookie_cates;
+                    $arrCates_tmp = explode(',', $arrCates[0]);
+                    $key = array_search($cate_id, $arrCates_tmp); // $key = 2;
+                    
+                    if(empty($key) && $key == null && count($arrCates_tmp) <= 20 ){
+                        array_push($arrCates, $cate_id);
+                        $strCates = implode(',', $arrCates);
+                        $arrCates = explode(',', $strCates);
+                        if(count($arrCates) >=20)
+                            array_shift($arrCates);
+                        $arrCates = array_unique($arrCates);
+                        $arrCates = implode(',', $arrCates);
+                        return response('1')->withCookie(cookie('list_cate_cookie', $arrCates, 60*24*30));
+                    }
+                }
+                else{
+                    return response('1')->withCookie(cookie('list_cate_cookie', $cate_id, 60*24*30));
+                }
+            }
+            else{
+                $list_cookie_cates = $request->cookie('list_cate_cookie');
+            }
+			
 		}
     }
 
