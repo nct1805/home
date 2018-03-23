@@ -18,6 +18,7 @@
     Route::get('push_array_cate_cookie/{id}/{checked}', ['as' => 'Ft_Home_Push_Cate_Cookie', 'uses' => 'frontend\HomeController@pushCookieCategory']);
     Route::get('get_product_ajax/{page}/{cate}/{cate_2_id}', ['as' => 'Ft_Home_Get_Products_Ajax', 'uses' => 'frontend\HomeController@getProduct']);
 	Route::get('get_list_seen',['as'=>'Ft_Get_List_Seen','uses'=>'frontend\HomeController@getListProductSeen']);
+	Route::get('logout',['as'=>'Ft_Logout','uses'=>'frontend\HomeController@logout']);
     
 Route::group(['prefix'=>'admin'],function(){
     Auth::routes();    

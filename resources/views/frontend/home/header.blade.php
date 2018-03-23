@@ -6,13 +6,39 @@
     </div>    
     <div class="col-lg-3 col-md-3 register pull-right hidden-sm hidden-xs">    
     	<div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span class="text-btn">Đăng nhập & đăng ký</span> <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="https://www.5giay.vn/login/login" title="Đăng ký">Đăng ký</a></li>
-            <li><a href="https://www.5giay.vn/login/login" title="Đăng nhập">Đăng nhập</a></li>
-          </ul>
+         <?php if(!empty($isOnline)){ ?>
+         	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<span class="text-btn"><?=$isOnline['username'];?></span> <span class="caret"></span>
+			</button>
+        	<ul class="dropdown-menu" role="menu">
+				<li><a href="<?=$url_5giay.'/'.'login/login';?>" title="Đăng ký">Đăng ký</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/contact-details';?>" title="Đăng nhập">Đăng nhập</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/';?>" title="Đăng tin">Đăng tin</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/privacy';?>" title="Chi tiết liên hệ">Chi tiết liên hệ</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/prefenrences';?>" title="Bảo mật cá nhân">Bảo mật cá nhân</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/prefenrences';?>" title="Tùy chọn">Tùy chọn</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/alert-prefenrences';?>" title="Thiết lập thông báo">Thiết lập thông báo</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/external-accounts';?>" title="External Accounts">External Accounts</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/security';?>" title="Mật khẩu">Mật khẩu</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/news-feeed';?>" title="Thông tin bạn">Thông tin bạn</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/conversations';?>" title="Đối thoại">Đối thoại</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/alerts';?>" title="Thông báo">Thông báo</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/likes';?>" title="Được thích">Được thích</a></li>
+				<li><a href="<?=$url_5giay.'/'.'search/member?userid='.$isOnline['user_id'];?>" title="Nội dung của bạn">Nội dung của bạn</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/following';?>" title="Theo dõi">Theo dõi</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/ignored';?>" title="Danh sách đen">Danh sách đen</a></li>
+				<li><a href="<?=$url_5giay.'/'.'account/seller';?>" title="Sửa thông tin liên hệ">Sửa thông tin liên hệ</a></li>
+				<li><a href="logout" title="Thoát">Thoát</a></li>
+			</ul>
+         <?php }else{ ?>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<span class="text-btn">Đăng nhập & đăng ký</span> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="https://www.5giay.vn/login/login" title="Đăng ký">Đăng ký</a></li>
+				<li><a href="https://www.5giay.vn/login/login" title="Đăng nhập">Đăng nhập</a></li>
+			</ul>
+         <?php } ?>
         </div> 
     </div>
     <div class="col-lg-6 col-md-6 col-xs-12 search-hidden">

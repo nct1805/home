@@ -10,6 +10,8 @@ use App\Models\frontend\CategoryInternalModel;
 use App\Models\frontend\SlidesModel;
 use App\Models\frontend\BannersModel;
 use App\Models\frontend\ConfigModel;
+include($_SERVER['DOCUMENT_ROOT'].'/5giay/Session.php');
+use Session;
 
 class HomeController extends Controller
 {
@@ -27,9 +29,17 @@ class HomeController extends Controller
        return $array;
 
     }
+	
+	public function logout(Request $request){
+		$Session = new Session();
+		$isOnline = $Session->logout();
+		return redirect('/');
+	}
     
     public function index(Request $request)
     {
+		$Session = new Session();
+		$isOnline = $Session->isOnline();
         $date = date('Y-m-d');
         $data             = array();
         $menu             = array();
@@ -42,8 +52,11 @@ class HomeController extends Controller
             $arrCate_tmp = [];
             $arrCateCookie = explode(',', $list_cookie_cates);
             $arrCate_tmp  = CategoryModel::where('parent_id','0')->where('status','1')->whereIn('id', $arrCateCookie)->get();
-            
             if(!empty($arrCate_tmp)){
+				$arrCateDefault = json_decode(json_encode($arrCateDefault),true);
+				$arrCate_tmp = json_decode(json_encode($arrCate_tmp),true);
+				foreach($arrCate_tmp as $k => $v)
+					$arrCate_tmp[$k]['checked'] = 1;
                 $arrCate = array_merge($arrCate_tmp, $arrCateDefault);
                 $arrCateDefault = $this->super_unique($arrCate,'id');
             }
@@ -112,7 +125,8 @@ class HomeController extends Controller
 		$meta_keyword = $data_meta->keyword;
 		$meta_description = $data_meta->description;
 		$meta_script = $data_meta->script;
-        return view('frontend.home.home', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data, 'product_seen' => $product_seen, 'meta_title' =>$meta_title, 'meta_keyword' => $meta_keyword, 'meta_description' => $meta_description, 'meta_script' => $meta_script]);
+		$isOnline = !empty($isOnline) ? $isOnline : '';
+        return view('frontend.home.home', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data, 'product_seen' => $product_seen, 'meta_title' =>$meta_title, 'meta_keyword' => $meta_keyword, 'meta_description' => $meta_description, 'meta_script' => $meta_script, 'isOnline' => $isOnline]);
     }
     
     public function getProductByCate(Request $request){

@@ -75,7 +75,7 @@ label.css-label {
     <div class="col-md-12 col-sm-12 col-xs-12 category">
     	<div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12">
-        <a href="javasript:void(0)" title="<?=$value['cate1']['name'];?>"><img src="public/uploads/danh-muc/<?=$value['cate1']['icon'];?>"><input type="checkbox" value="<?=$value['cate1']['id'];?>" id="checkbox<?=$key;?>" class="css-checkbox check_cate" /><label for="checkbox<?=$key;?>" class="css-label"></label><?=$value['cate1']['name'];?></a>
+        <a href="javasript:void(0)" title="<?=$value['cate1']['name'];?>"><img src="public/uploads/danh-muc/<?=$value['cate1']['icon'];?>"><input type="checkbox" <?=!empty($value['cate1']['checked']) ? 'checked' : '';?> value="<?=$value['cate1']['id'];?>" id="checkbox<?=$key;?>" class="css-checkbox check_cate" /><label for="checkbox<?=$key;?>" class="css-label"></label><?=$value['cate1']['name'];?></a>
         
         </div>
         <?php if(!empty($value['total_cate2'])){  ?>
@@ -229,7 +229,7 @@ label.css-label {
 <?php } ?>
 <?php if(!empty($data)){ ?>
 
-<div class="modal fade" id="global-modal1a" role="dialog">
+<div class="modal fade" id="global-modal1" role="dialog">
   <div class="modal-dialog modal-lg">
     <!--Modal Content-->
     <div class="modal-content">
