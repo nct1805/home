@@ -248,7 +248,7 @@ label.css-label {
                        <?php if(!empty($value['total_cate2'])){?>
                            <ul>
                            <?php foreach($value['total_cate2'] as $k => $cate){ ?>
-                               <li><a href="<?=$url_5giay.'/categories/'.$cate['alias'].'.'.$cate['id'];?>" title="#"><?=$cate['name']?></a></li>
+                               <li><a href="<?=$url_5giay.'/forums/'.$cate['alias'].'.'.$cate['id'].'/create-thread';?>" title="#"><?=$cate['name']?></a></li>
                            <?php } ?>
                             </ul>
                        <?php } ?>

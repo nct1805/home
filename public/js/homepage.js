@@ -202,3 +202,6 @@ function render_html_products(data, type, key){
         });
 	});
 }
+$(document).on('click', '.btnAddNews', function(){
+	$('#global-modal1').modal('show');
+})

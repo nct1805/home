@@ -10,7 +10,7 @@ use App\Models\frontend\CategoryInternalModel;
 use App\Models\frontend\SlidesModel;
 use App\Models\frontend\BannersModel;
 use App\Models\frontend\ConfigModel;
-include($_SERVER['DOCUMENT_ROOT'].'/5giay/Session.php');
+include($_SERVER['DOCUMENT_ROOT'].'/Session.php');
 use Session;
 
 class HomeController extends Controller
