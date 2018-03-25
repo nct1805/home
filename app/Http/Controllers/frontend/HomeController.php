@@ -240,32 +240,31 @@ class HomeController extends Controller
         if($request->ajax()){
 			$cate_id = $request->id;
 			$checked = $request->checked;
-            if(!empty($checked)){
-                $list_cookie_cates = $request->cookie('list_cate_cookie');
-			
-                if(!empty($list_cookie_cates)){
-                    $arrCates[] = $list_cookie_cates;
-                    $arrCates_tmp = explode(',', $arrCates[0]);
-                    $key = array_search($cate_id, $arrCates_tmp); // $key = 2;
-                    
-                    if(empty($key) && $key == null && count($arrCates_tmp) <= 20 ){
-                        array_push($arrCates, $cate_id);
-                        $strCates = implode(',', $arrCates);
-                        $arrCates = explode(',', $strCates);
-                        if(count($arrCates) >=20)
-                            array_shift($arrCates);
-                        $arrCates = array_unique($arrCates);
-                        $arrCates = implode(',', $arrCates);
-                        return response('1')->withCookie(cookie('list_cate_cookie', $arrCates, 60*24*30));
-                    }
+            $list_cookie_cates = $request->cookie('list_cate_cookie');
+            if(!empty($list_cookie_cates)){
+                $arrCates[] = $list_cookie_cates;
+                $arrCates_tmp = explode(',', $arrCates[0]);
+                $key = array_search($cate_id, $arrCates_tmp); // $key = 2;
+                if(empty($key) && $key == null && count($arrCates_tmp) <= 20 && !empty($checked)){
+                    array_push($arrCates, $cate_id);
+                    $strCates = implode(',', $arrCates);
+                    $arrCates = explode(',', $strCates);
+                    if(count($arrCates) >=20)
+                        array_shift($arrCates);
+                    $arrCates = array_unique($arrCates);
+                    $arrCates = implode(',', $arrCates);
+                    return response('1')->withCookie(cookie('list_cate_cookie', $arrCates, 60*24*30));
                 }
-                else{
-                    return response('1')->withCookie(cookie('list_cate_cookie', $cate_id, 60*24*30));
+                else if(empty($checked)){
+                    unset($arrCates_tmp[$key]);
+                    $arrCates_tmp = implode(',', $arrCates_tmp);
+                    return response('1')->withCookie(cookie('list_cate_cookie', $arrCates_tmp, 60*24*30));
                 }
             }
             else{
-                $list_cookie_cates = $request->cookie('list_cate_cookie');
+                return response('1')->withCookie(cookie('list_cate_cookie', $cate_id, 60*24*30));
             }
+            
 			
 		}
     }

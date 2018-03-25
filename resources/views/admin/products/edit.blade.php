@@ -96,24 +96,34 @@
                     </div>
                   </div>
               </div>
-              
               <div class="form-group">
-                  <label for="exampleInputFile">Ngày kích hoạt</label>
+                  <label>Tên shop</label>
+                  <input type="text" class="form-control" name="shop_name"  value="<?=!empty($data->shop_name) ? $data->shop_name : $data->username;?>">
+              </div>
+              <div class="form-group">
+                  <label>Ngày kích hoạt</label>
                   <div class="row">
-                    <div class="col-md-12">
-                  <div class="radio">
-                      <label>
-                          <input class="datepicker" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strStartDate" id="strStartDate" value="<?= !empty($data->start_date) ? date ('d-m-Y', strtotime ($data->start_date)) : ''; ?>">
-                          Từ ngày
-                      </label>
-                  </div>
-                  <div class="radio">
-                      <label>
-                          <input class="datepicker" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strDateEnd" id="strDateEnd" value="<?= !empty($data->end_date) ? date ('d-m-Y', strtotime ($data->end_date)) : ''; ?>">
-                          Đến ngày
-                      </label>
-                  </div>
-                    </div>
+                      <div class="col-md-12">
+                          <div class="col-md-6">
+                             <h5>Từ ngày</h5>
+                              <div class='input-group date'>
+                                   
+                                    <input class="datepicker form-control" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strStartDate" id="strStartDate" value="<?= !empty($data->start_date) ? date ('d-m-Y', strtotime ($data->start_date)) : ''; ?>">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                          </div>
+                          <div class="col-md-6">
+                             <h5>Đến ngày</h5>
+                              <div class='input-group date'>
+                                    <input class="datepicker form-control" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strDateEnd" id="strDateEnd" value="<?= !empty($data->end_date) ? date ('d-m-Y', strtotime ($data->end_date)) : ''; ?>">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                          </div>
+                      </div>
                   </div>
               </div>
               <div class="box-footer">
