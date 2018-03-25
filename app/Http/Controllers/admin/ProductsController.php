@@ -72,7 +72,6 @@ class ProductsController extends Controller
 			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('thread_id', $keyword)->paginate(20);
 		else
 			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
-		
 		$segment = Request()->segment(1);
 		$products->withPath($segment.'/products/list'.'?cate_1='.$cate_1.'&cate_2='.$cate_2.'&cate_3='.$cate_3.'&keyword='.$keyword);
         return view('admin.products.index',
@@ -259,7 +258,7 @@ class ProductsController extends Controller
 			$product_new->status        = $request->status;
 			$product_new->check_special = $request->check_special;
 			$product_new->start_date    = date ('Y-m-d', strtotime ($request->strStartDate));
-			$product_new->end_date      = date ('Y-m-d', strtotime ($request->strDateEnd));
+			$product_new->end_date      = date ('Y-m-d', strtotime ($request->strEndDate));
 			$product_new->image         = $image_name;
             if(!empty($image_name_wap) && !empty($request->check_special) )
                 $product_new->image_wap = $image_name_wap;
@@ -275,7 +274,7 @@ class ProductsController extends Controller
 			$products->status        = $request->status;
 			$products->check_special = $request->check_special;
             $products->start_date    = date ('Y-m-d', strtotime ($request->strStartDate));
-			$products->end_date      = date ('Y-m-d', strtotime ($request->strDateEnd));
+			$products->end_date      = date ('Y-m-d', strtotime ($request->strEndDate));
 			$products->image         = $image_name;
             if(!empty($image_name_wap) && !empty($request->check_special) )
                 $products->image_wap = $image_name_wap;
