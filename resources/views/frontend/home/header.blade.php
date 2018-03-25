@@ -33,8 +33,8 @@
             <span class="text-btn">Đăng nhập & đăng ký</span> <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="https://www.5giay.vn/login/login" title="Đăng ký">Đăng ký</a></li>
-				<li><a href="https://www.5giay.vn/login/login" title="Đăng nhập">Đăng nhập</a></li>
+            <li><a href="<?=$url_5giay.'/login/login';?>" title="Đăng ký">Đăng ký</a></li>
+				<li><a href="<?=$url_5giay.'/login';?>" title="Đăng nhập">Đăng nhập</a></li>
           </ul>
           <?php } ?>
         </div> 
