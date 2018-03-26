@@ -243,17 +243,10 @@ label.css-label {
             <div class="input-topic">Select the title where you want to write...</div>
             <div class="box-topic">
                 <ul>
-                   <?php  $k_tmp = 1; foreach($data as $key => $value){ ?>
-                       <li><a href="<?=$url_5giay.'/categories/'.$cate['alias'].'.'.$cate['id'];?>" title="#"><?=$value['cate1']['name']?></a>
-                       <?php if(!empty($value['total_cate2'])){?>
-                           <ul>
-                           <?php foreach($value['total_cate2'] as $k => $cate){ ?>
-                               <li><a href="<?=$url_5giay.'/forums/'.$cate['alias'].'.'.$cate['id'].'/create-thread';?>" title="#"><?=$cate['name']?></a></li>
-                           <?php } ?>
-                            </ul>
-                       <?php } ?>
+                   <?php if(!empty($getCate_for_popup)){ foreach($getCate_for_popup as $key => $value){ ?>
+                       <li><a href="<?=$url_5giay.'/forums/'.$value['alias'].'.'.$value['node_id'].'/create-thread';?>" title="#"><?=$value['title']?></a>
                        </li>
-                   <?php } ?>
+                   <?php } }?>
                 </ul>
             </div><!--end box-topic-->
         </div><!--end toppic-->
