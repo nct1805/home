@@ -15,9 +15,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <a class="btn btn-primary pull-right" href="{{ route('category_link_add')}}">Thêm mới</a>
-            </div>
+            
             <!-- /.box-header -->
             <div class="box-body">
             @if(session('thongbao'))              
@@ -28,10 +26,10 @@
               <table id="table_list" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th style="width:40px">ID</th>
                   <th>Tiêu đề</th>
                   <th style="width:120px">Trạng thái</th>             
-                  <th style="width:90px">Action</th>
+                  <th style="width:70px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,7 +38,7 @@
                   <td>{{$row->id}}</td>
                   <td>{{$row->name}}</td>
                   <td>@if($row->status == 1)<span class="label label-success">{{'Đã kích hoạt'}}</span>@else <span class="label label-danger">{{'Chưa kích hoạt'}}</span>@endif</td>
-                  <td><a href="admin/category_link/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a> :: <a href="admin/category_link/delete/{{$row->id}}"><i class="fa fa-fw fa-trash-o"></i></a></td>
+                  <td><a href="admin/category_link/edit/{{$row->id}}"><i class="fa fa-fw fa-edit"></i></a></td>
                 </tr>
                 @endforeach
                 </tbody>              

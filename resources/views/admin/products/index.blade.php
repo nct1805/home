@@ -16,12 +16,11 @@
         <div class="col-xs-12">
           <div class="box">
            	<div class="box-header">
-				<div class="row">
 				<form action="admin/products/list" method="get">
-					<div class="col-md-3">
-						<label for="">Cate 1</label>
-						<select class="form-control select2" style="width: 100%;" id="cate_1" name="cate_1">
-							<option value="">Chọn danh mục cấp 1</option>
+					<div class="col-md-3" style="padding-left: 0px">
+						<label for="">Ngành hàng cấp 1</label>
+						<select class="form-control" style="width: 100%;" id="cate_1" name="cate_1">
+							<option value="">Ngành hàng cấp 1</option>
 							@if($list_cate1) 
 								@foreach($list_cate1 as $row)
 									<option value="<?=$row->node_id;?>" <?=$row->node_id == $cate_1 ? 'selected' : '';?>><?=$row->title;?></option>
@@ -29,10 +28,10 @@
 							@endif
 						</select>
 					</div>
-					<div class="col-md-3">
-						<label for="">Cate 2</label>
-						<select class="form-control select2" style="width: 100%;" id="cate_2" name="cate_2">
-							<option value="">Chọn danh mục cấp 2</option>
+					<div class="col-md-2" style="padding-left: 0px">
+						<label for="">Ngành hàng cấp 2</label>
+						<select class="form-control" style="width: 100%;" id="cate_2" name="cate_2">
+							<option value="">Ngành hàng cấp 2</option>
 							@if($list_cate2) 
 								@foreach($list_cate2 as $row2)
 								<option value="<?=$row2->node_id;?>" <?=$row2->node_id == $cate_2 ? 'selected' : '';?> ><?=$row2->title;?></option>
@@ -40,10 +39,10 @@
 							@endif
 						</select>
 					</div>
-					<div class="col-md-3">
-						<label for="">Cate 3</label>
-						<select class="form-control select2" style="width: 100%;" id="cate_3" name="cate_3">
-							<option value="">Chọn danh mục cấp 3</option>
+					<div class="col-md-2" style="padding-left: 0px">
+						<label for="">Ngành hàng cấp 3</label>
+						<select class="form-control" style="width: 100%;" id="cate_3" name="cate_3">
+							<option value="">Ngành hàng cấp 3</option>
 							@if($list_cate3) 
 								@foreach($list_cate3 as $row3)
 								<option value="<?=$row3->node_id;?>" <?=$row3->node_id == $cate_3 ? 'selected' : '';?> ><?=$row3->title;?></option>
@@ -51,20 +50,30 @@
 							@endif
 						</select>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-2" style="padding-left: 0px">
+						<label for="">Trạng thái</label>
+						<select class="form-control" style="width: 100%;" id="strStatus" name="strStatus">
+							<option value="" <?=$strStatus =='' ? 'selected' : '';?>>Tất cả</option>
+							<option value="1" <?=!empty($strStatus) && $strStatus == 1 ? 'selected' : '';?> >Kích hoạt</option>
+							<option value="0" <?=$strStatus == '0' ? 'selected' : '';?>>Không kích hoạt</option>
+						</select>
+					</div>
+					<div class="col-md-3" style="padding-left: 0px">
 						<div class="row">
 							<div class="col-md-8">
-								<label for="">Keyword</label>
-								<input type="text" placeholder="Nhập mã tin đăng" style="width: 100%;" id="keyword" name="keyword" value="<?=!empty($keyword) ? $keyword : '';?>">
+								<label for="">Từ khóa</label>
+								<input type="text" name="keyword" id="keyword" value="<?=!empty($keyword) ? $keyword : '';?>" class="form-control" placeholder="Nhập mã tin đăng" >
 							</div>
+
 							<div class="col-md-4">
-							<label for=""></label>
-								<input type="submit" class="btn btn-primary" style="width: 100%;" value="Tìm" id="btnSearch">
+							<label for="">&nbsp;</label>
+								<div class="form-group">
+									<input type="submit" class="btn btn-primary" style="width: 100%;" value="Tìm" id="btnSearch">
+								</div>
 							</div>
 						</div>
 					</div>
 					</form>
-				</div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -80,7 +89,7 @@
                   <th>Tin đăng</th>
                   <th style="width: 120px">Loại tin</th>
                   <th style="width: 120px">Trạng thái</th>
-                  <th style="width:90px">Action</th>
+                  <th style="width:70px">Action</th>
                 </tr>
                 </thead>
                 <tbody id="list_product">

@@ -28,13 +28,13 @@
               <table id="table_list" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th width="80px">ID</th>
+                  <th style="width:40px">ID</th>
                   <th>Email</th>
                   <th>Họ tên</th>
                   <th>Nhóm</th>
                   <th>Số điện thoại</th>
                   <th>Trạng thái</th>
-                  <th width="80px">Action</th>
+                  <th style="width:70px">Action</th>
                 </tr>
                 </thead>
                 <tbody>

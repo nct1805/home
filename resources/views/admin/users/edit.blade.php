@@ -32,7 +32,7 @@
           {{ csrf_field() }}
             <div class="form-group">
                 <label>Nhóm Admin</label>
-                <select name="group_id" class="form-control select2" style="width: 100%;">
+                <select name="group_id" class="form-control" style="width: 100%;">
                   <option value="">Chọn nhóm</option>
                   @foreach($group as $row)
                   <option 

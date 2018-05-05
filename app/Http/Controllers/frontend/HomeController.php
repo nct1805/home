@@ -18,8 +18,7 @@ class HomeController extends Controller
     public function __construct(){
     }
 
-    function super_unique($array,$key)
-    {
+    public function super_unique($array,$key){
        $temp_array = [];
        foreach ($array as &$v) {
            if (!isset($temp_array[$v[$key]]))
@@ -29,43 +28,11 @@ class HomeController extends Controller
        return $array;
 
     }
-	
 	public function logout(Request $request){
 		$Session = new Session();
 		$isOnline = $Session->logout();
 		return redirect('/');
 	}
-	
-	public function VnToEn ($str, $remove_spacial = FALSE)
-    {
-        $str = trim (strtolower ($str)); //not work with [Đ]
-        $str = trim (mb_strtolower ($str, 'UTF-8'));
-        $str = preg_replace ("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
-        $str = preg_replace ("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
-        $str = preg_replace ("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
-        $str = preg_replace ("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $str);
-        $str = preg_replace ("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
-        $str = preg_replace ("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
-        $str = preg_replace ("/(đ|ð)/", 'd', $str);
-        $str = preg_replace ("/(')/", '', $str);
-        $str = preg_replace ('/[\s^\n]+/', '-', $str);
-        if ($remove_spacial)
-        {
-            $str = $this->replaceSpecialCharacters ($str);
-        }
-        return $str;
-    }
-	
-	public function replaceSpecialCharacters ($str, $needle = '-')
-    {
-        $double = '\\' . $needle . $needle;
-        $str    = trim (mb_strtolower ($str, 'UTF-8'));
-        $str    = preg_replace ("/(')/", '', $str);
-        $str    = preg_replace ('/[^\p{L}\p{N}]/u', $needle, $str);
-        $str    = preg_replace ('/[' . $double . ']+/', $needle, $str);
-        return ltrim (rtrim ($str, $needle), $needle);
-    }
-    
     public function index(Request $request)
     {
 		$Session = new Session();
@@ -79,7 +46,7 @@ class HomeController extends Controller
 		$getCate_for_popup = CategoryInternalModel::where('depth','1')->orderBy('node_id', 'DESC')->get();
 		if(!empty($getCate_for_popup)){
 			foreach($getCate_for_popup as $k => $val){
-				$getCate_for_popup[$k]['alias'] = $this->VnToEn($val['title'], '/[\'^£$%&*()/}{@#~?><>,|=_+¬]/');
+				$getCate_for_popup[$k]['alias'] = VnToEn($val['title'], '/[\'^£$%&*()/}{@#~?><>,|=_+¬]/');
 			}
 		}
         $list_cookie_cates = $request->cookie('list_cate_cookie');
@@ -147,7 +114,7 @@ class HomeController extends Controller
                 }
 			}
 		}
-        $url_5giay = 'https://new.5giay.vn';
+        $url_5giay = config('constants.url_5giay');
 		$product_seen = '';
 		$list_products = $request->cookie('list_products');
 		if(!empty($list_products)){
@@ -162,7 +129,8 @@ class HomeController extends Controller
 		$meta_description = $data_meta->description;
 		$meta_script = $data_meta->script;
 		$isOnline = !empty($isOnline) ? $isOnline : '';
-        return view('frontend.home.home', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data, 'product_seen' => $product_seen, 'meta_title' =>$meta_title, 'meta_keyword' => $meta_keyword, 'meta_description' => $meta_description, 'meta_script' => $meta_script, 'isOnline' => $isOnline, 'getCate_for_popup' => $getCate_for_popup]);
+        $get_base_url = get_base_url();
+        return view('frontend.home.home', ['menu' => $menu, 'slide' => $slide, 'banner' => $banner, 'url_5giay' => $url_5giay, 'data' => $data, 'product_seen' => $product_seen, 'meta_title' =>$meta_title, 'meta_keyword' => $meta_keyword, 'meta_description' => $meta_description, 'meta_script' => $meta_script, 'isOnline' => $isOnline, 'getCate_for_popup' => $getCate_for_popup,'get_base_url' =>$get_base_url]);
     }
     
     public function getProductByCate(Request $request){
@@ -260,6 +228,7 @@ class HomeController extends Controller
 					$arrProducts = explode(',', $strProducts);
 					if(count($arrProducts) >=20)
 						array_shift($arrProducts);
+					$arrProducts = array_unique($arrProducts);
 					$arrProducts = implode(',', $arrProducts);
 					return response('1')->withCookie(cookie('list_products', $arrProducts, 60*24*7));
 				}

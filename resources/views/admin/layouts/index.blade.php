@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="public/admin_asset/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="public/admin_asset/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="public/admin_asset/dist/css/skins/_all-skins.css">
 <link rel="stylesheet" href="public/admin_asset/plugins/select2/select2.min.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="public/admin_asset/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">

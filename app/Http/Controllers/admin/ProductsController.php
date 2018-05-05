@@ -9,6 +9,7 @@ use App\Models\admin\ProductsInternalModel;
 use App\Models\admin\CategoryModel;
 use App\Models\admin\CategoryInternalModel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Image;
 
 class ProductsController extends Controller
@@ -43,37 +44,47 @@ class ProductsController extends Controller
 		else if(!empty($cate_1) && empty($cate_2) && empty($cate_3)){
 			$arrList_cate1 = [];
 			if(!empty($list_cate1)){
-				foreach($list_cate1 as $k => $v)
-					array_push($arrList_cate1, $v['node_id']);
+                $arrList_cate1[] = $cate_1;
 				$list_cate2_tmp = CategoryInternalModel::orderBy('lft', 'ASC')->whereIn('parent_node_id', $arrList_cate1)->get();
-				
 				if(!empty($list_cate2_tmp)){
 					$arrList_cate2 = [];
-					foreach($list_cate2_tmp as $k => $v)
-						array_push($arrList_cate2, $v['node_id']);
+					foreach($list_cate2_tmp as $k => $v){
+                        array_push($arrList_cate2, $v['node_id']);
+                        array_push($arrList_cate, $v['node_id']);
+                    }
+						
 					$list_cate3_tmp = CategoryInternalModel::orderBy('lft', 'ASC')->whereIn('parent_node_id', $arrList_cate2)->get();
 					
 					if(!empty($list_cate3_tmp)){
-						$arrList_cate = [];
 						foreach($list_cate3_tmp as $k => $v)
 							array_push($arrList_cate, $v['node_id']);
 					}
-					array_push($arrList_cate, $arrList_cate2);
+//					array_push($arrList_cate, $arrList_cate2);
 				}
 			}
 		}
 		
 		$keyword = $request->keyword;
-		if(!empty($arrList_cate) && !empty($keyword))
-			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->whereIN('node_id', $arrList_cate)->where('thread_id', $keyword)->paginate(20);
-		else if(!empty($arrList_cate) && empty($keyword))
-			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->whereIN('node_id', $arrList_cate)->paginate(20);
-		else if(empty($arrList_cate) && !empty($keyword))
-			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('thread_id', $keyword)->paginate(20);
-		else
-			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
-		$segment = Request()->segment(1);
-		$products->withPath($segment.'/products/list'.'?cate_1='.$cate_1.'&cate_2='.$cate_2.'&cate_3='.$cate_3.'&keyword='.$keyword);
+		$strStatus = $request->strStatus;
+        $query = DB::table('xf_thread');
+        $query->leftjoin ('products', 'xf_thread.thread_id', '=', 'products.id');
+        if(!empty($arrList_cate[0]))
+            $query->whereIN('node_id', $arrList_cate);
+        if(!empty($keyword))
+            $query->where('title', 'like', '%' . $keyword . '%');
+        if(!empty($strStatus))
+            $query->where('products.status', $strStatus);
+        $products = $query->paginate(20);
+//		if(!empty($arrList_cate) && !empty($keyword))
+//			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->whereIN('node_id', $arrList_cate)->where('title', 'like', '%' . $keyword . '%')->paginate(20);
+//		else if(!empty($arrList_cate) && empty($keyword))
+//			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->whereIN('node_id', $arrList_cate)->paginate(20);
+//		else if(empty($arrList_cate) && !empty($keyword))
+//			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->where('title', 'like', '%' . $keyword . '%')->paginate(20);
+//		else
+////			$products = ProductsInternalModel::orderBy('thread_id','DESC')->leftjoin('products', 'xf_thread.thread_id', '=', 'products.id')->paginate(20);
+//		$segment = Request()->segment(1);
+//		$products->withPath($segment.'/products/list'.'?cate_1='.$cate_1.'&cate_2='.$cate_2.'&cate_3='.$cate_3.'&keyword='.$keyword);
         return view('admin.products.index',
             [   'title'=>'Sản phẩm',
                 'data'=>$products,
@@ -82,6 +93,7 @@ class ProductsController extends Controller
 			 	'cate_2' => $cate_2,
 			 	'cate_3' => $cate_3,
 			 	'keyword' => $keyword,
+			 	'strStatus' => $strStatus,
 			 	'list_cate1' => $list_cate1,
 			 	'list_cate2' => $list_cate2,
 			 	'list_cate3' => $list_cate3,
@@ -215,18 +227,22 @@ class ProductsController extends Controller
             $img->save(public_path('uploads/san-pham/' .$image_name));
         }
 		else{
-			$image_name = $products->image;
-			$img_path_tmp = public_path('uploads/san-pham/' .$image_name);
-			$img_tmp = Image::make($img_path_tmp);
-			$width  = $img_tmp->width();
-			$height = $img_tmp->height();
-			if($request->check_special == 1){
-				$img_tmp->resize(263, 350);
-			}
-			else{
-				$img_tmp->resize(202, 204);
-			}
-			$img_tmp->save(public_path('uploads/san-pham/' .$image_name));
+            if(!empty($products->image)){
+                $image_name = $products->image;
+                $img_path_tmp = public_path('uploads/san-pham/' .$image_name);
+                $img_tmp = Image::make($img_path_tmp);
+                $width  = $img_tmp->width();
+                $height = $img_tmp->height();
+                if($request->check_special == 1){
+                    $img_tmp->resize(263, 350);
+                }
+                else{
+                    $img_tmp->resize(202, 204);
+                }
+                $img_tmp->save(public_path('uploads/san-pham/' .$image_name));
+            }
+            else
+                $image_name = '';
 		}
         
         if($request->hasFile('image_wap')){

@@ -3,6 +3,7 @@
         Options -MultiViews
     </IfModule>
     RewriteEngine On
+   RewriteBase /home
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]
@@ -13,4 +14,5 @@
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    
 </IfModule>

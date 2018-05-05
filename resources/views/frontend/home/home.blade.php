@@ -5,19 +5,17 @@
 		display: none;
 		position: fixed;
 		right: 25px;
-		bottom: 120px;
+		bottom: 160px;
 		z-index: 9;
 		min-width: auto;
 		width: 40px;
 		height: 40px;
 		text-align: center;
 		border-radius: 100%;
-/*		background-color: #2bc5f8;*/
 		line-height: 0;
 		padding-right: 10px;
 		padding-left: 10px;
 		line-height: 1.4;
-/*		background-image:url("public/frontend/images/up-arrow-icon.png");*/
 		background: #2bc5f8 url(public/frontend/images/cd-top-arrow.svg) no-repeat center 50%;
 	}
     
@@ -44,6 +42,8 @@ input[type=checkbox].css-checkbox+label.css-label {
     font-size: 15px;
     vertical-align: middle;
     cursor: pointer;
+    right: 16px;
+    position: absolute; top:15px;
 }
 
 input[type=checkbox].css-checkbox:checked+label.css-label {
@@ -51,7 +51,7 @@ input[type=checkbox].css-checkbox:checked+label.css-label {
 }
 
 label.css-label {
-    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_1437560032a3e1345ce3a7bb5fec77cc.png);
+    background-image: url(public/frontend/images/csscheckbox_1437560032a3e1345ce3a7bb5fec77cc.png);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -59,55 +59,80 @@ label.css-label {
     -ms-user-select: none;
     user-select: none;
 }
-    label {
-            margin-right: 5px;
-        }
-    
+label {
+        margin-right: 5px;
+}
+.fb_reset {
+    background: none;
+    border: 0;
+    border-spacing: 0;
+    color: #000;
+    cursor: auto;
+    direction: ltr;
+    font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+    line-height: 1;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+    text-indent: 0;
+    text-shadow: none;
+    text-transform: none;
+    visibility: visible;
+    white-space: normal;
+    word-spacing: normal; bottom: 50px; position: fixed;
+}
+.fb_reset>div { margin-bottom:20px;}
 </style>
 <?php if(!empty($data)){ $k_tmp = 1; foreach($data as $key => $value){ ?>
 <section class="quangcao">
 <div class="container">
-<a href="javascript:void(0)"><img class=" img-responsive" src="public/uploads/danh-muc/<?=$value['cate1']['image'];?>"></a>
+<a href="javascript:void(0)"><img class=" img-responsive lazyload" src="public/uploads/danh-muc/<?=$value['cate1']['image'];?>"></a>
 </div>
 </section>
 <section class="content-home">
 <div class="container">
     <div class="col-md-12 col-sm-12 col-xs-12 category">
     	<div class="row">
-        <div class="col-md-3 col-sm-12 col-xs-12">
-        <a href="javasript:void(0)" title="<?=$value['cate1']['name'];?>"><img src="public/uploads/danh-muc/<?=$value['cate1']['icon'];?>"><input type="checkbox" <?=!empty($value['cate1']['checked']) ? 'checked' : '';?> value="<?=$value['cate1']['id'];?>" id="checkbox<?=$key;?>" class="css-checkbox check_cate" /><label for="checkbox<?=$key;?>" class="css-label"></label><?=$value['cate1']['name'];?></a>
+        <div class="col-md-3 col-sm-12 col-xs-12" style="position: relative;">
+        <a href="<?=$url_5giay.'/categories/'.$value['cate1']['alias'].'.'.$value['cate1']['id'];?>" title="<?=$value['cate1']['name']?>" title="<?=$value['cate1']['name'];?>"><img src="public/uploads/danh-muc/<?=$value['cate1']['icon'];?>"><?=$value['cate1']['name'];?>
+<input type="checkbox" <?=!empty($value['cate1']['checked']) ? 'checked' : '';?> value="<?=$value['cate1']['id'];?>" id="checkbox<?=$key;?>" class="css-checkbox check_cate" /><label for="checkbox<?=$key;?>" class="css-label"></label>
+        </a>
         
         </div>
         <?php if(!empty($value['total_cate2'])){  ?>
         <ul class="col-md-9 col-sm-12 col-xs-12 right-category">
-            <div id="carousel" class="carousel slide carousel-all carousel<?=$k_tmp;?>" data-ride="carousel" data-type="multi" data-interval="false">
-                <div class="all-pr" ><a href="javascript:void(0)" data-type="1" data-cate="<?=$value['cate1']['id'];?>" data-key="<?=$k_tmp;?>">Tất cả</a></div>
-				<div class="carousel-inner">     
-				    <?php foreach($value['total_cate2'] as $k => $cate){ ?>           
-					<div class="item <?=$k==0?'active' : '';?>">
-						<div class="carousel-col"><a href="<?=$url_5giay.'/categories/'.$cate['alias'].'.'.$cate['id'];?>" data-cate="<?=$cate['id']?>" data-type="2" data-key="<?=$k_tmp;?>" ><?=$cate['name'];?></a></div>
-					</div>
-					<?php } ?>
-				</div>
-				<div class="right carousel-control next-right">
-					<a href="#carousel" role="button" data-slide="next">
-						<i class="fa fa-chevron-right"></i>
-						<span class="sr-only">Next</span>
-					</a>
-				</div>
-                <ol class="carousel-indicators hidden-sm hidden-xs">
-                    <li data-target=".carousel<?=$k_tmp;?>" data-slide-to="0" class="active"></li>
-                    <li data-target=".carousel<?=$k_tmp;?>" data-slide-to="1"></li>
-                    <li data-target=".carousel<?=$k_tmp;?>" data-slide-to="2"></li>
-                  </ol>
+			<div class="carousel carousel_<?=$k_tmp;?>">
+			<div class="all-pr"><a href="#1">Tất cả</a></div>
+			<button class="slider_next<?=$k_tmp;?> slider_next_menu right carousel-control next-right" data-key="<?=$k_tmp;?>"><i class="fa fa-chevron-right"></i></button>
+			  <div class="slide-product unselect">
+			<div class="slpt<?=$k_tmp;?>">
+				<?php foreach($value['total_cate2'] as $k => $cate){ ?>         
+					<div class="carousel-col"><a href="<?=$url_5giay.'/forums/'.$cate['alias'].'.'.$cate['id'];?>" data-cate="<?=$cate['id']?>" data-type="2" data-key="<?=$k_tmp;?>" ><?=$cate['name'];?></a></div>
+				<?php } ?>
+			</div>                
+			</div>
+			  <ol class="carousel-indicators hidden-sm hidden-xs">
+				<li data-target=".carousel_<?=$k_tmp;?>" data-slide-to="0" class="active"></li>
+				<li data-target=".carousel_<?=$k_tmp;?>" data-slide-to="1"></li>
+				<li data-target=".carousel_<?=$k_tmp;?>" data-slide-to="2"></li>
+			  </ol>               	
 			</div>
         </ul>
+        
+        
         <?php } ?>
         </div>
     </div>
     <?php if(!empty($value['special_products'])){ ?>
     <div class="col-md3">      
-      <div id="carousel-example-generic1" class="carousel-fade carousel slide" data-ride="carousel">
+      <div id="carousel-example-generic1_<?=$k_tmp;?>" class="carousel-fade carousel slide" data-ride="carousel">
       <div class="carousel-inner">
       <?php foreach($value['special_products'] as $k_spc => $special_products){ ?>
       <div class="item <?=$k_spc == 0 ? 'active':'';?>">
@@ -115,28 +140,26 @@ label.css-label {
         <picture>
               <source media="(max-width: 992px)" srcset="public/uploads/san-pham/<?=$special_products['image_wap']?>">
               <source media="(min-width: 1200px)" srcset="public/uploads/san-pham/<?=$special_products['image']?>">
-              <img class="img-responsive" src="public/uploads/san-pham/<?=$special_products['image']?>" alt="#">
+              <img class="img-responsive lazyload" src="public/uploads/san-pham/<?=$special_products['image']?>" alt="#">
           </picture>
           </a>      
       </div>
       <?php } ?>
       </div>
-      <!-- Controls -->
-      <a class="left carousel-control" href="#carousel-example-generic1" role="button" data-slide="prev">
+      <a class="left carousel-control" href="#carousel-example-generic1_<?=$k_tmp;?>" role="button" data-slide="prev">
       <i class="fa fa-angle-left" aria-hidden="true"></i>
       </a>
-      <a class="right carousel-control" href="#carousel-example-generic1" role="button" data-slide="next">
+      <a class="right carousel-control" href="#carousel-example-generic1_<?=$k_tmp;?>" role="button" data-slide="next">
       <i class="fa fa-angle-right" aria-hidden="true"></i>
       </a>
       </div>       
     </div>
     <?php } ?>
-<!--    <div id="list_product_<?=$k_tmp;?>">-->
    <div class="col-md9">
-      <button class="slider_prev_item1 prev-slide"></button>
-      <button class="slider_next_item1 prev-slide next-slide"></button>
+      <button class="slider_prev_item1 prev-slide" data-key="<?=$k_tmp;?>"></button>
+      <button class="slider_next_item1 prev-slide next-slide" data-key="<?=$k_tmp;?>"></button>
         <div class="slide-product unselect">
-        <div class="product_1_<?=$k_spc;?>">
+        <div class="product_1_<?=$k_tmp;?>">
     <?php foreach($value['products'] as $products){ ?>
     <figure class="item-product">
     <div class="box-item">
@@ -144,17 +167,17 @@ label.css-label {
         <picture>
           <source media="(max-width: 1199px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
           <source media="(min-width: 1200px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
-          <img class=" img-responsive image-default" src="public/uploads/san-pham/<?=$products['image'];?>" alt="#">
+          <img class=" img-responsive image-default lazyload" src="public/uploads/san-pham/<?=$products['image'];?>" alt="<?=$products['name'];?>" title="<?=$products['name'];?>">
       </picture>
         <picture>
           <source media="(max-width: 1199px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
           <source media="(min-width: 1200px)" srcset="public/uploads/san-pham/<?=$products['image'];?>">
-          <img class="img-responsive image-hover" src="public/uploads/san-pham/<?=$products['image'];?>" alt="#">
+          <img class="img-responsive image-hover lazyload" src="public/uploads/san-pham/<?=$products['image'];?>" alt="<?=$products['name'];?>" title="<?=$products['name'];?>">
       </picture>
         </a>
         </div>
         <figcaption>
-            <div class="home-store"><?=$products['shop_name'];?></div>
+            <div class="home-store"><span><?=$products['shop_name'];?></span></div>
             <div class="date"><?=!empty($products['updated_at']) ? date_format($products['updated_at'],'d/m/Y'): '';?></div>
             <h2 class="title_h2">
             	<a class="redirect_detail" href="javascript:void(0);" data-id="<?=$products['id'];?>" data-alias="<?=$products['alias'];?>" href="javascript:void(0);"><?=$products['name'];?></a>
@@ -165,7 +188,7 @@ label.css-label {
     <?php } ?>
     <script>
         $(document).ready(function(){	
-            var owl1 = $(".product_1_<?=$k_spc;?>"); 
+            var owl1 = $(".product_1_<?=$k_tmp;?>"); 
             owl1.owlCarousel({
               items :4, //10 items above 1000px browser width
               itemsDesktop : [4030,4], //5 items between 1000px and 901px
@@ -176,26 +199,15 @@ label.css-label {
               lazyLoad : true,
               slideSpeed: 300
             });
-            $('.slider_prev_item1').click(function(e) {
-                owl1.trigger('owl.prev');
-            });
-            $('.slider_next_item1').click(function(e) {
-                owl1.trigger('owl.next');
-            });
+           
         });        	
     </script>
     </div>                
         </div>	
-   </div><!--end col-md9-->  
-<!--    </div>-->
+   </div>
     <input type="hidden" id="cate_id_<?=$k_tmp;?>" value="0">
     <input type="hidden" id="page_<?=$k_tmp;?>" value="3">
     <input type="hidden" id="total_page_<?=$k_tmp;?>" value="<?=!empty($value['total_page']) ? $value['total_page'] : 1;?>">
-<!--
-    <?php if(!empty($value['total_page']) && $value['total_page'] > 2 ){ ?>
-    <div class="col-md-12 col-xs-12 lear_more btn_load_more_<?=$k_tmp;?> btn btn-info hidden-lg hidden-md" data-key="<?=$k_tmp;?>" data-cate="<?=$key;?>">Xem thêm <i class="fa fa-angle-right"></i></div>
-    <?php } ?>
--->
 </div>
 </section>
 <?php $k_tmp++; } }?>
@@ -205,21 +217,33 @@ label.css-label {
     	<div class="new-home">
             	<div class="col-md2 title-view">Sản phẩm vừa xem:</div>
                 <div class="col-md10">
-                    <div id="carousel" class="carousel slide carousel4" data-ride="carousel" data-type="multi4" data-interval="false">        
-						<div class="carousel-inner" id="list_products_seen">   
-						<?php foreach($product_seen as $k => $v){ ?>
-							<div class="item item4 <?=$k == 0 ? 'active' : '';?>">
-								<div><a href="javascript:void(0)" class="view-new redirect_detail" data-id="<?=$v['id'];?>" data-alias="<?=$v['alias'];?>"><img style="width:76px;" src="public/uploads/san-pham/<?=$v['image'];?>"></a></div>
-							</div> 
-						<?php } ?>            
-						</div>
-						<div class="right carousel-control next-right next-right-new">
-							<a href=".carousel4" role="button" data-slide="next">
-								<i class="fa fa-chevron-right"></i>
-								<span class="sr-only">Next</span>
-							</a>
-						</div>
-					</div>
+                	
+      <button class="slider_next_item1 prev-slide next-right-new" data-key="seen"></button>
+                	<div class="slide-product unselect">
+        <div class="product_1_seen">
+    <?php foreach($product_seen as $k => $v){ ?>
+    <div class="item item4 <?=$k == 0 ? 'active' : '';?>">
+        <div><a href="javascript:void(0)" class="view-new redirect_detail" data-id="<?=$v['id'];?>" data-alias="<?=$v['alias'];?>"><img style="width:76px;" src="public/uploads/san-pham/<?=$v['image'];?>"></a></div>
+    </div>
+    <?php } ?>
+    <script>
+        $(document).ready(function(){	
+            var owl1 = $(".product_1_seen"); 
+            owl1.owlCarousel({
+              items :9, //10 items above 1000px browser width
+              itemsDesktop : [4030,9], //5 items between 1000px and 901px
+              itemsDesktopSmall : [1024,9], // betweem 900px and 601px
+              itemsTablet: [768,5], //2 items between 600 and 0
+              itemsMobile : [375,2], // itemsMobile disabled - inherit from itemsTablet option
+              autoPlay: false,
+              lazyLoad : true,
+              slideSpeed: 300
+            });
+           
+        });        	
+    </script>
+    </div>                
+        </div>
                 </div>
         </div>
     </div>
@@ -228,10 +252,8 @@ label.css-label {
 </section>
 <?php } ?>
 <?php if(!empty($data)){ ?>
-
 <div class="modal fade" id="global-modal1" role="dialog">
   <div class="modal-dialog modal-lg">
-    <!--Modal Content-->
     <div class="modal-content">
       <div class="modal-header">Topic/Forum List
         <button type="button" class="close" style="margin-top:-15px;" data-dismiss="modal" aria-label="Close">
@@ -244,15 +266,58 @@ label.css-label {
             <div class="box-topic">
                 <ul>
                    <?php if(!empty($getCate_for_popup)){ foreach($getCate_for_popup as $key => $value){ ?>
-                       <li><a href="<?=$url_5giay.'/forums/'.$value['alias'].'.'.$value['node_id'].'/create-thread';?>" title="#"><?=$value['title']?></a>
+                       <li><a href="<?=$url_5giay.'/forums/'.$value['alias'].'.'.$value['node_id'].'/create-thread';?>" title="<?=$value['title']?>"><?=$value['title']?></a>
                        </li>
                    <?php } }?>
                 </ul>
-            </div><!--end box-topic-->
-        </div><!--end toppic-->
+            </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <?php } ?>
+ <script>
+	 function Slide_Product(){   
+		 var i = 0;
+		 $('.slider_next_menu').each(function (index, value) {
+			 i++;
+			 var owl = $(".slpt"+i); 
+			owl.owlCarousel({
+			  autoPlay: false,
+			  lazyLoad : true,
+			  slideSpeed: 300
+			});
+		});
+	 }
+	$(document).ready(function(){	
+		Slide_Product();
+		$('.slider_next_menu').click(function(e) {
+			var key = $(this).data('key');
+			var owl = $(".slpt"+key); 
+			owl.owlCarousel({
+			  //items :16, //10 items above 1000px browser width
+		//      itemsDesktop : [4030,8], //5 items between 1000px and 901px
+		//      itemsDesktopSmall : [1024,8], // betweem 900px and 601px
+		//      itemsTablet: [768,4], //2 items between 600 and 0
+		//      itemsMobile : [375,2], // itemsMobile disabled - inherit from itemsTablet option
+			  autoPlay: false,
+			  lazyLoad : true,
+			  slideSpeed: 300
+			});
+			owl.trigger('owl.next');
+		});
+		
+		$('.slider_prev_item1').click(function(e) {
+			var key = $(this).data('key');
+			var owl_tmp = $(".product_1_"+key); 
+			owl_tmp.trigger('owl.prev');
+		});
+		$('.slider_next_item1').click(function(e) {
+			var key = $(this).data('key');
+			var owl_tmp = $(".product_1_"+key); 
+			owl_tmp.trigger('owl.next');
+		});
+	});        	
+</script>
 @endsection

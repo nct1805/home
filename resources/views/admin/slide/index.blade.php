@@ -28,11 +28,11 @@
               <table id="table_list" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th style="width:40px">ID</th>
                   <th>Hình ảnh</th>
                   <th>Tiêu đề</th>
                   <th style="width:120px">Trạng thái</th>            
-                  <th style="width:90px">Action</th>
+                  <th style="width:70px">Action</th>
                 </tr>
                 </thead>
                 <tbody>

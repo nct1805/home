@@ -3,10 +3,10 @@
 <div class="content-wrapper" style="min-height: 946px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Nhóm quản trị Admin</h1>
+      <h1>Phân quyền</h1>
       <ol class="breadcrumb">
         <li><a href="{{ route('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('permision_list')}}">Nhóm quản trị Admin</a></li>
+        <li><a href="{{ route('permision_list')}}">Phân quyền</a></li>
         <li class="active">Cập nhật</li>
       </ol>
     </section>

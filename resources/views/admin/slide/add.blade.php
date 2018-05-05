@@ -48,7 +48,7 @@
               </div>
               <div class="form-group">
                   <label>Target</label>
-                  <select class="form-control select2" style="width: 100%;" id="target" name="target">
+                  <select class="form-control" style="width: 100%;" id="target" name="target">
                     <option value="_blank">Mở trang mới</option>
                     <option value="_self">Mở trang hiện tại</option>          
                   </select>

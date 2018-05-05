@@ -37,7 +37,7 @@
      			{{ csrf_field() }}
             <div class="form-group">
                   <label>Danh mục</label>
-            <select class="form-control select2" style="width: 100%;" id="category" name="category">
+            <select class="form-control" style="width: 100%;" id="category" name="category">
               <option value="">Chọn danh mục</option>
               @if($category) 
                 @foreach($category as $row)
@@ -58,7 +58,7 @@
               <div class="form-group">
                   <label>Target</label>
                   
-                  <select class="form-control select2" style="width: 100%;" id="target" name="target">
+                  <select class="form-control " style="width: 100%;" id="target" name="target">
                     <option value="_blank">Mở trang mới</option>
                     <option value="_self">Mở trang hiện tại</option>          
                   </select>

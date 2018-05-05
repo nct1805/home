@@ -38,7 +38,7 @@ class LinkController extends Controller
             return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
        $this->validate($request,
             [
-                'name' => 'required|unique:tbl_posts,title|min:3|max:255'
+                'name' => 'required|min:3|max:255'
                 
             ],
             [

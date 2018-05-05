@@ -5,7 +5,7 @@
     <section class="content-header">
       <h1>Danh mục</h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{ route('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Danh mục</a></li>
         <li class="active">Danh sách</li>
       </ol>
@@ -28,7 +28,7 @@
                   <th>Name</th>
                   <th style="width:120px">Hiển thị menu</th>
                   <th style="width:120px">Trang thái</th>
-                  <th style="width:90px">Action</th>
+                  <th style="width:70px">Action</th>
                 </tr>
                 </thead>
                 <tbody>

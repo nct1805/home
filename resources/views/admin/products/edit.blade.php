@@ -96,10 +96,12 @@
                     </div>
                   </div>
               </div>
+<!--
               <div class="form-group">
                   <label>Tên shop</label>
                   <input type="text" class="form-control" name="shop_name"  value="<?=!empty($data->shop_name) ? $data->shop_name : $data->username;?>">
               </div>
+-->
               <div class="form-group">
                   <label>Ngày kích hoạt</label>
                   <div class="row">
@@ -108,7 +110,7 @@
                              <h5>Từ ngày</h5>
                               <div class='input-group date'>
                                 
-                                    <input class="datepicker form-control" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strStartDate" id="strStartDate" value="<?= !empty($data->start_date) ? date ('d-m-Y', strtotime ($data->start_date)) : ''; ?>">
+                                    <input class="datepicker form-control" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strStartDate" id="strStartDate" value="<?= !empty($data->start_date) ? date ('d-m-Y', strtotime ($data->start_date)) : date('d-m-Y'); ?>">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -117,7 +119,7 @@
                           <div class="col-md-6">
                              <h5>Đến ngày</h5>
                               <div class='input-group date'>
-                                    <input class="datepicker form-control" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strEndDate" id="strEndDate" value="<?= !empty($data->end_date) ? date ('d-m-Y', strtotime ($data->end_date)) : ''; ?>">
+                                    <input class="datepicker form-control" type="text" readonly placeholder="Chọn ngày-tháng-năm" name="strEndDate" id="strEndDate" value="<?= !empty($data->end_date) ? date ('d-m-Y', strtotime ($data->end_date)) : date('d-m-Y'); ?>">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>

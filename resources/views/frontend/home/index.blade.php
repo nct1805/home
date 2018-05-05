@@ -12,6 +12,7 @@
 <meta property="og:site_name" content="5giay.vn" />
 <meta property="og:type" content="article" />
 <link href="public/frontend/images/logo.og.png" rel="icon"/>
+<link href="{{ $get_base_url}}" rel="canonical" />
 <meta name="robots" content="index"/>
 <link rel="stylesheet" href="public/frontend/css/fonts.css">
 <link rel="stylesheet" href="public/frontend/css/bootstrap.css">
@@ -19,13 +20,14 @@
 <link href="public/frontend/css/main.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="public/frontend/js/jquery-1.9.1.min.js"></script>
 <link href="public/frontend/menu/main_menu.css" rel="stylesheet" type="text/css">
-<!-- slide product-->
 <link type="text/css" rel="stylesheet" href="public/frontend/slide-product/owl.carousel.css" />
 <script type="text/javascript" src="public/frontend/menu/common.js"></script>
 <script type="text/javascript" src="public/frontend/menu/jquery_003.js"></script>
+<link rel="stylesheet" href="public/frontend/menu/style.css">
+<link href="public/frontend/menu/idangerous.swiper.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<div class="content">
+<div id="content-block">
 @include('frontend.home.header')
 <section class="menu-slide">
 <div class="container">
@@ -40,13 +42,6 @@
       <li>
           <a href="<?=$url_5giay.'/categories/'.$val['alias'].'.'.$val['id'];?>" title="<?=$val['name']?>">
           	<img src="public/uploads/danh-muc/<?=$val['icon'];?>" alt="<?=$val['name']?>" class="icon"><?=$val['name']?></a>
-          <?php if(!empty($val['total_cate2'])){?>
-          <?php /*<ul tabindex="5001" class="level_1 f_menu_sub_2">
-              <?php foreach($val['total_cate2'] as $v){ if(!empty($v['parent_id']) && ($v['parent_id'] == $val['id']) ){ ?>
-               <li><a href="<?=$url_5giay.'/categories/'.$v['alias'].'.'.$v['id'];?>" title="#"><?=$v['name'];?></a></li>
-               <?php } } ?>
-          </ul> */ ?>
-          <?php } ?>
       </li>
     <?php } } ?>  
 </ul>
@@ -65,24 +60,17 @@
 	var url_5giay = '<?=!empty($url_5giay) ? $url_5giay : "";?>';
 </script>
 <script src="public/frontend/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="public/frontend/dist/js/jquery.mmenu.min.js"></script>
+<script src="public/frontend/menu/idangerous.swiper.min.js"></script>
+<script src="public/frontend/menu/global.js"></script>
+<?php /*?><script type="text/javascript" src="public/frontend/dist/js/jquery.mmenu.min.js"></script>
 <script type="text/javascript" src="public/frontend/dist/js/addons/jquery.mmenu.dragopen.min.js"></script>
 <script type="text/javascript" src="public/frontend/dist/js_menu.js"></script>
-<script type="text/javascript" src="public/frontend/dist/js/addons/jquery.mmenu.fixedelements.min.js"></script>
+<script type="text/javascript" src="public/frontend/dist/js/addons/jquery.mmenu.fixedelements.min.js"></script><?php */?>
 <script type="text/javascript" src="public/frontend/js/jquery.lazyload.min.js"></script>
-<script type="text/javascript">var lazyImage = "/public/frontend/images/loading.gif";</script>
+<script type="text/javascript">var lazyImage = "public/frontend/images/loading.gif";</script>
 <script src="public/frontend/js/main.js"></script>
-<script src="public/frontend/js/home_page.js"></script>
 <script src="public/frontend/slide-product/owl.carousel.min.js"></script>
-<script src="public/js/homepage.js"></script>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.12&appId=487790174697999&autoLogAppEvents=1';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script src="public/frontend/js/homepage.js"></script>
+{!!html_entity_decode($meta_script)!!}
 </body>
 </html>

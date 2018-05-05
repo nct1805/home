@@ -13,7 +13,8 @@ class DashboardController extends Controller
     }
     public function getList()
     {
-        return view('admin.layouts.dashboard');
+        
+        return redirect('admin/products/list');
            
     }
     public function permision()

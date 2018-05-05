@@ -1,9 +1,12 @@
+<?php
+    $segment = Request()->segment(2);
+?>
 <header class="main-header">
 
     <!-- Logo -->
     <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>5GIAY</b>.VN</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>5GIAY</b>.VN</span>
     </a>
@@ -81,10 +84,9 @@
       </div>
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
+        <li class=" treeview <?php if($segment == 'category' || $segment == 'products') echo 'active'?>">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Quản lý ngành hàng</span>
+            <i class="fa fa-qrcode"></i> <span>Quản lý ngành hàng</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -94,27 +96,27 @@
             <li><a href="admin/category/list"><i class="fa fa-circle-o"></i> Danh mục ngành hàng</a></li>
           </ul>
         </li>
-        <li class="">
-          <a href="admin/banner/list"><i class="fa fa-table"></i> Banner</a>
+        <li class="<?php if($segment == 'banner') echo 'active'?>">
+          <a href="admin/banner/list"><i class="fa fa-file-image-o"></i> Banner</a>
         </li>
-        <li class="">
-          <a href="admin/slide/list"><i class="fa fa-table"></i> Slide</a>
+        <li class="<?php if($segment == 'slide') echo 'active'?>">
+          <a href="admin/slide/list"><i class="fa fa-image"></i> Slide</a>
         </li>
-        <li class="">
-          <a href="admin/config/list"><i class="fa fa-table"></i> Cấu hình</a>
+        <li class="<?php if($segment == 'config') echo 'active'?>">
+          <a href="admin/config/list"><i class="fa fa-gear"></i> Cấu hình</a>
 
         </li>
-        <li class="">
-          <a href="admin/admin_group/list"><i class="fa fa-table"></i> Nhóm quản trị</a>
+        <li class="<?php if($segment == 'admin_group') echo 'active'?>">
+          <a href="admin/admin_group/list"><i class="fa fa-group"></i> Nhóm quản trị</a>
 
         </li>
-        <li class="">
-          <a href="admin/users/list"><i class="fa fa-table"></i> Quản trị viên</a>
+        <li class="<?php if($segment == 'users') echo 'active'?>">
+          <a href="admin/users/list"><i class="fa fa-user"></i> Quản trị viên</a>
 
         </li>
-        <li class="treeview">
+        <li class="treeview <?php if($segment == 'category_link' || $segment == 'link') echo 'active'?>">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Text Link Footer</span>
+            <i class="fa fa-newspaper-o"></i> <span>Text Link Footer</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -124,9 +126,9 @@
             <li><a href="admin/link/list"><i class="fa fa-circle-o"></i>Danh sách</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview <?php if($segment == 'modules' || $segment == 'permision') echo 'active'?>">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Phân quyền</span>
+            <i class="fa fa-gear"></i> <span>Phân quyền</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

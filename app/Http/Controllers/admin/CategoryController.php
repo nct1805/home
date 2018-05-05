@@ -6,12 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\CategoryModel;
 use App\Models\admin\CategoryInternalModel;
+use Illuminate\Support\Facades\DB;
 use Image;
 class CategoryController extends Controller
 {
     protected $name = 'tbl_pcategories';
     public function __construct(){
         $this->middleware('auth');
+    }
+    public function index(Request $request){
+        if(check_permision($request->session()->get('data_session'),1,'_view') != 1)
+            return redirect('admin/permision')->with('thongbao','Bạn không có quyền thực hiện chức năng này');
+        $category=DB::table('xf_node')->orderBy('lft', 'ASC')->leftjoin('category', 'xf_node.node_id', '=', 'category.id')->get();
+            return view('admin.category.index',
+                [   'title'=>'Category',
+                    'data'=>$category
+                ]
+            );
     }
 	public function getListAjax(Request $request){
         if(check_permision($request->session()->get('data_session'),1,'_view') != 1)
